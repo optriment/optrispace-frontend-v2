@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - OPTRISPACE_CONTRACT_ADDRESS=${OPTRISPACE_CONTRACT_ADDRESS}
+        - BLOCKCHAIN_NETWORK_ID=${BLOCKCHAIN_NETWORK_ID}
+        - BLOCKCHAIN_VIEW_ADDRESS_URL=${BLOCKCHAIN_VIEW_ADDRESS_URL}
+        - FRONTEND_NODE_ADDRESS=${FRONTEND_NODE_ADDRESS}
+    ports:
+      - 127.0.0.1:3000:3000

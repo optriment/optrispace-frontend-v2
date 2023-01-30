@@ -1,0 +1,366 @@
+[
+  {
+    "inputs": [],
+    "name": "ApplicationDoesNotExist",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ContractExists",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "CustomerOnly",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "InvalidApplicationAddress",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "InvalidJobAddress",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "JobDoesNotExist",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "jobAddress",
+        "type": "address"
+      }
+    ],
+    "name": "gigsGetApplications",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "id",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "jobAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "applicantAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "string",
+            "name": "comment",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "serviceFee",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint64",
+            "name": "createdAt",
+            "type": "uint64"
+          },
+          {
+            "internalType": "bool",
+            "name": "hasContract",
+            "type": "bool"
+          },
+          {
+            "internalType": "address",
+            "name": "contractAddress",
+            "type": "address"
+          }
+        ],
+        "internalType": "struct GigsApplicationEntity[]",
+        "name": "applications",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "gigsGetContractsAsCustomer",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "id",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "jobAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "applicationAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "customerAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "contractorAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "string",
+            "name": "title",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "description",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "status",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "value",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "serviceFee",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint64",
+            "name": "createdAt",
+            "type": "uint64"
+          },
+          {
+            "internalType": "uint64",
+            "name": "acceptedAt",
+            "type": "uint64"
+          },
+          {
+            "internalType": "uint64",
+            "name": "fundedAt",
+            "type": "uint64"
+          },
+          {
+            "internalType": "uint64",
+            "name": "startedAt",
+            "type": "uint64"
+          },
+          {
+            "internalType": "uint64",
+            "name": "deliveredAt",
+            "type": "uint64"
+          },
+          {
+            "internalType": "uint64",
+            "name": "approvedAt",
+            "type": "uint64"
+          },
+          {
+            "internalType": "uint64",
+            "name": "declinedAt",
+            "type": "uint64"
+          },
+          {
+            "internalType": "uint64",
+            "name": "withdrewAt",
+            "type": "uint64"
+          },
+          {
+            "internalType": "uint64",
+            "name": "refundedAt",
+            "type": "uint64"
+          },
+          {
+            "internalType": "uint64",
+            "name": "closedAt",
+            "type": "uint64"
+          },
+          {
+            "internalType": "uint64",
+            "name": "workShouldBeStartedBefore",
+            "type": "uint64"
+          },
+          {
+            "internalType": "uint64",
+            "name": "resultShouldBeDeliveredBefore",
+            "type": "uint64"
+          },
+          {
+            "internalType": "uint8",
+            "name": "durationInDays",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint8",
+            "name": "daysToStartWork",
+            "type": "uint8"
+          }
+        ],
+        "internalType": "struct GigsContractEntity[]",
+        "name": "contracts",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "jobAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "applicationAddress",
+        "type": "address"
+      }
+    ],
+    "name": "gigsGetJobAndApplicationForContract",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "jobAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "applicationAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "applicantAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "budget",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "serviceFee",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "title",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "description",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "comment",
+            "type": "string"
+          }
+        ],
+        "internalType": "struct GigsJobWithApplicationValue",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "gigsGetMyJobs",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "id",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "customerAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "string",
+            "name": "title",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "description",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "budget",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint64",
+            "name": "createdAt",
+            "type": "uint64"
+          },
+          {
+            "internalType": "uint8",
+            "name": "applicationsCount",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint8",
+            "name": "categoryIndex",
+            "type": "uint8"
+          },
+          {
+            "components": [
+              {
+                "internalType": "string",
+                "name": "code",
+                "type": "string"
+              },
+              {
+                "internalType": "string",
+                "name": "label",
+                "type": "string"
+              }
+            ],
+            "internalType": "struct GigsJobCategoryValue",
+            "name": "category",
+            "type": "tuple"
+          }
+        ],
+        "internalType": "struct GigsJobEntity[]",
+        "name": "jobs",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]

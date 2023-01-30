@@ -1,0 +1,43 @@
+[
+  {
+    "inputs": [],
+    "name": "ContractDoesNotExists",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "CustomerOnly",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "InvalidContractAddress",
+    "type": "error"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "contractAddress",
+        "type": "address"
+      }
+    ],
+    "name": "ContractRefunded",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "contractAddress",
+        "type": "address"
+      }
+    ],
+    "name": "gigsRefundContract",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]

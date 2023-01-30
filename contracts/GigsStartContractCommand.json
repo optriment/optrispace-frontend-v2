@@ -1,0 +1,43 @@
+[
+  {
+    "inputs": [],
+    "name": "ContractDoesNotExists",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ContractorOnly",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "InvalidContractAddress",
+    "type": "error"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "contractAddress",
+        "type": "address"
+      }
+    ],
+    "name": "ContractStarted",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "contractAddress",
+        "type": "address"
+      }
+    ],
+    "name": "gigsStartContract",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]

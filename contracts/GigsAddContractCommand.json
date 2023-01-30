@@ -1,0 +1,161 @@
+[
+  {
+    "inputs": [],
+    "name": "ApplicationDoesNotExist",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ContractExists",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "CustomerOnly",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "DaysToStartWorkInvalid",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "DaysToStartWorkOverflow",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "DaysToStartWorkRequired",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "DescriptionRequired",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "DurationInDaysOverflow",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "DurationInDaysRequired",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "FrontendNodeDoesNotExist",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "InvalidApplicationAddress",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "InvalidFrontendNodeAddress",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "InvalidJobAddress",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "JobDoesNotExist",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "TitleRequired",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ValueRequired",
+    "type": "error"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "customerAddress",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "jobAddress",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "applicationAddress",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "newContractAddress",
+        "type": "address"
+      }
+    ],
+    "name": "ContractCreated",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "frontendNodeAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "jobAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "applicationAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "description",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "value",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint8",
+        "name": "durationInDays",
+        "type": "uint8"
+      },
+      {
+        "internalType": "uint8",
+        "name": "daysToStartWork",
+        "type": "uint8"
+      }
+    ],
+    "name": "gigsAddContract",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]

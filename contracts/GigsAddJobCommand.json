@@ -1,0 +1,84 @@
+[
+  {
+    "inputs": [],
+    "name": "DescriptionRequired",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "FrontendNodeDoesNotExist",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "InvalidCategoryIndex",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "InvalidFrontendNodeAddress",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "NoCategories",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "TitleRequired",
+    "type": "error"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "customerAddress",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "newJobAddress",
+        "type": "address"
+      }
+    ],
+    "name": "JobCreated",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "frontendNodeAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "budget",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "description",
+        "type": "string"
+      },
+      {
+        "internalType": "uint8",
+        "name": "categoryIndex",
+        "type": "uint8"
+      }
+    ],
+    "name": "gigsAddJob",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]

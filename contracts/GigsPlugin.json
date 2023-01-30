@@ -1,0 +1,269 @@
+[
+  {
+    "inputs": [],
+    "name": "CodeRequired",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "JobsCategoryCodeExists",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "LabelRequired",
+    "type": "error"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "code",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "newIndex",
+        "type": "uint256"
+      }
+    ],
+    "name": "JobsCategoryCreated",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "code",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "label",
+        "type": "string"
+      }
+    ],
+    "name": "gigsAddJobsCategory",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "jobAddress",
+        "type": "address"
+      }
+    ],
+    "name": "gigsGetJob",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "exists",
+        "type": "bool"
+      },
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "id",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "customerAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "string",
+            "name": "title",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "description",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "budget",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint64",
+            "name": "createdAt",
+            "type": "uint64"
+          },
+          {
+            "internalType": "uint8",
+            "name": "applicationsCount",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint8",
+            "name": "categoryIndex",
+            "type": "uint8"
+          },
+          {
+            "components": [
+              {
+                "internalType": "string",
+                "name": "code",
+                "type": "string"
+              },
+              {
+                "internalType": "string",
+                "name": "label",
+                "type": "string"
+              }
+            ],
+            "internalType": "struct GigsJobCategoryValue",
+            "name": "category",
+            "type": "tuple"
+          }
+        ],
+        "internalType": "struct GigsJobEntity",
+        "name": "dto",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "gigsGetJobs",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "id",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "customerAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "string",
+            "name": "title",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "description",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "budget",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint64",
+            "name": "createdAt",
+            "type": "uint64"
+          },
+          {
+            "internalType": "uint8",
+            "name": "applicationsCount",
+            "type": "uint8"
+          },
+          {
+            "internalType": "uint8",
+            "name": "categoryIndex",
+            "type": "uint8"
+          },
+          {
+            "components": [
+              {
+                "internalType": "string",
+                "name": "code",
+                "type": "string"
+              },
+              {
+                "internalType": "string",
+                "name": "label",
+                "type": "string"
+              }
+            ],
+            "internalType": "struct GigsJobCategoryValue",
+            "name": "category",
+            "type": "tuple"
+          }
+        ],
+        "internalType": "struct GigsJobEntity[]",
+        "name": "jobs",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "gigsGetJobsCategories",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "string",
+            "name": "code",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "label",
+            "type": "string"
+          }
+        ],
+        "internalType": "struct GigsJobCategoryValue[]",
+        "name": "categories",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "gigsGetStats",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "jobsCount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "applicationsCount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "contractsCount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "jobsCategoriesCount",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct GigsStatsValue",
+        "name": "stats",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]

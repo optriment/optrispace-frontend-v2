@@ -1,0 +1,95 @@
+[
+  {
+    "inputs": [],
+    "name": "AlreadyApplied",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ApplicantsOnly",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "CommentRequired",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "FrontendNodeDoesNotExist",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "InvalidFrontendNodeAddress",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "InvalidJobAddress",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "JobDoesNotExist",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ServiceFeeRequired",
+    "type": "error"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "applicantAddress",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "jobAddress",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "newApplicationAddress",
+        "type": "address"
+      }
+    ],
+    "name": "ApplicationCreated",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "frontendNodeAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "jobAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "comment",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "serviceFee",
+        "type": "uint256"
+      }
+    ],
+    "name": "gigsAddApplication",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]
