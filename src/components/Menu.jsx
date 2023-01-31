@@ -62,7 +62,7 @@ const MenuComponent = ({
           <Dropdown item text="Freelancer">
             <Dropdown.Menu>
               <Link href="/freelancer/applications" passHref>
-                <Dropdown.Item text="My Applications" disabled />
+                <Dropdown.Item text="My Applications" />
               </Link>
               <Link href="/freelancer/contracts" passHref>
                 <Dropdown.Item text="My Contracts" />
