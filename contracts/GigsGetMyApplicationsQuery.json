@@ -1,0 +1,82 @@
+[
+  {
+    "inputs": [],
+    "name": "gigsGetMyApplications",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "jobAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "applicationAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "contractAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "applicantAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "bool",
+            "name": "hasContract",
+            "type": "bool"
+          },
+          {
+            "internalType": "string",
+            "name": "jobTitle",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "jobDescription",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "applicationComment",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "jobCategoryCode",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "jobCategoryLabel",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "jobBudget",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "applicationServiceFee",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint64",
+            "name": "applicationCreatedAt",
+            "type": "uint64"
+          }
+        ],
+        "internalType": "struct GigsMyApplicationValue[]",
+        "name": "applications",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]
