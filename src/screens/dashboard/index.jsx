@@ -9,7 +9,7 @@ import {
   Divider,
 } from 'semantic-ui-react'
 import { useContractRead } from 'wagmi'
-import optriSpaceContractABI from '../../../contracts/OptriSpace.json'
+import coreGetStatsQueryABI from '../../../contracts/CoreGetStatsQuery.json'
 import frontendNodeContractABI from '../../../contracts/FrontendNode.json'
 import gigsPluginContractABI from '../../../contracts/GigsPlugin.json'
 import JustOneSecond, {
@@ -32,8 +32,8 @@ export const DashboardScreen = ({ currentAccount }) => {
     isLoading: statsLoading,
   } = useContractRead({
     address: optriSpaceContractAddress,
-    abi: optriSpaceContractABI,
-    functionName: 'getStats',
+    abi: coreGetStatsQueryABI,
+    functionName: 'coreGetStats',
     overrides: { from: currentAccount },
   })
 
