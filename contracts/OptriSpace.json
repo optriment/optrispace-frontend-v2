@@ -17,11 +17,6 @@
   },
   {
     "inputs": [],
-    "name": "FrontendNodeDoesNotExist",
-    "type": "error"
-  },
-  {
-    "inputs": [],
     "name": "FunctionDoesNotExist",
     "type": "error"
   },
@@ -78,66 +73,6 @@
         "internalType": "string",
         "name": "",
         "type": "string"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "frontendNodeAddress",
-        "type": "address"
-      }
-    ],
-    "name": "getFrontendNodeClientsCount",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "frontendNodeAddress",
-        "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "index",
-        "type": "uint256"
-      }
-    ],
-    "name": "getFrontendNodeEventByIndex",
-    "outputs": [
-      {
-        "components": [
-          {
-            "internalType": "uint64",
-            "name": "timestamp",
-            "type": "uint64"
-          },
-          {
-            "internalType": "string",
-            "name": "eventType",
-            "type": "string"
-          },
-          {
-            "internalType": "address",
-            "name": "newRecordAddress",
-            "type": "address"
-          }
-        ],
-        "internalType": "struct FrontendNodeEventValue",
-        "name": "frontendNodeEvent",
-        "type": "tuple"
       }
     ],
     "stateMutability": "view",
