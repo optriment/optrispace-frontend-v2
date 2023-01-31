@@ -37,31 +37,6 @@
     "type": "error"
   },
   {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
-        "internalType": "address",
-        "name": "nodeOwnerAddress",
-        "type": "address"
-      },
-      {
-        "indexed": false,
-        "internalType": "address",
-        "name": "nodeOwnerContractAddress",
-        "type": "address"
-      },
-      {
-        "indexed": false,
-        "internalType": "address",
-        "name": "newFrontendNodeAddress",
-        "type": "address"
-      }
-    ],
-    "name": "FrontendNodeCreated",
-    "type": "event"
-  },
-  {
     "stateMutability": "payable",
     "type": "fallback"
   },
@@ -73,36 +48,6 @@
         "internalType": "string",
         "name": "",
         "type": "string"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "getStats",
-    "outputs": [
-      {
-        "components": [
-          {
-            "internalType": "uint256",
-            "name": "membersCount",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "nodeOwnersCount",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "frontendNodesCount",
-            "type": "uint256"
-          }
-        ],
-        "internalType": "struct StatsValue",
-        "name": "stats",
-        "type": "tuple"
       }
     ],
     "stateMutability": "view",

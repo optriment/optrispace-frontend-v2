@@ -1,0 +1,32 @@
+[
+  {
+    "inputs": [],
+    "name": "coreGetStats",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "membersCount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "nodeOwnersCount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "frontendNodesCount",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct StatsValue",
+        "name": "stats",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]
