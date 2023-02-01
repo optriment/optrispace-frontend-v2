@@ -100,11 +100,11 @@ export const LandingScreen = () => {
           <List.Item>
             Powered by{' '}
             <Link
-              href="https://github.com/optriment/optrispace-contract"
+              href="https://github.com/optriment/optrispace-contract-v2"
               passHref
             >
               <a
-                href="https://github.com/optriment/optrispace-contract"
+                href="https://github.com/optriment/optrispace-contract-v2"
                 target="_blank"
                 rel="noopener noreferrer nofollow"
               >
