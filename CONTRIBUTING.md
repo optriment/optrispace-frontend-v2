@@ -84,3 +84,13 @@ npm run lint-fix
 **1. Install MetaMask in your preferred browser**
 **2. When you try to access http://localhost:3000 on your browser, you will notice a problem regarding the wallet configuration**
 **3. In order to connect your wallet to the platform, it is required for you to connect your MetaMask to the local Hardhat node (see CONTRIBUTION.md of the optrispace-contract-v2)**
+
+# Common Errors
+
+## Connection error
+
+Make sure you connected the Hardhat network to your browser MetaMask account. See steps #1 and #2 in the CONTRIBUTING.md file from the optrispace-contract-v2.
+
+## Unable to get contract version
+
+Your contracts may have not been deployed yet, please check CONTRIBUTING.md file from the optrispace-contract-v2, in the step #3.
