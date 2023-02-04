@@ -45,6 +45,10 @@ export const errorHandler = (error, context = '') => {
         return `Invalid argument: ${error.argument}`
     }
 
+    if (error.message.match(/NotAvailableNow/)) {
+      return 'Requested function is not available now'
+    }
+
     console.log('--- Unhandled Error Code ---')
     console.log(error)
   }

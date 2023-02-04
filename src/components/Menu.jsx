@@ -33,7 +33,7 @@ const MenuComponent = ({
                 <Dropdown.Item text="Vacancies" disabled />
               </Link>
               <Link href="/freelancers" passHref>
-                <Dropdown.Item text="Freelancers" disabled />
+                <Dropdown.Item text="Freelancers" />
               </Link>
             </Dropdown.Menu>
           </Dropdown>
@@ -56,6 +56,10 @@ const MenuComponent = ({
               <Link href="/vacancies/new" passHref>
                 <Dropdown.Item text="Post New Vacancy" disabled />
               </Link>
+              <Dropdown.Divider />
+              <Link href="/customer" passHref>
+                <Dropdown.Item text="My Profile" disabled />
+              </Link>
             </Dropdown.Menu>
           </Dropdown>
 
@@ -69,6 +73,18 @@ const MenuComponent = ({
               </Link>
               <Link href="/freelancer/resumes" passHref>
                 <Dropdown.Item text="My Resumes" disabled />
+              </Link>
+              <Dropdown.Divider />
+              <Link href="/freelancer" passHref>
+                <Dropdown.Item text="My Profile" disabled />
+              </Link>
+            </Dropdown.Menu>
+          </Dropdown>
+
+          <Dropdown item text="Node Owner">
+            <Dropdown.Menu>
+              <Link href="/frontend_nodes" passHref>
+                <Dropdown.Item text="My Frontend Nodes" disabled />
               </Link>
             </Dropdown.Menu>
           </Dropdown>

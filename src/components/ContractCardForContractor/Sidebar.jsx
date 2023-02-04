@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from 'next/link'
 import { List, Icon, Divider, Button, Segment, Header } from 'semantic-ui-react'
 import { formatDateTime } from '../../lib/formatDate'
 
@@ -21,6 +22,10 @@ export const Sidebar = ({ contract, symbol, blockchainViewAddressURL }) => {
           </List.Item>
           <List.Item>
             Contract Balance: {contract.balance} {symbol}
+          </List.Item>
+          <List.Item>
+            Customer profile:{' '}
+            <Link href={`/customers/${contract.customerAddress}`}>open</Link>
           </List.Item>
         </List>
 

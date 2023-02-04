@@ -1,0 +1,52 @@
+[
+  {
+    "inputs": [],
+    "name": "gigsGetFreelancers",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "id",
+            "type": "address"
+          },
+          {
+            "internalType": "string",
+            "name": "displayName",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "about",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "totalContractsCount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "failedContractsCount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "succeededContractsCount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint64",
+            "name": "lastActivityAt",
+            "type": "uint64"
+          }
+        ],
+        "internalType": "struct GigsFreelancerValue[]",
+        "name": "freelancers",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]

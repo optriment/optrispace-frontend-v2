@@ -7,7 +7,7 @@
         "components": [
           {
             "internalType": "uint256",
-            "name": "membersCount",
+            "name": "peopleCount",
             "type": "uint256"
           },
           {

@@ -256,6 +256,16 @@
             "internalType": "uint256",
             "name": "jobsCategoriesCount",
             "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "customersCount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "freelancersCount",
+            "type": "uint256"
           }
         ],
         "internalType": "struct GigsStatsValue",

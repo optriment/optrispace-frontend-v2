@@ -1,0 +1,48 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "customerAddress",
+        "type": "address"
+      }
+    ],
+    "name": "gigsGetCustomer",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "exists",
+        "type": "bool"
+      },
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "id",
+            "type": "address"
+          },
+          {
+            "internalType": "string",
+            "name": "displayName",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "totalContractsCount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint64",
+            "name": "lastActivityAt",
+            "type": "uint64"
+          }
+        ],
+        "internalType": "struct GigsCustomerValue",
+        "name": "dto",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]
