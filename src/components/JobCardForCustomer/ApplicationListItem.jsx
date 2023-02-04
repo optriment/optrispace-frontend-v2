@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from 'next/link'
 import { Button, Label, Divider, Header, Icon } from 'semantic-ui-react'
 import { FormattedDescription } from '../FormattedDescription'
 import { formatDateTime } from '../../lib/formatDate'
@@ -11,7 +12,11 @@ export default function ApplicationListItem({
 
   return (
     <>
-      <Header as="h4">{application.applicantAddress}</Header>
+      <Header as="h4">
+        <Link href={`/freelancers/${application.applicantAddress}`}>
+          {application.applicantAddress}
+        </Link>
+      </Header>
 
       <span>
         {' '}

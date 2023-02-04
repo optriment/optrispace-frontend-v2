@@ -22,17 +22,17 @@
   },
   {
     "inputs": [],
-    "name": "InvalidMemberAddress",
-    "type": "error"
-  },
-  {
-    "inputs": [],
     "name": "InvalidNodeOwnerAddress",
     "type": "error"
   },
   {
     "inputs": [],
     "name": "InvalidOwner",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "InvalidPersonAddress",
     "type": "error"
   },
   {
@@ -44,7 +44,7 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "memberContractAddress",
+        "name": "personAddress",
         "type": "address"
       }
     ],

@@ -63,7 +63,7 @@ export const DashboardScreen = ({ currentAccount }) => {
     if (!rawStats) return
 
     setStats({
-      membersCount: +rawStats.membersCount,
+      peopleCount: +rawStats.peopleCount,
       nodeOwnersCount: +rawStats.nodeOwnersCount,
       frontendNodesCount: +rawStats.frontendNodesCount,
     })
@@ -89,6 +89,8 @@ export const DashboardScreen = ({ currentAccount }) => {
       applicationsCount: +rawGigsStats.applicationsCount,
       contractsCount: +rawGigsStats.contractsCount,
       jobsCategoriesCount: +rawGigsStats.jobsCategoriesCount,
+      freelancersCount: +rawGigsStats.freelancersCount,
+      customersCount: +rawGigsStats.customersCount,
     })
   }, [rawGigsStats])
 
@@ -193,7 +195,9 @@ export const DashboardScreen = ({ currentAccount }) => {
                 <List.Item>
                   Frontend nodes: {stats.frontendNodesCount}
                 </List.Item>
-                <List.Item>Members: {stats.membersCount}</List.Item>
+                <List.Item>Members: {stats.peopleCount}</List.Item>
+                <List.Item>Freelancers: {gigsStats.freelancersCount}</List.Item>
+                <List.Item>Customers: {gigsStats.customersCount}</List.Item>
                 <List.Item>Jobs: {gigsStats.jobsCount}</List.Item>
                 <List.Item>
                   Applications: {gigsStats.applicationsCount}

@@ -41,7 +41,7 @@ export const NewJobForm = ({
 
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
-  const [budget, setBudget] = useState('')
+  const [budget, setBudget] = useState(0)
   const [categoryCode, setCategoryCode] = useState('')
   const [categoryId, setCategoryId] = useState(-1)
 
@@ -291,7 +291,7 @@ export const NewJobForm = ({
                   <Form.Input
                     id="budget"
                     type="number"
-                    min={0.001}
+                    min={0}
                     step={0.001}
                     max={100.0}
                     placeholder=""
@@ -299,6 +299,10 @@ export const NewJobForm = ({
                     onChange={handleBudgetChange}
                     autoComplete="off"
                   />
+
+                  <p>
+                    Minimum budget: 0, maximum: 100.0 {accountBalance.symbol}.
+                  </p>
                 </Grid.Column>
 
                 <Grid.Column>
