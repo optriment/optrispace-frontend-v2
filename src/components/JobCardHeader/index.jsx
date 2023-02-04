@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { Header, Divider, Label, Icon } from 'semantic-ui-react'
 import { formatDateTime } from '../../lib/formatDate'
 import { FormattedDescription } from '../FormattedDescription'
@@ -8,7 +9,11 @@ export const JobCardHeader = ({ job, blockchainViewAddressURL }) => {
 
   return (
     <>
-      <Header as="h3">{job.customerAddress}</Header>
+      <Header as="h3">
+        <Link href={`/customers/${job.customerAddress}`}>
+          {job.customerAddress}
+        </Link>
+      </Header>
 
       <span>
         {' '}

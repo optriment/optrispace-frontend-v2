@@ -18,7 +18,7 @@ const parseEther = (value) => {
   return ethers.utils.parseEther(parseFloat(value.toString()).toString())
 }
 
-const GAS_LIMIT = 100000
+const GAS_LIMIT = 1000000
 
 export const useContract = ({
   optriSpaceContractAddress,
