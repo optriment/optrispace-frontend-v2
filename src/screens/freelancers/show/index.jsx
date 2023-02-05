@@ -87,10 +87,11 @@ export const FreelancerScreen = ({ freelancerAddress, currentAccount }) => {
       <Grid.Row>
         <Grid.Column textAlign="center">
           <Header as="h1">
-            Welcome to my profile!
-            {freelancer.displayName !== '' && (
-              <> I&apos;m {freelancer.displayName}</>
-            )}
+            Welcome to{' '}
+            {freelancer.displayName !== ''
+              ? freelancer.displayName
+              : freelancer.address}
+            {' profile!'}
           </Header>
 
           <Divider hidden />
@@ -100,7 +101,17 @@ export const FreelancerScreen = ({ freelancerAddress, currentAccount }) => {
       <Grid.Row>
         <Grid.Column width={12}>
           <Container text>
-            <Header as="h3">My blockchain address:</Header>
+            {freelancer.about !== '' && (
+              <>
+                <Header as="h3" style={{ wordWrap: 'break-word' }}>
+                  About:
+                </Header>
+
+                {freelancer.about}
+              </>
+            )}
+
+            <Header as="h3">Blockchain address:</Header>
 
             <p>
               <a
@@ -113,18 +124,8 @@ export const FreelancerScreen = ({ freelancerAddress, currentAccount }) => {
               </a>
             </p>
 
-            {freelancer.about !== '' && (
-              <>
-                <Header as="h3" style={{ wordWrap: 'break-word' }}>
-                  About me:
-                </Header>
-
-                {freelancer.about}
-              </>
-            )}
-
             <Header as="h3" style={{ wordWrap: 'break-word' }}>
-              My stats:
+              Stats:
             </Header>
 
             <List>
@@ -140,7 +141,7 @@ export const FreelancerScreen = ({ freelancerAddress, currentAccount }) => {
             </List>
 
             <Header as="h3" style={{ wordWrap: 'break-word' }}>
-              My last transaction on OptriSpace was:
+              Last transaction on OptriSpace was:
             </Header>
 
             <p>{formatDateTime(freelancer.lastActivityAt)}</p>
