@@ -10,6 +10,11 @@
         "internalType": "address",
         "name": "_diamondCutFacet",
         "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "_releaseName",
+        "type": "string"
       }
     ],
     "stateMutability": "payable",
@@ -42,7 +47,7 @@
   },
   {
     "inputs": [],
-    "name": "VERSION",
+    "name": "releaseName",
     "outputs": [
       {
         "internalType": "string",
