@@ -84,10 +84,11 @@ export const CustomerScreen = ({ customerAddress, currentAccount }) => {
       <Grid.Row>
         <Grid.Column textAlign="center">
           <Header as="h1">
-            Welcome to my profile!
-            {customer.displayName !== '' && (
-              <> I&apos;m {customer.displayName}</>
-            )}
+            Welcome to{' '}
+            {customer.displayName !== ''
+              ? customer.displayName
+              : customer.address}
+            {' profile!'}
           </Header>
 
           <Divider hidden />
@@ -97,7 +98,7 @@ export const CustomerScreen = ({ customerAddress, currentAccount }) => {
       <Grid.Row>
         <Grid.Column width={12}>
           <Container text>
-            <Header as="h3">My blockchain address:</Header>
+            <Header as="h3">Blockchain address:</Header>
 
             <p>
               <a
@@ -111,7 +112,7 @@ export const CustomerScreen = ({ customerAddress, currentAccount }) => {
             </p>
 
             <Header as="h3" style={{ wordWrap: 'break-word' }}>
-              My stats:
+              Stats:
             </Header>
 
             <List>
@@ -121,7 +122,7 @@ export const CustomerScreen = ({ customerAddress, currentAccount }) => {
             </List>
 
             <Header as="h3" style={{ wordWrap: 'break-word' }}>
-              My last transaction on OptriSpace was:
+              Last transaction on OptriSpace was:
             </Header>
 
             <p>{formatDateTime(customer.lastActivityAt)}</p>
