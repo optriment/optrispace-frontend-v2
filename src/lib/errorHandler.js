@@ -12,8 +12,8 @@ export const errorHandler = (error, context = '') => {
         return 'You are rejected transaction! Please try again.'
 
       case 'CALL_EXCEPTION':
-        if (error?.method === 'VERSION()') {
-          return 'Unable to get contract version.'
+        if (error?.method === 'releaseName()') {
+          return 'Unable to get release name.'
         }
 
         if (error?.message) {
