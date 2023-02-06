@@ -18,7 +18,7 @@ export const JobCardHeader = ({ job, blockchainViewAddressURL }) => {
       <span>
         {' '}
         <a
-          href={`${blockchainViewAddressURL}/${job.address}`}
+          href={`${blockchainViewAddressURL}/${job.customerAddress}`}
           target="_blank"
           rel="noreferrer noopener nofollow"
           title="Open wallet information"
