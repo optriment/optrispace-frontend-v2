@@ -3,27 +3,26 @@ import { createClient, configureChains } from 'wagmi'
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask'
 import { publicProvider } from 'wagmi/providers/public'
 
-// const binanceChain = {
-//   id: 56,
-//   name: "Binance Smart Chain Mainnet",
-//   network: "binance-smart chain mainnet",
-//   nativeCurrency: {
-//     name: "Binance Chain Native Token",
-//     symbol: "BNB",
-//     decimals: 18,
-//   },
-//   rpcUrls: {
-//     binance: "https://bsc-dataseed4.binance.org",
-//     defibit: "https://bsc-dataseed4.defibit.io",
-//     ninicoin: "https://bsc-dataseed4.ninicoin.io",
-//     public: "https://bsc-dataseed4.binance.org",
-//     default: "https://bsc-dataseed4.binance.org",
-//   },
-//   blockExplorers: {
-//     default: { name: "Bscscan", url: "https://bscscan.com" },
-//   },
-//   testnet: false,
-// };
+const binanceSmartChainMainnet = {
+  id: 56,
+  name: 'Binance Smart Chain Mainnet',
+  network: 'binance-smart chain mainnet',
+  nativeCurrency: {
+    name: 'Binance Chain Native Token',
+    symbol: 'BNB',
+    decimals: 18,
+  },
+  rpcUrls: {
+    default: 'https://bsc-dataseed1.binance.org',
+    dataseed2: 'https://bsc-dataseed4.binance.org',
+    dataseed3: 'https://bsc-dataseed4.binance.org',
+    dataseed4: 'https://bsc-dataseed4.binance.org',
+  },
+  blockExplorers: {
+    default: { name: 'Bscscan', url: 'https://bscscan.com' },
+  },
+  testnet: false,
+}
 
 // NOTE: https://github.com/wagmi-dev/wagmi/discussions/1051
 const binanceSmartChainTestnet = {
@@ -62,6 +61,7 @@ const localhost = {
 const networks = {
   31337: localhost,
   97: binanceSmartChainTestnet,
+  56: binanceSmartChainMainnet,
 }
 
 const { blockchainNetworkId } = getConfig().publicRuntimeConfig
