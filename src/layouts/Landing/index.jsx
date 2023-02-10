@@ -6,8 +6,8 @@ import { Header } from '../../components/Header'
 import { Footer } from '../../components/Footer'
 import { Favicon } from '../../components/Favicon'
 
-const { publicRuntimeConfig } = getConfig()
-const { domain, frontendNodeAddress } = publicRuntimeConfig
+const { publicRuntimeConfig } = getConfig() || {}
+const { domain, frontendNodeAddress } = publicRuntimeConfig || {}
 
 import 'semantic-ui-css/semantic.min.css'
 

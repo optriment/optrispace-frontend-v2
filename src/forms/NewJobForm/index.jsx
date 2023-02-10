@@ -30,7 +30,7 @@ import gigsAddJobCommandABI from '../../../contracts/GigsAddJobCommand.json'
 const { publicRuntimeConfig } = getConfig()
 const { optriSpaceContractAddress, frontendNodeAddress } = publicRuntimeConfig
 
-export const NewJobForm = ({
+const NewJobForm = ({
   currentAccount,
   accountBalance,
   onJobCreated,
@@ -334,3 +334,5 @@ export const NewJobForm = ({
     </>
   )
 }
+
+export default NewJobForm
