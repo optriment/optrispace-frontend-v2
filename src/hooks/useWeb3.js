@@ -57,7 +57,7 @@ export const useWeb3 = () => {
   } = useContractRead({
     address: optriSpaceContractAddress,
     abi: optriSpaceContractABI,
-    functionName: 'VERSION',
+    functionName: 'releaseName',
     enabled: isConnected,
     overrides: { from: address },
   })

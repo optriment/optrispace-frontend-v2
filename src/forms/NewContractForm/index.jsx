@@ -380,6 +380,12 @@ export const NewContractForm = ({
                 </List.Item>
 
                 <List.Item>
+                  <Link href={`/freelancers/${dto.applicantAddress}`}>
+                    Open contractor&apos; profile
+                  </Link>
+                </List.Item>
+
+                <List.Item>
                   <a
                     href={`${blockchainViewAddressURL}/${dto.applicantAddress}`}
                     target="_blank"
