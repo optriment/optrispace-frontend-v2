@@ -129,14 +129,20 @@ export const NewJobForm = ({
   const handleCategoryChange = (e, o) => {
     const { value } = o
 
-    jobsCategories.forEach((jobCategory) => {
-      if (jobCategory.code === value) {
-        setCategoryId(jobCategory.index)
-      }
-    })
+    const category = findCategoryByCode(value)
+
+    if (category) {
+      setCategoryId(category.index)
+    }
 
     setCategoryCode(value)
     setToStorage('newJobCategoryCode', value)
+  }
+
+  const findCategoryByCode = (categoryCode) => {
+    return jobsCategories.find(
+      (jobCategory) => jobCategory.code === categoryCode
+    )
   }
 
   const clearStoredFields = () => {
@@ -152,10 +158,19 @@ export const NewJobForm = ({
   const storedCategoryCode = getFromStorage('newJobCategoryCode')
 
   const restoreUnsavedChanges = () => {
+    if (storedCategoryCode !== '') {
+      const category = findCategoryByCode(storedCategoryCode)
+
+      if (category) {
+        setCategoryId(category.index)
+      }
+    }
+
     setTitle(storedTitle)
     setDescription(storedDescription)
     setBudget(storedBudget)
     setCategoryCode(storedCategoryCode)
+    setIsLoaded(true)
   }
 
   const categories = jobsCategories.map((jobsCategory) => {
