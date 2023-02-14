@@ -36,8 +36,18 @@ export const errorHandler = (error, context = '') => {
         return 'Expected numeric values, but something went wrong'
 
       case 'UNPREDICTABLE_GAS_LIMIT':
-        if (error?.reason.match(/Must not be contract owner/)) {
-          return 'Must not be contract owner'
+        if (error?.reason) {
+          if (error.reason.match(/Must not be contract owner/)) {
+            return 'Must not be contract owner'
+          }
+
+          if (error.reason.match(/DaysToStartWorkOverflow/)) {
+            return 'Days to start work must be between 1-7 days'
+          }
+
+          if (error.reason.match(/DurationInDaysOverflow/)) {
+            return 'Days to deliver result must be between 1-31 days'
+          }
         }
 
         return 'Unable to estimate gas'
