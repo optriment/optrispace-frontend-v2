@@ -12,8 +12,28 @@ export const isNotDefined = (value) => {
   return typeof value === 'undefined' || value === null
 }
 
+export const isNumber = (value) => {
+  return typeof value === 'number' && !isNaN(value)
+}
+
 export const isPositiveNumber = (value) => {
-  return !isNaN(value) && value > 0
+  if (isNumber(value)) {
+    if (Number.isInteger(value)) {
+      return +value > 0
+    }
+
+    return parseFloat(value) > 0
+  }
+
+  return false
+}
+
+export const isPositiveInteger = (string) => {
+  const number = Number(string)
+  const isInteger = Number.isInteger(number)
+  const isPositive = number > 0
+
+  return isInteger && isPositive
 }
 
 export const isAddress = (value) => {
