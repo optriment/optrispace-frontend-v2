@@ -17,7 +17,7 @@ import {
 } from 'semantic-ui-react'
 import { useDebounce } from '../../hooks/useDebounce'
 import { getFromStorage, setToStorage } from '../../lib/helpers'
-import { isEmptyString } from '../../lib/validators'
+import { isEmptyString, isNumber } from '../../lib/validators'
 import { errorHandler } from '../../lib/errorHandler'
 import ErrorWrapper from '../../components/ErrorWrapper'
 import { MarkdownIsSupported } from '../../components/MarkdownIsSupported'
@@ -26,6 +26,7 @@ import { FormattedDescription } from '../../components/FormattedDescription'
 import { ConfirmTransactionMessage } from '../../components/ConfirmTransactionMessage'
 import { JustOneSecondBlockchain } from '../../components/JustOneSecond'
 import gigsAddJobCommandABI from '../../../contracts/GigsAddJobCommand.json'
+import { ValidationErrors } from '../../components/ValidationErrors'
 
 const { publicRuntimeConfig } = getConfig()
 const { optriSpaceContractAddress, frontendNodeAddress } = publicRuntimeConfig
@@ -49,13 +50,14 @@ export const NewJobForm = ({
   const debouncedDescription = useDebounce(description)
   const debouncedBudget = useDebounce(budget)
 
-  const formFilled =
-    isLoaded &&
-    !isEmptyString(debouncedTitle) &&
-    !isEmptyString(debouncedDescription) &&
-    !isEmptyString(debouncedBudget) &&
-    !isEmptyString(categoryCode) &&
-    categoryId >= 0
+  const [titleError, setTitleError] = useState(null)
+  const [descriptionError, setDescriptionError] = useState(null)
+  const [budgetError, setBudgetError] = useState(null)
+  const [categoryError, setCategoryError] = useState(null)
+
+  const [isValidForm, setIsValidForm] = useState(false)
+  const [validationErrors, setValidationErrors] = useState([])
+  const [isSubmitted, setIsSubmitted] = useState(false)
 
   const { config, error: prepareError } = usePrepareContractWrite({
     address: optriSpaceContractAddress,
@@ -63,13 +65,15 @@ export const NewJobForm = ({
     functionName: 'gigsAddJob',
     args: [
       frontendNodeAddress,
-      ethers.utils.parseEther(debouncedBudget > 0 ? debouncedBudget : '0'),
-      debouncedTitle,
-      debouncedDescription,
+      ethers.utils.parseEther(
+        +debouncedBudget > 0 ? (+debouncedBudget).toString() : '0'
+      ),
+      debouncedTitle.trim(),
+      debouncedDescription.trim(),
       categoryId,
     ],
     mode: 'prepared',
-    enabled: formFilled,
+    enabled: isSubmitted,
     overrides: { from: currentAccount },
   })
 
@@ -93,6 +97,64 @@ export const NewJobForm = ({
       onJobCreated(jobAddress)
     },
   })
+
+  useEffect(() => {
+    setIsSubmitted(false)
+    setTitleError(null)
+    setDescriptionError(null)
+    setBudgetError(null)
+    setCategoryError(null)
+
+    const errors = []
+    let error
+
+    if (isEmptyString(debouncedTitle)) {
+      error = 'Title must be filled'
+      setTitleError(error)
+      errors.push(error)
+    }
+
+    if (isEmptyString(debouncedDescription)) {
+      error = 'Description must be filled'
+      setDescriptionError(error)
+      errors.push(error)
+    }
+
+    if (isNumber(+debouncedBudget)) {
+      if (+debouncedBudget > 0) {
+        if (+debouncedBudget < 0.001) {
+          error = 'Budget must be equal to zero or greater than 0.001'
+          setBudgetError(error)
+          errors.push(error)
+        }
+
+        if (+debouncedBudget > 100) {
+          error = 'Budget must be less or equal to 100'
+          setBudgetError(error)
+          errors.push(error)
+        }
+      }
+    } else {
+      error = 'Budget must be a number'
+      setBudgetError(error)
+      errors.push(error)
+    }
+
+    if (categoryId < 0 || isEmptyString(categoryCode)) {
+      error = 'Category must be set'
+      setCategoryError(error)
+      errors.push(error)
+    }
+
+    setIsValidForm(errors.length === 0)
+    setValidationErrors(errors)
+  }, [
+    debouncedTitle,
+    debouncedDescription,
+    debouncedBudget,
+    categoryId,
+    categoryCode,
+  ])
 
   const panes = [
     {
@@ -207,7 +269,7 @@ export const NewJobForm = ({
       <Form.Input
         control={TextArea}
         id="description"
-        error={isEmptyString(description) ? 'Please enter description' : null}
+        error={descriptionError}
         placeholder=""
         rows={12}
         value={description}
@@ -240,6 +302,10 @@ export const NewJobForm = ({
 
   return (
     <>
+      {validationErrors.length > 0 && (
+        <ValidationErrors errors={validationErrors} />
+      )}
+
       {createError && (
         <ErrorWrapper
           header="Unable to create a job"
@@ -257,81 +323,71 @@ export const NewJobForm = ({
       <Form
         onSubmit={(e) => {
           e.preventDefault()
+          setIsSubmitted(true)
           write?.()
         }}
       >
         <Grid stackable columns={1}>
-          <Grid.Column textAlign="right">
-            <Button content="Publish" primary disabled={!formFilled} />
-          </Grid.Column>
+          {isValidForm && (
+            <Grid.Column textAlign="right">
+              <Button content="Publish" primary />
+            </Grid.Column>
+          )}
 
           <Grid.Column mobile={16} computer={11}>
             <Segment>
-              <Grid columns={1}>
-                <Grid.Column>
-                  <Header as="h4">Title:</Header>
+              <Header as="h3">Title:</Header>
 
-                  <Form.Input
-                    id="title"
-                    error={
-                      isEmptyString(title)
-                        ? 'Please enter title (up to 256 characters)'
-                        : null
-                    }
-                    placeholder=""
-                    value={title}
-                    onChange={handleTitleChange}
-                    maxLength={256}
-                    required
-                  />
-                </Grid.Column>
+              <Form.Input
+                id="title"
+                error={titleError}
+                placeholder=""
+                value={title}
+                onChange={handleTitleChange}
+                maxLength={256}
+                required
+              />
+            </Segment>
 
-                <Grid.Column>
-                  <Header as="h4">Description:</Header>
+            <Segment>
+              <Header as="h3">
+                Please describe everything you need to be done by freelancers:
+              </Header>
 
-                  <Tab panes={panes} />
+              <Tab panes={panes} />
 
-                  <MarkdownIsSupported />
-                </Grid.Column>
-              </Grid>
+              <MarkdownIsSupported />
             </Segment>
           </Grid.Column>
 
           <Grid.Column mobile={16} computer={5}>
             <Segment>
-              <Grid columns={1}>
-                <Grid.Column>
-                  <Header as="h4">Budget ({accountBalance.symbol}):</Header>
+              <Header as="h3">Budget ({accountBalance.symbol}):</Header>
 
-                  <Form.Input
-                    id="budget"
-                    type="number"
-                    min={0}
-                    step={0.001}
-                    max={100.0}
-                    placeholder=""
-                    value={budget}
-                    onChange={handleBudgetChange}
-                    autoComplete="off"
-                  />
+              <Form.Input
+                id="budget"
+                error={budgetError}
+                placeholder=""
+                value={budget}
+                onChange={handleBudgetChange}
+                autoComplete="off"
+              />
 
-                  <p>
-                    Minimum budget: 0, maximum: 100.0 {accountBalance.symbol}.
-                  </p>
-                </Grid.Column>
+              <p>Minimum budget: 0, maximum: 100.0 {accountBalance.symbol}.</p>
+            </Segment>
 
-                <Grid.Column>
-                  <Header as="h4">Category:</Header>
+            <Segment>
+              <Header as="h3">Category:</Header>
 
-                  <Form.Select
-                    fluid
-                    options={categories}
-                    value={categoryCode}
-                    placeholder="Please select"
-                    onChange={handleCategoryChange}
-                  />
-                </Grid.Column>
-              </Grid>
+              <Form.Select
+                fluid
+                error={categoryError}
+                required
+                options={categories}
+                value={categoryCode}
+                placeholder="Please select"
+                onChange={handleCategoryChange}
+              />
             </Segment>
           </Grid.Column>
         </Grid>

@@ -18,7 +18,11 @@ import {
   TextArea,
 } from 'semantic-ui-react'
 import { useDebounce } from '../../hooks/useDebounce'
-import { isEmptyString, isPositiveNumber } from '../../lib/validators'
+import {
+  isEmptyString,
+  isPositiveInteger,
+  isPositiveNumber,
+} from '../../lib/validators'
 import { errorHandler } from '../../lib/errorHandler'
 import ErrorWrapper from '../../components/ErrorWrapper'
 import { ConfirmTransactionMessage } from '../../components/ConfirmTransactionMessage'
@@ -26,6 +30,7 @@ import { JustOneSecondBlockchain } from '../../components/JustOneSecond'
 import { AutoFillFormDialog } from './AutoFillFormDialog'
 
 import gigsAddContractCommandABI from '../../../contracts/GigsAddContractCommand.json'
+import { ValidationErrors } from '../../components/ValidationErrors'
 
 const { publicRuntimeConfig } = getConfig()
 const {
@@ -55,15 +60,15 @@ export const NewContractForm = ({
   const debouncedDurationInDays = useDebounce(durationInDays)
   const debouncedDaysToStartWork = useDebounce(daysToStartWork)
 
-  const formFilled =
-    !isEmptyString(debouncedTitle) &&
-    !isEmptyString(debouncedDescription) &&
-    isPositiveNumber(debouncedValue) &&
-    isPositiveNumber(debouncedDurationInDays) &&
-    Number.isInteger(+debouncedDurationInDays) &&
-    isPositiveNumber(debouncedDaysToStartWork) &&
-    Number.isInteger(+debouncedDaysToStartWork) &&
-    debouncedDurationInDays > debouncedDaysToStartWork
+  const [titleError, setTitleError] = useState(null)
+  const [descriptionError, setDescriptionError] = useState(null)
+  const [valueError, setValueError] = useState(null)
+  const [daysToStartWorkError, setDaysToStartWorkError] = useState(null)
+  const [durationInDaysError, setDurationInDaysError] = useState(null)
+
+  const [isValidForm, setIsValidForm] = useState(false)
+  const [validationErrors, setValidationErrors] = useState([])
+  const [isSubmitted, setIsSubmitted] = useState(false)
 
   const { config, error: prepareError } = usePrepareContractWrite({
     address: optriSpaceContractAddress,
@@ -73,14 +78,16 @@ export const NewContractForm = ({
       frontendNodeAddress,
       dto.jobAddress,
       dto.applicationAddress,
-      debouncedTitle,
-      debouncedDescription,
-      ethers.utils.parseEther(debouncedValue > 0 ? debouncedValue : '0'),
+      debouncedTitle.trim(),
+      debouncedDescription.trim(),
+      ethers.utils.parseEther(
+        +debouncedValue > 0 ? (+debouncedValue).toString() : '0'
+      ),
       +debouncedDurationInDays,
       +debouncedDaysToStartWork,
     ],
     mode: 'prepared',
-    enabled: formFilled,
+    enabled: isSubmitted,
     overrides: { from: currentAccount },
   })
 
@@ -113,6 +120,95 @@ export const NewContractForm = ({
     setValue(dto.serviceFee)
   }, [fillForm, dto])
 
+  useEffect(() => {
+    setIsSubmitted(false)
+    setTitleError(null)
+    setDescriptionError(null)
+    setValueError(null)
+    setDurationInDaysError(null)
+    setDaysToStartWorkError(null)
+
+    const errors = []
+    let error
+
+    if (isEmptyString(debouncedTitle)) {
+      error = 'Title must be filled'
+      setTitleError(error)
+      errors.push(error)
+    }
+
+    if (isEmptyString(debouncedDescription)) {
+      error = 'Description must be filled'
+      setDescriptionError(error)
+      errors.push(error)
+    }
+
+    if (isPositiveNumber(+debouncedValue)) {
+      if (+debouncedValue < 0.001) {
+        error = 'Contract value must be greater than 0.001'
+        setValueError(error)
+        errors.push(error)
+      }
+
+      if (+debouncedValue > 100) {
+        error = 'Contract value must be less or equal to 100'
+        setValueError(error)
+        errors.push(error)
+      }
+    } else {
+      error = 'Contract value must be greater than zero'
+      setValueError(error)
+      errors.push(error)
+    }
+
+    let _durationInDaysValid = false
+
+    if (isPositiveInteger(debouncedDurationInDays)) {
+      if (+debouncedDurationInDays > 31) {
+        error = 'Days to deliver result must be between 1-31'
+        setDurationInDaysError(error)
+        errors.push(error)
+      } else {
+        _durationInDaysValid = true
+      }
+    } else {
+      error = 'Days to deliver result must be greater than zero'
+      setDurationInDaysError(error)
+      errors.push(error)
+    }
+
+    if (isPositiveInteger(debouncedDaysToStartWork)) {
+      if (+debouncedDaysToStartWork > 7) {
+        error = 'Days to start work must be between 1-7'
+        setDaysToStartWorkError(error)
+        errors.push(error)
+      } else {
+        if (
+          _durationInDaysValid &&
+          +debouncedDaysToStartWork >= +debouncedDurationInDays
+        ) {
+          error =
+            'Days to start work must not be greater than days to deliver result'
+          setDaysToStartWorkError(error)
+          errors.push(error)
+        }
+      }
+    } else {
+      error = 'Days to start work must be greater than zero'
+      setDaysToStartWorkError(error)
+      errors.push(error)
+    }
+
+    setIsValidForm(errors.length === 0)
+    setValidationErrors(errors)
+  }, [
+    debouncedTitle,
+    debouncedDescription,
+    debouncedValue,
+    debouncedDurationInDays,
+    debouncedDaysToStartWork,
+  ])
+
   if (contractCreating) {
     return <ConfirmTransactionMessage />
   }
@@ -125,6 +221,10 @@ export const NewContractForm = ({
 
   return (
     <>
+      {validationErrors.length > 0 && (
+        <ValidationErrors errors={validationErrors} />
+      )}
+
       {createError && (
         <ErrorWrapper
           header="Unable to create a contract"
@@ -142,6 +242,7 @@ export const NewContractForm = ({
       <Form
         onSubmit={(e) => {
           e.preventDefault()
+          setIsSubmitted(true)
           write?.()
         }}
       >
@@ -153,7 +254,8 @@ export const NewContractForm = ({
                 onClick={() => setFillForm(true)}
               />
             )}
-            <Button content="Publish" primary disabled={!formFilled} />
+
+            {isValidForm && <Button content="Publish" primary />}
           </Grid.Column>
 
           <Grid.Column mobile={16} computer={11}>
@@ -162,11 +264,7 @@ export const NewContractForm = ({
 
               <Form.Input
                 id="title"
-                error={
-                  isEmptyString(title)
-                    ? 'Please enter title (up to 256 characters)'
-                    : null
-                }
+                error={titleError}
                 placeholder=""
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
@@ -187,7 +285,7 @@ export const NewContractForm = ({
                 required documents, assets, or references.
                 <br />
                 Pay attention: you will pay extra gas fee if you would like to
-                make changed in this contract later.
+                make changes in this contract later.
                 <br />
                 So, we recommend you to put all information right now just to
                 save your money.
@@ -196,9 +294,7 @@ export const NewContractForm = ({
               <Form.Input
                 control={TextArea}
                 id="description"
-                error={
-                  isEmptyString(description) ? 'Please enter description' : null
-                }
+                error={descriptionError}
                 placeholder=""
                 rows={12}
                 value={description}
@@ -209,10 +305,10 @@ export const NewContractForm = ({
             </Segment>
 
             <Segment>
-              <Header as="h3">Contract Lifecycle</Header>
+              <Header as="h3">Contract Lifecycle:</Header>
 
               <Step.Group widths={3}>
-                <Step active link onClick={() => alert('Create')}>
+                <Step active link>
                   <Step.Content>
                     <Step.Title>1. Create</Step.Title>
                     <Step.Description>
@@ -220,7 +316,7 @@ export const NewContractForm = ({
                     </Step.Description>
                   </Step.Content>
                 </Step>
-                <Step link onClick={() => alert('Accept')}>
+                <Step link>
                   <Step.Content>
                     <Step.Title>2. Accept</Step.Title>
                     <Step.Description>
@@ -228,7 +324,7 @@ export const NewContractForm = ({
                     </Step.Description>
                   </Step.Content>
                 </Step>
-                <Step link onClick={() => alert('Fund')}>
+                <Step link>
                   <Step.Content>
                     <Step.Title>3. Fund</Step.Title>
                     <Step.Description>
@@ -239,7 +335,7 @@ export const NewContractForm = ({
               </Step.Group>
 
               <Step.Group widths={3}>
-                <Step link onClick={() => alert('Start')}>
+                <Step link>
                   <Step.Content>
                     <Step.Title>4. Start</Step.Title>
                     <Step.Description>
@@ -247,7 +343,7 @@ export const NewContractForm = ({
                     </Step.Description>
                   </Step.Content>
                 </Step>
-                <Step link onClick={() => alert('Confirm')}>
+                <Step link>
                   <Step.Content>
                     <Step.Title>5. Deliver</Step.Title>
                     <Step.Description>
@@ -255,7 +351,7 @@ export const NewContractForm = ({
                     </Step.Description>
                   </Step.Content>
                 </Step>
-                <Step link onClick={() => alert('Confirm')}>
+                <Step link>
                   <Step.Content>
                     <Step.Title>6. Confirm</Step.Title>
                     <Step.Description>
@@ -269,19 +365,11 @@ export const NewContractForm = ({
 
           <Grid.Column mobile={16} computer={5}>
             <Segment>
-              <Header as="h3">Contract Value ({accountBalance.symbol})</Header>
+              <Header as="h3">Contract Value ({accountBalance.symbol}):</Header>
 
               <Form.Input
                 id="value"
-                type="number"
-                error={
-                  !isPositiveNumber(value)
-                    ? 'Please enter contract value'
-                    : null
-                }
-                min={0.001}
-                step={0.001}
-                max={100.0}
+                error={valueError}
                 placeholder=""
                 value={value}
                 onChange={(e) => setValue(e.target.value)}
@@ -291,17 +379,11 @@ export const NewContractForm = ({
             </Segment>
 
             <Segment>
-              <Header as="h3">Days to Start Work</Header>
+              <Header as="h3">Days to Start Work:</Header>
 
               <Form.Input
                 id="daysToStartWork"
-                type="number"
-                error={
-                  !isPositiveNumber(daysToStartWork) ||
-                  !Number.isInteger(+daysToStartWork)
-                    ? 'Please enter number of days (1-7 days)'
-                    : null
-                }
+                error={daysToStartWorkError}
                 min={1}
                 max={7}
                 step={1}
@@ -315,7 +397,7 @@ export const NewContractForm = ({
               />
 
               <p>
-                How many days will contractor have to start working on your
+                How many days contractor will have to start working on your
                 contract, starting from the date when the contract was funded.
               </p>
 
@@ -327,17 +409,11 @@ export const NewContractForm = ({
             </Segment>
 
             <Segment>
-              <Header as="h3">Days to Deliver Result</Header>
+              <Header as="h3">Days to Deliver Result:</Header>
 
               <Form.Input
                 id="durationInDays"
-                type="number"
-                error={
-                  !isPositiveNumber(durationInDays) ||
-                  !Number.isInteger(+durationInDays)
-                    ? 'Please enter contract duration (1-31 days)'
-                    : null
-                }
+                error={durationInDaysError}
                 min={1}
                 max={31}
                 step={1}
@@ -370,7 +446,7 @@ export const NewContractForm = ({
             </Segment>
 
             <Segment>
-              <Header as="h3">Meta</Header>
+              <Header as="h3">Meta:</Header>
 
               <List bulleted>
                 <List.Item>
