@@ -20,8 +20,8 @@ import {
 import { useDebounce } from '../../hooks/useDebounce'
 import {
   isEmptyString,
+  isNumber,
   isPositiveInteger,
-  isPositiveNumber,
 } from '../../lib/validators'
 import { errorHandler } from '../../lib/errorHandler'
 import ErrorWrapper from '../../components/ErrorWrapper'
@@ -68,7 +68,20 @@ export const NewContractForm = ({
 
   const [isValidForm, setIsValidForm] = useState(false)
   const [validationErrors, setValidationErrors] = useState([])
-  const [isSubmitted, setIsSubmitted] = useState(false)
+
+  const hookIsEnabled =
+    !isEmptyString(debouncedTitle) &&
+    !isEmptyString(debouncedDescription) &&
+    !isEmptyString(debouncedValue) &&
+    isNumber(debouncedValue) &&
+    +debouncedValue > 0 &&
+    +debouncedValue <= 100 &&
+    isPositiveInteger(debouncedDurationInDays) &&
+    isPositiveInteger(debouncedDaysToStartWork) &&
+    +debouncedDaysToStartWork > 0 &&
+    +debouncedDaysToStartWork <= 7 &&
+    +debouncedDurationInDays > +debouncedDaysToStartWork &&
+    +debouncedDurationInDays <= 31
 
   const { config, error: prepareError } = usePrepareContractWrite({
     address: optriSpaceContractAddress,
@@ -81,13 +94,16 @@ export const NewContractForm = ({
       debouncedTitle.trim(),
       debouncedDescription.trim(),
       ethers.utils.parseEther(
-        +debouncedValue > 0 ? (+debouncedValue).toString() : '0'
+        // FIXME: We should replace 0.001 here and refactor this code
+        // to not make a request to blockchain if value is not valid.
+        // The problem is in validation on smart contract side: it doesn't allow to pass 0 as value.
+        +debouncedValue > 0.001 ? (+debouncedValue).toString() : '0.001'
       ),
       +debouncedDurationInDays,
       +debouncedDaysToStartWork,
     ],
     mode: 'prepared',
-    enabled: isSubmitted,
+    enabled: hookIsEnabled,
     overrides: { from: currentAccount },
   })
 
@@ -121,7 +137,6 @@ export const NewContractForm = ({
   }, [fillForm, dto])
 
   useEffect(() => {
-    setIsSubmitted(false)
     setTitleError(null)
     setDescriptionError(null)
     setValueError(null)
@@ -143,20 +158,26 @@ export const NewContractForm = ({
       errors.push(error)
     }
 
-    if (isPositiveNumber(+debouncedValue)) {
-      if (+debouncedValue < 0.001) {
-        error = 'Contract value must be greater than 0.001'
-        setValueError(error)
-        errors.push(error)
-      }
+    if (!isEmptyString(debouncedValue) && isNumber(debouncedValue)) {
+      if (+debouncedValue > 0) {
+        if (+debouncedValue < 0.001) {
+          error = 'Contract value must be greater than 0.001'
+          setValueError(error)
+          errors.push(error)
+        }
 
-      if (+debouncedValue > 100) {
-        error = 'Contract value must be less or equal to 100'
+        if (+debouncedValue > 100) {
+          error = 'Contract value must be less or equal to 100'
+          setValueError(error)
+          errors.push(error)
+        }
+      } else {
+        error = 'Contract value must be greater than zero'
         setValueError(error)
         errors.push(error)
       }
     } else {
-      error = 'Contract value must be greater than zero'
+      error = 'Contract value must be a number'
       setValueError(error)
       errors.push(error)
     }
@@ -242,7 +263,6 @@ export const NewContractForm = ({
       <Form
         onSubmit={(e) => {
           e.preventDefault()
-          setIsSubmitted(true)
           write?.()
         }}
       >
@@ -375,6 +395,7 @@ export const NewContractForm = ({
                 onChange={(e) => setValue(e.target.value)}
                 required
                 autoComplete="off"
+                maxLength={10}
               />
             </Segment>
 
@@ -394,6 +415,7 @@ export const NewContractForm = ({
                 onChange={(e) => setDaysToStartWork(e.target.value)}
                 required
                 autoComplete="off"
+                maxLength={1}
               />
 
               <p>
@@ -424,6 +446,7 @@ export const NewContractForm = ({
                 onChange={(e) => setDurationInDays(e.target.value)}
                 required
                 autoComplete="off"
+                maxLength={2}
               />
 
               <p>This is a contract lifetime after fund.</p>
