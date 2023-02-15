@@ -57,7 +57,16 @@ export const NewJobForm = ({
 
   const [isValidForm, setIsValidForm] = useState(false)
   const [validationErrors, setValidationErrors] = useState([])
-  const [isSubmitted, setIsSubmitted] = useState(false)
+
+  const hookIsEnabled =
+    !isEmptyString(debouncedTitle) &&
+    !isEmptyString(debouncedDescription) &&
+    !isEmptyString(debouncedBudget) &&
+    isNumber(debouncedBudget) &&
+    +debouncedBudget >= 0 &&
+    ((+debouncedBudget > 0 && +debouncedBudget > 0.001) ||
+      +debouncedBudget <= 100) &&
+    categoryId >= 0
 
   const { config, error: prepareError } = usePrepareContractWrite({
     address: optriSpaceContractAddress,
@@ -73,7 +82,7 @@ export const NewJobForm = ({
       categoryId,
     ],
     mode: 'prepared',
-    enabled: isSubmitted,
+    enabled: hookIsEnabled,
     overrides: { from: currentAccount },
   })
 
@@ -99,7 +108,7 @@ export const NewJobForm = ({
   })
 
   useEffect(() => {
-    setIsSubmitted(false)
+    setIsValidForm(false)
     setTitleError(null)
     setDescriptionError(null)
     setBudgetError(null)
@@ -120,19 +129,25 @@ export const NewJobForm = ({
       errors.push(error)
     }
 
-    if (isNumber(+debouncedBudget)) {
-      if (+debouncedBudget > 0) {
-        if (+debouncedBudget < 0.001) {
-          error = 'Budget must be equal to zero or greater than 0.001'
-          setBudgetError(error)
-          errors.push(error)
-        }
+    if (!isEmptyString(debouncedBudget) && isNumber(debouncedBudget)) {
+      if (+debouncedBudget >= 0) {
+        if (+debouncedBudget > 0) {
+          if (+debouncedBudget < 0.001) {
+            error = 'Budget must be equal to zero or greater than 0.001'
+            setBudgetError(error)
+            errors.push(error)
+          }
 
-        if (+debouncedBudget > 100) {
-          error = 'Budget must be less or equal to 100'
-          setBudgetError(error)
-          errors.push(error)
+          if (+debouncedBudget > 100) {
+            error = 'Budget must be less or equal to 100'
+            setBudgetError(error)
+            errors.push(error)
+          }
         }
+      } else {
+        error = 'Budget must be positive number or equal to zero'
+        setBudgetError(error)
+        errors.push(error)
       }
     } else {
       error = 'Budget must be a number'
@@ -323,7 +338,6 @@ export const NewJobForm = ({
       <Form
         onSubmit={(e) => {
           e.preventDefault()
-          setIsSubmitted(true)
           write?.()
         }}
       >
@@ -371,6 +385,7 @@ export const NewJobForm = ({
                 value={budget}
                 onChange={handleBudgetChange}
                 autoComplete="off"
+                maxLength={10}
               />
 
               <p>Minimum budget: 0, maximum: 100.0 {accountBalance.symbol}.</p>

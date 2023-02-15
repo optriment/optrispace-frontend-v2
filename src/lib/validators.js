@@ -13,16 +13,12 @@ export const isNotDefined = (value) => {
 }
 
 export const isNumber = (value) => {
-  return typeof value === 'number' && !isNaN(value)
-}
+  if (typeof value === 'string' && value.match(/^\d+(\.\d+)?$/)) {
+    return true
+  }
 
-export const isPositiveNumber = (value) => {
-  if (isNumber(value)) {
-    if (Number.isInteger(value)) {
-      return +value > 0
-    }
-
-    return parseFloat(value) > 0
+  if (typeof value === 'number' && !isNaN(value)) {
+    return true
   }
 
   return false
