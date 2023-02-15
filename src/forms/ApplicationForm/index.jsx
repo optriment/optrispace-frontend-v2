@@ -8,7 +8,7 @@ import {
 } from 'wagmi'
 import { Header, Grid, Button, Form } from 'semantic-ui-react'
 import { useDebounce } from '../../hooks/useDebounce'
-import { isEmptyString, isPositiveNumber } from '../../lib/validators'
+import { isEmptyString, isNumber } from '../../lib/validators'
 import { errorHandler } from '../../lib/errorHandler'
 import { ConfirmTransactionMessage } from '../../components/ConfirmTransactionMessage'
 import ErrorWrapper from '../../components/ErrorWrapper'
@@ -37,9 +37,15 @@ export const ApplicationForm = ({
 
   const [isValidForm, setIsValidForm] = useState(false)
   const [validationErrors, setValidationErrors] = useState([])
-  const [isSubmitted, setIsSubmitted] = useState(false)
 
   const [accepted, setAccepted] = useState(false)
+
+  const hookIsEnabled =
+    !isEmptyString(debouncedComment) &&
+    !isEmptyString(debouncedServiceFee) &&
+    isNumber(debouncedServiceFee) &&
+    +debouncedServiceFee >= 0.001 &&
+    +debouncedServiceFee <= 100
 
   const { config, error: prepareError } = usePrepareContractWrite({
     address: optriSpaceContractAddress,
@@ -50,11 +56,16 @@ export const ApplicationForm = ({
       job.address,
       debouncedComment.trim(),
       ethers.utils.parseEther(
-        +debouncedServiceFee > 0 ? (+debouncedServiceFee).toString() : '0'
+        // FIXME: We should replace 0.01 here and refactor this code
+        // to not make a request to blockchain if value is not valid.
+        // The problem is in validation on smart contract side: it doesn't allow to pass 0 as value.
+        +debouncedServiceFee >= 0.001
+          ? (+debouncedServiceFee).toString()
+          : '0.001'
       ),
     ],
     mode: 'prepared',
-    enabled: isSubmitted,
+    enabled: hookIsEnabled,
     overrides: { from: currentAccount },
   })
 
@@ -63,9 +74,7 @@ export const ApplicationForm = ({
     isLoading: applicationCreating,
     isSuccess: applicationCreated,
     write,
-  } = useContractWrite({
-    ...config,
-  })
+  } = useContractWrite(config)
 
   useContractEvent({
     address: optriSpaceContractAddress,
@@ -81,7 +90,7 @@ export const ApplicationForm = ({
   })
 
   useEffect(() => {
-    setIsSubmitted(false)
+    setIsValidForm(false)
     setCommentError(null)
     setServiceFeeError(null)
 
@@ -94,20 +103,26 @@ export const ApplicationForm = ({
       errors.push(error)
     }
 
-    if (isPositiveNumber(+debouncedServiceFee)) {
-      if (+debouncedServiceFee < 0.001) {
-        error = 'Service rate must be greater than 0.001'
-        setServiceFeeError(error)
-        errors.push(error)
-      }
+    if (!isEmptyString(debouncedServiceFee) && isNumber(debouncedServiceFee)) {
+      if (+debouncedServiceFee > 0) {
+        if (+debouncedServiceFee < 0.001) {
+          error = 'Service rate must be greater than 0.001'
+          setServiceFeeError(error)
+          errors.push(error)
+        }
 
-      if (+debouncedServiceFee > 100) {
-        error = 'Service rate must be less or equal to 100'
+        if (+debouncedServiceFee > 100) {
+          error = 'Service rate must be less or equal to 100'
+          setServiceFeeError(error)
+          errors.push(error)
+        }
+      } else {
+        error = 'Service rate must be greater than zero'
         setServiceFeeError(error)
         errors.push(error)
       }
     } else {
-      error = 'Service rate must be greater than zero'
+      error = 'Service rate must be a number'
       setServiceFeeError(error)
       errors.push(error)
     }
@@ -151,7 +166,6 @@ export const ApplicationForm = ({
           <Form
             onSubmit={(e) => {
               e.preventDefault()
-              setIsSubmitted(true)
               write?.()
             }}
           >
@@ -179,6 +193,7 @@ export const ApplicationForm = ({
                   required
                   onChange={(e) => setServiceFee(e.target.value)}
                   autoComplete="off"
+                  maxLength={10}
                 />
               </Grid.Column>
 
