@@ -222,13 +222,16 @@ export const ContractCardForContractor = ({
 
       {displayModal && (
         <ConfirmationMessage
-          description="At this stage we notice that you will not able to change contract status after delivering result. <br><br>If customer decides to decline your contract, you will not be paid."
           onClose={() => setDisplayModal(false)}
           onConfirm={() => {
             writeDeliver?.()
             setDisplayModal(false)
           }}
-        />
+        >
+          At this stage we notice that you will not able to change contract
+          status after delivering result. If customer decides to decline your
+          contract, you will not be paid.
+        </ConfirmationMessage>
       )}
 
       {currentStatus === 'created' && (
