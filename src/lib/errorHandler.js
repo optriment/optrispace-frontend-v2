@@ -9,7 +9,7 @@ export const errorHandler = (error, context = '') => {
   if (error?.code) {
     switch (error.code) {
       case 'ACTION_REJECTED':
-        return 'You are rejected transaction! Please try again.'
+        return 'You rejected the transaction! Please try again.'
 
       case 'CALL_EXCEPTION':
         if (error?.method === 'VERSION()') {
