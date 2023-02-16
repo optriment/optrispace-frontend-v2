@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import getConfig from 'next/config'
 import { useRouter } from 'next/router'
 import { useContract } from '../../hooks/useContract'
@@ -23,6 +23,7 @@ import { ExecuteBlockchainTransactionButton } from '../ExecuteBlockchainTransact
 import { formatDateTime, toDaysMinutesSeconds } from '../../lib/formatDate'
 import { ContractLifeCycle } from './ContractLifeCycle'
 import { ContractMeta } from './ContractMeta'
+import { ConfirmationMessage } from '../ConfirmationMessage'
 
 const { publicRuntimeConfig } = getConfig()
 const { optriSpaceContractAddress, blockchainViewAddressURL } =
@@ -34,7 +35,7 @@ export const ContractCardForContractor = ({
   accountBalance,
 }) => {
   const router = useRouter()
-
+  const [displayModal, setDisplayModal] = useState(false)
   const {
     isAcceptAllowed,
     isStartAllowed,
@@ -97,7 +98,7 @@ export const ContractCardForContractor = ({
   const deliverContract = () => {
     if (!isDeliverAllowed) return
 
-    writeDeliver?.()
+    setDisplayModal(true)
   }
 
   const withdrawContract = () => {
@@ -217,6 +218,20 @@ export const ContractCardForContractor = ({
             error={errorHandler(withdrawError, 'withdrawError')}
           />
         </Grid.Column>
+      )}
+
+      {displayModal && (
+        <ConfirmationMessage
+          onClose={() => setDisplayModal(false)}
+          onConfirm={() => {
+            writeDeliver?.()
+            setDisplayModal(false)
+          }}
+        >
+          At this stage we notice that you will not able to change contract
+          status after delivering result. If customer decides to decline your
+          contract, you will not be paid.
+        </ConfirmationMessage>
       )}
 
       {currentStatus === 'created' && (
