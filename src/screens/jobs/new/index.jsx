@@ -16,7 +16,7 @@ import ErrorWrapper from '../../../components/ErrorWrapper'
 const { publicRuntimeConfig } = getConfig()
 const { optriSpaceContractAddress } = publicRuntimeConfig
 
-export const NewJobScreen = ({ currentAccount, accountBalance }) => {
+const NewJobScreen = ({ currentAccount, accountBalance }) => {
   const router = useRouter()
 
   const onJobCreated = (jobAddress) => {
@@ -109,3 +109,5 @@ export const NewJobScreen = ({ currentAccount, accountBalance }) => {
     </Grid>
   )
 }
+
+export default NewJobScreen

@@ -2,7 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import { Image, Container, Divider, Header, List } from 'semantic-ui-react'
 
-export const LandingScreen = () => {
+const LandingScreen = () => {
   return (
     <>
       <Container textAlign="center">
@@ -140,3 +140,5 @@ export const LandingScreen = () => {
     </>
   )
 }
+
+export default LandingScreen
