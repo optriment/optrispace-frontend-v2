@@ -8,35 +8,25 @@ export const isEmptyString = (string) => {
   )
 }
 
-export const isNotDefined = (value) => {
-  return typeof value === 'undefined' || value === null
-}
-
 export const isNumber = (value) => {
-  if (typeof value === 'string' && value.match(/^\d+(\.\d+)?$/)) {
-    return true
-  }
+  if (typeof value === 'number') return true
+  if (typeof value !== 'string') return false
+  if (isNaN(value)) return false
+  if (!value.match(/^\d+(\.\d+)?$/)) return false
 
-  if (typeof value === 'number' && !isNaN(value)) {
-    return true
-  }
-
-  return false
+  return true
 }
 
-export const isPositiveInteger = (string) => {
-  const number = Number(string)
-  const isInteger = Number.isInteger(number)
-  const isPositive = number > 0
+export const isPositiveInteger = (value) => {
+  if (!isNumber(value)) return false
 
-  return isInteger && isPositive
+  return Number.isInteger(+value) && +value > 0
 }
 
 export const isAddress = (value) => {
   try {
     return utils.isAddress(value)
   } catch (e) {
-    alert('Not a valid HEX address')
-    throw e
+    new Error('Not a valid HEX address')
   }
 }

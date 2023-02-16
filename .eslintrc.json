@@ -6,5 +6,8 @@
     "eslint:recommended",
     "prettier"
   ],
-  "plugins": ["react", "import", "filenames"]
+  "plugins": ["react", "import", "filenames"],
+  "env": {
+    "jest": true
+  }
 }
