@@ -38,7 +38,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "next test",
+    "test": "jest -i",
     "build-production": "next build && next export",
     "lint": "next lint --no-cache && npx eslint . --ext .js,.jsx && npx prettier --check .",
     "lint-fix": "next lint --fix",
@@ -58,6 +58,9 @@
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^12.1.5",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^12.1.5",
+    "@testing-library/user-event": "^14.4.3",
     "eslint": "^8.32.0",
     "eslint-config-next": "12.3.1",
     "eslint-config-prettier": "^8.5.0",

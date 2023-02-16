@@ -30,3 +30,7 @@ stop: # Stop Docker container
 	@${DOCKER_COMPOSE_WITH_ENV} down
 
 restart: stop start # Build and run Docker container
+
+.PHONY: test
+test: # Run tests
+	@${NPM_RUN} test
