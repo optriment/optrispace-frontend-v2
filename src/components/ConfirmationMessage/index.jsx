@@ -1,20 +1,26 @@
 import React from 'react'
-import { Button, Modal, Icon, Header } from 'semantic-ui-react'
+import { Button, Modal, Header } from 'semantic-ui-react'
 
-export const ConfirmationMessage = ({ onClose, onConfirm, ...props }) => {
+export const ConfirmationMessage = ({
+  onClose,
+  onConfirm,
+  children,
+  confirmationButtonContent = 'Continue',
+}) => {
   return (
-    <Modal closeIcon open={open} size={'tiny'} onClose={onClose}>
+    <Modal closeIcon open size="tiny" onClose={onClose}>
       <Header icon="warning sign" content="Warning" />
       <Modal.Content>
-        <Modal.Description>{props.children}</Modal.Description>
+        <Modal.Description>{children}</Modal.Description>
       </Modal.Content>
       <Modal.Actions>
-        <Button color="red" onClick={onClose}>
-          <Icon name="remove" /> No
-        </Button>
-        <Button color="green" onClick={onConfirm}>
-          <Icon name="checkmark" /> Yes
-        </Button>
+        <Button secondary icon="remove" onClick={onClose} content="Close" />
+        <Button
+          icon="checkmark"
+          positive
+          onClick={onConfirm}
+          content={confirmationButtonContent}
+        />
       </Modal.Actions>
     </Modal>
   )

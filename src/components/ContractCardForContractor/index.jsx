@@ -227,10 +227,13 @@ export const ContractCardForContractor = ({
             writeDeliver?.()
             setDisplayModal(false)
           }}
+          confirmationButtonContent="Deliver result"
         >
           At this stage we notice that you will not able to change contract
           status after delivering result. If customer decides to decline your
           contract, you will not be paid.
+          <Divider />
+          <b>Please check twice all requirements in terms of contract.</b>
         </ConfirmationMessage>
       )}
 
