@@ -44,7 +44,7 @@ export const ApplicationForm = ({
     !isEmptyString(debouncedComment) &&
     !isEmptyString(debouncedServiceFee) &&
     isNumber(debouncedServiceFee) &&
-    +debouncedServiceFee >= 0.001 &&
+    +debouncedServiceFee > 0 &&
     +debouncedServiceFee <= 100
 
   const { config, error: prepareError } = usePrepareContractWrite({
@@ -59,8 +59,10 @@ export const ApplicationForm = ({
         // FIXME: We should replace 0.01 here and refactor this code
         // to not make a request to blockchain if value is not valid.
         // The problem is in validation on smart contract side: it doesn't allow to pass 0 as value.
-        +debouncedServiceFee >= 0.001
-          ? (+debouncedServiceFee).toString()
+        isNumber(debouncedServiceFee) &&
+          +debouncedServiceFee > 0 &&
+          +debouncedServiceFee <= 100
+          ? debouncedServiceFee.toString()
           : '0.001'
       ),
     ],
@@ -104,20 +106,9 @@ export const ApplicationForm = ({
     }
 
     if (!isEmptyString(debouncedServiceFee) && isNumber(debouncedServiceFee)) {
-      if (+debouncedServiceFee > 0) {
-        if (+debouncedServiceFee < 0.001) {
-          error = 'Service rate must be greater than 0.001'
-          setServiceFeeError(error)
-          errors.push(error)
-        }
-
-        if (+debouncedServiceFee > 100) {
-          error = 'Service rate must be less or equal to 100'
-          setServiceFeeError(error)
-          errors.push(error)
-        }
-      } else {
-        error = 'Service rate must be greater than zero'
+      if (+debouncedServiceFee <= 0 || +debouncedServiceFee > 100) {
+        error =
+          'Service rate must be greater than zero and less or equal to 100'
         setServiceFeeError(error)
         errors.push(error)
       }

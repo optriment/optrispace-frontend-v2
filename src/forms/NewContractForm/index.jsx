@@ -97,7 +97,11 @@ export const NewContractForm = ({
         // FIXME: We should replace 0.001 here and refactor this code
         // to not make a request to blockchain if value is not valid.
         // The problem is in validation on smart contract side: it doesn't allow to pass 0 as value.
-        +debouncedValue > 0.001 ? (+debouncedValue).toString() : '0.001'
+        isNumber(debouncedValue) &&
+          +debouncedValue > 0 &&
+          +debouncedValue <= 100
+          ? debouncedValue.toString()
+          : '0.001'
       ),
       +debouncedDurationInDays,
       +debouncedDaysToStartWork,
@@ -159,20 +163,8 @@ export const NewContractForm = ({
     }
 
     if (!isEmptyString(debouncedValue) && isNumber(debouncedValue)) {
-      if (+debouncedValue > 0) {
-        if (+debouncedValue < 0.001) {
-          error = 'Contract value must be greater than 0.001'
-          setValueError(error)
-          errors.push(error)
-        }
-
-        if (+debouncedValue > 100) {
-          error = 'Contract value must be less or equal to 100'
-          setValueError(error)
-          errors.push(error)
-        }
-      } else {
-        error = 'Contract value must be greater than zero'
+      if (+debouncedValue <= 0 || +debouncedValue > 100) {
+        error = 'Value must be greater than zero and less or equal to 100'
         setValueError(error)
         errors.push(error)
       }

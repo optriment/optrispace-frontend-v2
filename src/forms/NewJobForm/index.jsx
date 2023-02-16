@@ -64,8 +64,7 @@ export const NewJobForm = ({
     !isEmptyString(debouncedBudget) &&
     isNumber(debouncedBudget) &&
     +debouncedBudget >= 0 &&
-    ((+debouncedBudget > 0 && +debouncedBudget > 0.001) ||
-      +debouncedBudget <= 100) &&
+    +debouncedBudget <= 100 &&
     categoryId >= 0
 
   const { config, error: prepareError } = usePrepareContractWrite({
@@ -75,7 +74,11 @@ export const NewJobForm = ({
     args: [
       frontendNodeAddress,
       ethers.utils.parseEther(
-        +debouncedBudget > 0 ? (+debouncedBudget).toString() : '0'
+        isNumber(debouncedBudget) &&
+          +debouncedBudget >= 0 &&
+          +debouncedBudget <= 100
+          ? debouncedBudget.toString()
+          : '0'
       ),
       debouncedTitle.trim(),
       debouncedDescription.trim(),
@@ -130,22 +133,8 @@ export const NewJobForm = ({
     }
 
     if (!isEmptyString(debouncedBudget) && isNumber(debouncedBudget)) {
-      if (+debouncedBudget >= 0) {
-        if (+debouncedBudget > 0) {
-          if (+debouncedBudget < 0.001) {
-            error = 'Budget must be equal to zero or greater than 0.001'
-            setBudgetError(error)
-            errors.push(error)
-          }
-
-          if (+debouncedBudget > 100) {
-            error = 'Budget must be less or equal to 100'
-            setBudgetError(error)
-            errors.push(error)
-          }
-        }
-      } else {
-        error = 'Budget must be positive number or equal to zero'
+      if (+debouncedBudget < 0 || +debouncedBudget > 100) {
+        error = 'Budget must be between 0-100'
         setBudgetError(error)
         errors.push(error)
       }
