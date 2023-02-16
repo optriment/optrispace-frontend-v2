@@ -1,4 +1,4 @@
-import { Message, Icon } from 'semantic-ui-react'
+import { Divider, Message, Icon } from 'semantic-ui-react'
 
 export default function JustOneSecond({ title }) {
   return (
@@ -24,6 +24,13 @@ export function JustOneSecondBlockchain({ message }) {
         ) : (
           <p>We are waiting for the blockchain response.</p>
         )}
+
+        <Divider />
+
+        <p>
+          If this message will not disappear in 15-20 seconds, please refresh
+          the page.
+        </p>
       </Message.Content>
     </Message>
   )
