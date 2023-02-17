@@ -6,6 +6,7 @@ export const ConfirmationMessage = ({
   onConfirm,
   children,
   confirmationButtonContent = 'Continue',
+  confirmationButtonType = 'checkmark',
 }) => {
   return (
     <Modal closeIcon open size="tiny" onClose={onClose}>
@@ -16,8 +17,9 @@ export const ConfirmationMessage = ({
       <Modal.Actions>
         <Button secondary icon="remove" onClick={onClose} content="Close" />
         <Button
-          icon="checkmark"
-          positive
+          icon={confirmationButtonType}
+          positive={confirmationButtonType === 'checkmark'}
+          negative={confirmationButtonType === 'close'}
           onClick={onConfirm}
           content={confirmationButtonContent}
         />

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import getConfig from 'next/config'
 import { useRouter } from 'next/router'
 import {
@@ -22,6 +22,7 @@ import { WhatIsNextMessage } from '../WhatIsNextMessage'
 import { formatDateTime, toDaysMinutesSeconds } from '../../lib/formatDate'
 import { ContractLifeCycle } from './ContractLifeCycle'
 import { ContractMeta } from './ContractMeta'
+import { ConfirmationMessage } from '../ConfirmationMessage'
 
 const { publicRuntimeConfig } = getConfig()
 const { optriSpaceContractAddress, blockchainViewAddressURL } =
@@ -78,7 +79,8 @@ export const ContractCardForCustomer = ({
   })
 
   const reloadPage = () => router.reload()
-
+  const [showIsApprove, setShowIsApprove] = useState(false)
+  const [showIsDecline, setShowIsDecline] = useState(false)
   const currentStatus = contract.status
 
   const fundContract = () => {
@@ -90,13 +92,13 @@ export const ContractCardForCustomer = ({
   const approveContract = () => {
     if (!isApproveAllowed) return
 
-    writeApprove?.()
+    setShowIsApprove(true)
   }
 
   const declineContract = () => {
     if (!isDeclineAllowed) return
 
-    writeDecline?.()
+    setShowIsDecline(true)
   }
 
   const refundContract = () => {
@@ -231,6 +233,42 @@ export const ContractCardForCustomer = ({
         </Grid.Column>
       )}
 
+      {showIsApprove && (
+        <ConfirmationMessage
+          onClose={() => setShowIsApprove(false)}
+          onConfirm={() => {
+            writeApprove?.()
+            setShowIsApprove(false)
+          }}
+          confirmationButtonContent="Approve result"
+          confirmationButtonType="checkmark"
+        >
+          At this stage we notice that you will not able to change contract
+          status after approving result. If you decide to cancel the
+          transaction, it will not be possible.
+          <Divider />
+          <b>Please check twice all requirements in terms of contract.</b>
+        </ConfirmationMessage>
+      )}
+
+      {showIsDecline && (
+        <ConfirmationMessage
+          onClose={() => setShowIsDecline(false)}
+          onConfirm={() => {
+            writeDecline?.()
+            setShowIsDecline(false)
+          }}
+          confirmationButtonContent="Decline result"
+          confirmationButtonType="close"
+        >
+          At this stage we notice that you will not able to change contract
+          status after declining result. If you decide to cancel the
+          transaction, it will not be possible.
+          <Divider />
+          <b>Please check twice all requirements in terms of contract.</b>
+        </ConfirmationMessage>
+      )}
+
       {currentStatus === 'accepted' && (
         <Grid.Column>
           {+accountBalance.formatted > +contract.value ? (
@@ -328,7 +366,7 @@ export const ContractCardForCustomer = ({
                     back.
                     <br />
                     All money ({contract.value} {accountBalance.symbol}) will be
-                    send to your wallet immediately.
+                    sent to your wallet immediately.
                   </p>
                 </Message.Content>
               </Message>
@@ -404,7 +442,7 @@ export const ContractCardForCustomer = ({
                     back.
                     <br />
                     All money ({contract.value} {accountBalance.symbol}) will be
-                    send to your wallet immediately.
+                    sent to your wallet immediately.
                   </p>
                 </Message.Content>
               </Message>
@@ -509,7 +547,7 @@ export const ContractCardForCustomer = ({
                 Please click &quot;Refund&quot; below to get your money back.
                 <br />
                 All money ({contract.value} {accountBalance.symbol}) will be
-                send to your wallet immediately.
+                sent to your wallet immediately.
               </p>
             </Message.Content>
           </Message>
