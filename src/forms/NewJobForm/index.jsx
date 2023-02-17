@@ -331,11 +331,9 @@ export const NewJobForm = ({
         }}
       >
         <Grid stackable columns={1}>
-          {isValidForm && (
-            <Grid.Column textAlign="right">
-              <Button content="Publish" primary />
-            </Grid.Column>
-          )}
+          <Grid.Column textAlign="right">
+            <Button content="Publish" primary disabled={!isValidForm} />
+          </Grid.Column>
 
           <Grid.Column mobile={16} computer={11}>
             <Segment>

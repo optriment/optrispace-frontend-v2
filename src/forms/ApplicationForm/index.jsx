@@ -188,11 +188,9 @@ export const ApplicationForm = ({
                 />
               </Grid.Column>
 
-              {isValidForm && (
-                <Grid.Column>
-                  <Button content="Apply" primary />
-                </Grid.Column>
-              )}
+              <Grid.Column>
+                <Button content="Apply" primary disabled={!isValidForm} />
+              </Grid.Column>
             </Grid>
           </Form>
         </>

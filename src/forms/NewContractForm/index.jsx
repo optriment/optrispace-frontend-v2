@@ -267,7 +267,7 @@ export const NewContractForm = ({
               />
             )}
 
-            {isValidForm && <Button content="Publish" primary />}
+            <Button content="Publish" primary disabled={!isValidForm} />
           </Grid.Column>
 
           <Grid.Column mobile={16} computer={11}>
