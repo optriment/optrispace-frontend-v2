@@ -241,11 +241,11 @@ export const ContractCardForCustomer = ({
             setShowIsApprove(false)
           }}
           confirmationButtonContent="Approve result"
-          confirmationButtonType="checkmark"
+          confirmationButtonPositive
         >
-          At this stage we notice that you will not able to change contract
-          status after approving result. If you decide to cancel the
-          transaction, it will not be possible.
+          At this stage we notice that you will not be able to change contract
+          status after approving result. If you decide to approve the result, it
+          will not be possible to request a refund if you find any issues later.
           <Divider />
           <b>Please check twice all requirements in terms of contract.</b>
         </ConfirmationMessage>
@@ -259,11 +259,11 @@ export const ContractCardForCustomer = ({
             setShowIsDecline(false)
           }}
           confirmationButtonContent="Decline result"
-          confirmationButtonType="close"
+          confirmationButtonNegative
         >
-          At this stage we notice that you will not able to change contract
-          status after declining result. If you decide to cancel the
-          transaction, it will not be possible.
+          At this stage we notice that you will not be able to change contract
+          status after declining result. If you decide to decline the result,
+          contractor will not be paid and you will be able to request a refund.
           <Divider />
           <b>Please check twice all requirements in terms of contract.</b>
         </ConfirmationMessage>
