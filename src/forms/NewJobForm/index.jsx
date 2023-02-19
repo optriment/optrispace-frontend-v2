@@ -14,6 +14,7 @@ import {
   Button,
   Form,
   TextArea,
+  Label,
 } from 'semantic-ui-react'
 import { useDebounce } from '../../hooks/useDebounce'
 import { getFromStorage, setToStorage } from '../../lib/helpers'
@@ -36,6 +37,7 @@ export const NewJobForm = ({
   accountBalance,
   onJobCreated,
   jobsCategories,
+  conversionRate = 0,
 }) => {
   const [displayModal, setDisplayModal] = useState(false)
   const [isLoaded, setIsLoaded] = useState(false)
@@ -364,7 +366,6 @@ export const NewJobForm = ({
           <Grid.Column mobile={16} computer={5}>
             <Segment>
               <Header as="h3">Budget ({accountBalance.symbol}):</Header>
-
               <Form.Input
                 id="budget"
                 error={budgetError}
@@ -373,7 +374,15 @@ export const NewJobForm = ({
                 onChange={handleBudgetChange}
                 autoComplete="off"
                 maxLength={10}
-              />
+                labelPosition="right"
+              >
+                <input />
+                <Label>
+                  {budget > 0 && !budgetError
+                    ? `~ $${(conversionRate * budget).toFixed(2)}`
+                    : '~$0'}
+                </Label>
+              </Form.Input>
 
               <p>Minimum budget: 0, maximum: 100.0 {accountBalance.symbol}.</p>
             </Segment>
