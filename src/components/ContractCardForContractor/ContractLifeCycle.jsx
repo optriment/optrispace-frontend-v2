@@ -61,7 +61,7 @@ export const ContractLifeCycle = ({ contract }) => {
           <Table.Row>
             <Table.Cell>3.</Table.Cell>
             <Table.Cell>Fund</Table.Cell>
-            <Table.Cell>You</Table.Cell>
+            <Table.Cell>Customer</Table.Cell>
             <Table.Cell textAlign="right"></Table.Cell>
           </Table.Row>
         )}
