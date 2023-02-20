@@ -594,7 +594,7 @@ export const ContractCardForCustomer = ({
         </Segment>
 
         <Segment>
-          <Header as="h3">Bored Information</Header>
+          <Header as="h3">Detailed View</Header>
 
           <p>
             We provide some additional information (it is usually bored for
