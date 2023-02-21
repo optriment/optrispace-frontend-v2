@@ -28,6 +28,7 @@ import { ConfirmTransactionMessage } from '../../components/ConfirmTransactionMe
 import { JustOneSecondBlockchain } from '../../components/JustOneSecond'
 import gigsAddJobCommandABI from '../../../contracts/GigsAddJobCommand.json'
 import { ValidationErrors } from '../../components/ValidationErrors'
+import { SuggestMinimizeGasFees } from '../../components/SuggestMinimizeGasFees'
 
 const { publicRuntimeConfig } = getConfig()
 const { optriSpaceContractAddress, frontendNodeAddress } = publicRuntimeConfig
@@ -360,6 +361,7 @@ export const NewJobForm = ({
               <Tab panes={panes} />
 
               <MarkdownIsSupported />
+              <SuggestMinimizeGasFees />
             </Segment>
           </Grid.Column>
 
