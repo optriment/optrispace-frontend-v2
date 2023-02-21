@@ -6,7 +6,7 @@ import {
   usePrepareContractWrite,
   useContractEvent,
 } from 'wagmi'
-import { Header, Grid, Button, Form } from 'semantic-ui-react'
+import { Header, Grid, Button, Form, Label } from 'semantic-ui-react'
 import { useDebounce } from '../../hooks/useDebounce'
 import { isEmptyString, isNumber } from '../../lib/validators'
 import { errorHandler } from '../../lib/errorHandler'
@@ -25,6 +25,7 @@ export const ApplicationForm = ({
   currentAccount,
   symbol,
   onApplicationCreated,
+  conversionRate = 0,
 }) => {
   const [comment, setComment] = useState('')
   const [serviceFee, setServiceFee] = useState('')
@@ -178,14 +179,23 @@ export const ApplicationForm = ({
                 <Header as="h4">Expected service rate ({symbol}):</Header>
 
                 <Form.Input
-                  id="serviceFee"
+                  id="budget"
                   error={serviceFeeError}
+                  placeholder=""
                   value={serviceFee}
                   required
                   onChange={(e) => setServiceFee(e.target.value)}
                   autoComplete="off"
                   maxLength={10}
-                />
+                  labelPosition="right"
+                >
+                  <input />
+                  <Label>
+                    {serviceFee > 0 && !serviceFeeError
+                      ? `~ $${(conversionRate * serviceFee).toFixed(2)}`
+                      : '~$0'}
+                  </Label>
+                </Form.Input>
               </Grid.Column>
 
               <Grid.Column>

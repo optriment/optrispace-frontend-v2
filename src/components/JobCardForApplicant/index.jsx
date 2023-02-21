@@ -15,6 +15,8 @@ import { ApplicationCreatedMessage } from './ApplicationCreatedMessage'
 const { publicRuntimeConfig } = getConfig()
 const { optriSpaceContractAddress, blockchainViewAddressURL } =
   publicRuntimeConfig
+const AVG_PRICE_API_URL =
+  'https://api.binance.com/api/v3/avgPrice?symbol=BNBBUSD'
 
 export const JobCardForApplicant = ({
   job,
@@ -38,6 +40,7 @@ export const JobCardForApplicant = ({
   const [applicationCreated, setApplicationCreated] = useState(false)
   const [comment, setComment] = useState('')
   const [serviceFee, setServiceFee] = useState('')
+  const [conversionRate, setConversionRate] = useState(0)
 
   const onApplicationCreated = (comment, serviceFee) => {
     setApplicationCreated(true)
@@ -68,6 +71,21 @@ export const JobCardForApplicant = ({
 
     setApplication(a)
   }, [response])
+
+  function fetchBnbPrice() {
+    fetch(AVG_PRICE_API_URL)
+      .then((res) => res.json())
+      .then((data) => {
+        setConversionRate(data.price)
+      })
+      .catch(() => {
+        setConversionRate(0)
+      })
+  }
+
+  useEffect(() => {
+    fetchBnbPrice()
+  }, [])
 
   if (applicationLoading) {
     return <JustOneSecond title="Fetching application..." />
@@ -131,6 +149,7 @@ export const JobCardForApplicant = ({
                   currentAccount={currentAccount}
                   symbol={accountBalance.symbol}
                   onApplicationCreated={onApplicationCreated}
+                  conversionRate={conversionRate}
                 />
               ) : (
                 <InsufficientBalance />
