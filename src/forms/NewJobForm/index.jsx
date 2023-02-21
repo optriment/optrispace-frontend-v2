@@ -28,6 +28,8 @@ import { ConfirmTransactionMessage } from '../../components/ConfirmTransactionMe
 import { JustOneSecondBlockchain } from '../../components/JustOneSecond'
 import gigsAddJobCommandABI from '../../../contracts/GigsAddJobCommand.json'
 import { ValidationErrors } from '../../components/ValidationErrors'
+import { SuggestMinimizeGasFees } from '../../components/SuggestMinimizeGasFees'
+import { useConversionRate } from '../../hooks/useConversionRate'
 
 const { publicRuntimeConfig } = getConfig()
 const { optriSpaceContractAddress, frontendNodeAddress } = publicRuntimeConfig
@@ -37,7 +39,6 @@ export const NewJobForm = ({
   accountBalance,
   onJobCreated,
   jobsCategories,
-  conversionRate = 0,
 }) => {
   const [displayModal, setDisplayModal] = useState(false)
   const [isLoaded, setIsLoaded] = useState(false)
@@ -59,6 +60,8 @@ export const NewJobForm = ({
 
   const [isValidForm, setIsValidForm] = useState(false)
   const [validationErrors, setValidationErrors] = useState([])
+
+  const conversionRate = useConversionRate()
 
   const hookIsEnabled =
     !isEmptyString(debouncedTitle) &&
@@ -360,6 +363,7 @@ export const NewJobForm = ({
               <Tab panes={panes} />
 
               <MarkdownIsSupported />
+              <SuggestMinimizeGasFees />
             </Segment>
           </Grid.Column>
 
