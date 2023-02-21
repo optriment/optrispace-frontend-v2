@@ -6,7 +6,7 @@ import {
   usePrepareContractWrite,
   useContractEvent,
 } from 'wagmi'
-import { Header, Grid, Button, Form } from 'semantic-ui-react'
+import { Header, Grid, Button, Form, Label } from 'semantic-ui-react'
 import { useDebounce } from '../../hooks/useDebounce'
 import { isEmptyString, isNumber } from '../../lib/validators'
 import { errorHandler } from '../../lib/errorHandler'
@@ -16,6 +16,7 @@ import { JustOneSecondBlockchain } from '../../components/JustOneSecond'
 import { FriendlyReminderMessage } from './FriendlyReminderMessage'
 import gigsAddApplicationCommandABI from '../../../contracts/GigsAddApplicationCommand.json'
 import { ValidationErrors } from '../../components/ValidationErrors'
+import { useConversionRate } from '../../hooks/useConversionRate'
 
 const { publicRuntimeConfig } = getConfig()
 const { optriSpaceContractAddress, frontendNodeAddress } = publicRuntimeConfig
@@ -39,6 +40,8 @@ export const ApplicationForm = ({
   const [validationErrors, setValidationErrors] = useState([])
 
   const [accepted, setAccepted] = useState(false)
+
+  const conversionRate = useConversionRate()
 
   const hookIsEnabled =
     !isEmptyString(debouncedComment) &&
@@ -180,12 +183,21 @@ export const ApplicationForm = ({
                 <Form.Input
                   id="serviceFee"
                   error={serviceFeeError}
+                  placeholder=""
                   value={serviceFee}
                   required
                   onChange={(e) => setServiceFee(e.target.value)}
                   autoComplete="off"
                   maxLength={10}
-                />
+                  labelPosition="right"
+                >
+                  <input />
+                  <Label>
+                    {serviceFee > 0 && !serviceFeeError
+                      ? `~ $${(conversionRate * serviceFee).toFixed(2)}`
+                      : '~$0'}
+                  </Label>
+                </Form.Input>
               </Grid.Column>
 
               <Grid.Column>
