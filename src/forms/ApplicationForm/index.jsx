@@ -19,7 +19,8 @@ import { ValidationErrors } from '../../components/ValidationErrors'
 import { useConversionRate } from '../../hooks/useConversionRate'
 
 const { publicRuntimeConfig } = getConfig()
-const { optriSpaceContractAddress, frontendNodeAddress } = publicRuntimeConfig
+const { optriSpaceContractAddress, frontendNodeAddress, gitHubLink } =
+  publicRuntimeConfig
 
 export const ApplicationForm = ({
   job,
@@ -208,7 +209,10 @@ export const ApplicationForm = ({
         </>
       ) : (
         <Grid.Column>
-          <FriendlyReminderMessage onAgree={() => setAccepted(true)} />
+          <FriendlyReminderMessage
+            onAgree={() => setAccepted(true)}
+            gitHubLink={gitHubLink}
+          />
         </Grid.Column>
       )}
     </>

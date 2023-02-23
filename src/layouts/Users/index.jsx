@@ -7,7 +7,7 @@ import { Footer } from '../../components/Footer'
 import { Favicon } from '../../components/Favicon'
 
 const { publicRuntimeConfig } = getConfig()
-const { frontendNodeAddress } = publicRuntimeConfig
+const { frontendNodeAddress, discordLink, gitHubLink } = publicRuntimeConfig
 
 import 'semantic-ui-css/semantic.min.css'
 
@@ -56,6 +56,8 @@ export const UsersLayout = ({
           <Footer
             contractVersion={contractVersion}
             frontendNodeAddress={frontendNodeAddress}
+            discordLink={discordLink}
+            gitHubLink={gitHubLink}
           />
         </Grid.Column>
       </Grid>

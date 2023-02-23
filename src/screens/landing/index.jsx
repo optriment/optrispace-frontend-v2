@@ -1,6 +1,9 @@
 import React from 'react'
 import Link from 'next/link'
 import { Image, Container, Divider, Header, List } from 'semantic-ui-react'
+import getConfig from 'next/config'
+const { publicRuntimeConfig } = getConfig()
+const { gitHubLink } = publicRuntimeConfig
 
 export const LandingScreen = () => {
   return (
@@ -99,12 +102,9 @@ export const LandingScreen = () => {
         <List bulleted>
           <List.Item>
             Powered by{' '}
-            <Link
-              href="https://github.com/optriment/optrispace-contract-v2"
-              passHref
-            >
+            <Link href={`${gitHubLink}/optrispace-contract-v2`} passHref>
               <a
-                href="https://github.com/optriment/optrispace-contract-v2"
+                href={`${gitHubLink}/optrispace-contract-v2`}
                 target="_blank"
                 rel="noopener noreferrer nofollow"
               >
@@ -114,9 +114,9 @@ export const LandingScreen = () => {
           </List.Item>
           <List.Item>
             All of our code is{' '}
-            <Link href="https://github.com/optriment" passHref>
+            <Link href={gitHubLink} passHref>
               <a
-                href="https://github.com/optriment"
+                href={gitHubLink}
                 target="_blank"
                 rel="noopener noreferrer nofollow"
               >

@@ -1,6 +1,6 @@
 import { Divider, Message, Button } from 'semantic-ui-react'
 
-export const FriendlyReminderMessage = ({ onAgree }) => {
+export const FriendlyReminderMessage = ({ onAgree, gitHubLink }) => {
   return (
     <Message>
       <Message.Header>Friendly reminder from OptriSpace Team</Message.Header>
@@ -12,11 +12,7 @@ export const FriendlyReminderMessage = ({ onAgree }) => {
         tasks) and answer everyone ASAP. If you really like the project, and
         you&apos;d like your application to be reviewed sooner, please consider
         creating some meaningful Pull Requests to any of our
-        <a
-          href="https://github.com/optriment"
-          target="_blank"
-          rel="noreferrer noopener nofollow"
-        >
+        <a href={gitHubLink} target="_blank" rel="noreferrer noopener nofollow">
           {' open-source projects '}
         </a>
         and include the link to a PR to your application.
