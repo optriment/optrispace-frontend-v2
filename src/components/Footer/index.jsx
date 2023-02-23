@@ -1,7 +1,12 @@
 import React from 'react'
 import { Divider, Container } from 'semantic-ui-react'
 
-export const Footer = ({ contractVersion, frontendNodeAddress }) => {
+export const Footer = ({
+  contractVersion,
+  frontendNodeAddress,
+  discordLink,
+  gitHubLink,
+}) => {
   return (
     <Container textAlign="center">
       <Divider hidden />
@@ -9,7 +14,7 @@ export const Footer = ({ contractVersion, frontendNodeAddress }) => {
         The platform is in testing stage. If you find any issues, errors or
         unexpected behaviour while using our platform, please contact us via{' '}
         <a
-          href="https://discord.gg/7WEbtmuqtv"
+          href={discordLink}
           target="_blank"
           rel="nofollow noopener noreferrer"
         >
@@ -17,7 +22,7 @@ export const Footer = ({ contractVersion, frontendNodeAddress }) => {
         </a>{' '}
         or{' '}
         <a
-          href="https://github.com/optriment/optrispace-frontend-v2/issues/new"
+          href={`${gitHubLink}/optrispace-frontend-v2/issues/new`}
           target="_blank"
           rel="nofollow noopener noreferrer"
         >
@@ -30,7 +35,7 @@ export const Footer = ({ contractVersion, frontendNodeAddress }) => {
         <>
           {' | Version: '}
           <a
-            href={`https://github.com/optriment/optrispace-contract-v2/tree/master/releases/history/${contractVersion}/README.md`}
+            href={`${gitHubLink}/optrispace-contract-v2/tree/master/releases/history/${contractVersion}/README.md`}
             target="_blank"
             rel="nofollow noopener noreferrer"
           >

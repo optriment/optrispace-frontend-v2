@@ -20,6 +20,10 @@ const nextConfig = {
     blockchainNetworkId: process.env.BLOCKCHAIN_NETWORK_ID,
     blockchainViewAddressURL: process.env.BLOCKCHAIN_VIEW_ADDRESS_URL,
     frontendNodeAddress: process.env.FRONTEND_NODE_ADDRESS,
+    discordLink: 'https://discord.com/invite/7WEbtmuqtv',
+    gitHubLink: 'https://github.com/optriment',
+    twitterLink: 'https://twitter.com/optrispace',
+    linkedInLink: 'https://www.linkedin.com/company/optriment',
   },
 }
 

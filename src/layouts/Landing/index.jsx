@@ -7,7 +7,8 @@ import { Footer } from '../../components/Footer'
 import { Favicon } from '../../components/Favicon'
 
 const { publicRuntimeConfig } = getConfig()
-const { domain, frontendNodeAddress } = publicRuntimeConfig
+const { domain, frontendNodeAddress, discordLink, gitHubLink } =
+  publicRuntimeConfig
 
 import 'semantic-ui-css/semantic.min.css'
 
@@ -64,7 +65,11 @@ export const LandingLayout = ({
         <Grid.Column>{children}</Grid.Column>
 
         <Grid.Column>
-          <Footer frontendNodeAddress={frontendNodeAddress} />
+          <Footer
+            frontendNodeAddress={frontendNodeAddress}
+            discordLink={discordLink}
+            gitHubLink={gitHubLink}
+          />
         </Grid.Column>
       </Grid>
     </>

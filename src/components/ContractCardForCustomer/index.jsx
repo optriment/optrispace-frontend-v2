@@ -25,8 +25,13 @@ import { ContractMeta } from './ContractMeta'
 import { ConfirmationMessage } from '../ConfirmationMessage'
 
 const { publicRuntimeConfig } = getConfig()
-const { optriSpaceContractAddress, blockchainViewAddressURL } =
-  publicRuntimeConfig
+const {
+  optriSpaceContractAddress,
+  blockchainViewAddressURL,
+  twitterLink,
+  linkedInLink,
+  discordLink,
+} = publicRuntimeConfig
 
 export const ContractCardForCustomer = ({
   contract,
@@ -618,6 +623,9 @@ export const ContractCardForCustomer = ({
           contract={contract}
           symbol={accountBalance.symbol}
           blockchainViewAddressURL={blockchainViewAddressURL}
+          twitterLink={twitterLink}
+          linkedInLink={linkedInLink}
+          discordLink={discordLink}
         />
       </Grid.Column>
     </Grid>

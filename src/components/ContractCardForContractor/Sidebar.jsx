@@ -9,7 +9,14 @@ const formatTimestamp = (timestamp) => {
   return formatDateTime(timestamp)
 }
 
-export const Sidebar = ({ contract, symbol, blockchainViewAddressURL }) => {
+export const Sidebar = ({
+  contract,
+  symbol,
+  blockchainViewAddressURL,
+  twitterLink,
+  linkedInLink,
+  discordLink,
+}) => {
   return (
     <>
       <Segment>
@@ -99,7 +106,7 @@ export const Sidebar = ({ contract, symbol, blockchainViewAddressURL }) => {
           as="a"
           color="twitter"
           icon="twitter"
-          href="https://twitter.com/optrispace"
+          href={twitterLink}
           target="_blank"
           rel="noreferrer noopener nofollow"
           title="Twitter"
@@ -110,7 +117,7 @@ export const Sidebar = ({ contract, symbol, blockchainViewAddressURL }) => {
           as="a"
           color="linkedin"
           icon="linkedin"
-          href="https://www.linkedin.com/company/optriment"
+          href={linkedInLink}
           target="_blank"
           rel="noreferrer noopener nofollow"
           title="LinkedIn"
@@ -121,7 +128,7 @@ export const Sidebar = ({ contract, symbol, blockchainViewAddressURL }) => {
           as="a"
           color="violet"
           icon="discord"
-          href="https://discord.gg/7WEbtmuqtv"
+          href={discordLink}
           target="_blank"
           rel="noreferrer noopener nofollow"
           title="Discord"
