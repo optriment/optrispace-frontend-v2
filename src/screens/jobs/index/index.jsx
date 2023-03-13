@@ -13,6 +13,7 @@ import ErrorWrapper from '../../../components/ErrorWrapper'
 
 const { publicRuntimeConfig } = getConfig()
 const { optriSpaceContractAddress } = publicRuntimeConfig
+const THIRTY_DAYS_MILLIS = 2592000000
 
 export const JobsScreen = ({ currentAccount }) => {
   const {
@@ -32,19 +33,24 @@ export const JobsScreen = ({ currentAccount }) => {
   useEffect(() => {
     if (!rawJobs) return
 
-    const j = rawJobs.map((job) => {
-      return {
-        address: job.id,
-        title: job.title,
-        description: job.description,
-        budget: ethers.utils.formatEther(job.budget.toString()),
-        applicationsCount: +job.applicationsCount.toString(),
-        categoryCode: job.category.code,
-        categoryLabel: job.category.label,
-        owner: job.owner,
-        createdAt: +job.createdAt.toString(),
-      }
-    })
+    const j = rawJobs
+      .filter(
+        (job) =>
+          Date.now() - job.createdAt.toString() * 1000 < THIRTY_DAYS_MILLIS
+      )
+      .map((job) => {
+        return {
+          address: job.id,
+          title: job.title,
+          description: job.description,
+          budget: ethers.utils.formatEther(job.budget.toString()),
+          applicationsCount: +job.applicationsCount.toString(),
+          categoryCode: job.category.code,
+          categoryLabel: job.category.label,
+          owner: job.owner,
+          createdAt: +job.createdAt.toString(),
+        }
+      })
 
     const orderedJobs = j.slice().sort((a, b) => {
       return +b.createdAt - +a.createdAt
