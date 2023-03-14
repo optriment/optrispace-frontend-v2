@@ -33,11 +33,10 @@ export const JobsScreen = ({ currentAccount }) => {
   useEffect(() => {
     if (!rawJobs) return
 
+    const currDate = Date.now()
+
     const j = rawJobs
-      .filter(
-        (job) =>
-          Date.now() - job.createdAt.toString() * 1000 < THIRTY_DAYS_MILLIS
-      )
+      .filter((job) => currDate - job.createdAt * 1000 < THIRTY_DAYS_MILLIS)
       .map((job) => {
         return {
           address: job.id,
