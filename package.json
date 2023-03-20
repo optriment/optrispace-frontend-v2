@@ -32,7 +32,7 @@
     "react-markdown": "^8.0.3",
     "react-scripts": "^5.0.1",
     "semantic-ui-css": "=2.5.0",
-    "wagmi": "^0.8.6"
+    "wagmi": "^0.12.2"
   },
   "scripts": {
     "dev": "next dev",
