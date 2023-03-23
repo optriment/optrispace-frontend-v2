@@ -1,4 +1,12 @@
 export const errorHandler = (error, context = '') => {
+  if (typeof error === 'string') {
+    throw new Error('Strings are not allowed in errorHandler')
+  }
+
+  if (!error) {
+    throw new Error('Error must be defined')
+  }
+
   // FIXME: Remove it before deploy to production
   console.log('--- errorHandler ---')
   console.log(error.code)
@@ -14,6 +22,12 @@ export const errorHandler = (error, context = '') => {
       case 'CALL_EXCEPTION':
         if (error?.method === 'releaseName()') {
           return 'Unable to get release name.'
+        }
+
+        if (error?.errorName) {
+          if (error.errorName === 'CustomerOnly') {
+            return 'Customer only'
+          }
         }
 
         if (error?.message) {

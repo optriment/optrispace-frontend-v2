@@ -12,18 +12,21 @@ import ErrorWrapper from '../../../components/ErrorWrapper'
 import JustOneSecond, {
   JustOneSecondBlockchain,
 } from '../../../components/JustOneSecond'
+import useTranslation from 'next-translate/useTranslation'
 
 const { publicRuntimeConfig } = getConfig()
 const { optriSpaceContractAddress } = publicRuntimeConfig
 
 export const JobScreen = ({ jobAddress, currentAccount, accountBalance }) => {
+  const { t } = useTranslation('common')
+
   const [job, setJob] = useState(undefined)
   const [jobExists, setJobExists] = useState(false)
 
   const {
     data: response,
-    error: jobError,
-    isLoading: jobLoading,
+    error,
+    isLoading,
   } = useContractRead({
     address: optriSpaceContractAddress,
     abi: gigsPluginContractABI,
@@ -56,25 +59,31 @@ export const JobScreen = ({ jobAddress, currentAccount, accountBalance }) => {
     setJob(j)
   }, [response])
 
-  if (jobLoading) {
-    return <JustOneSecondBlockchain message="Loading job..." />
+  if (isLoading) {
+    return (
+      <JustOneSecondBlockchain message={t('labels.loading_from_blockchain')} />
+    )
   }
 
-  if (jobError) {
+  if (error) {
     return (
       <ErrorWrapper
-        header="Error fetching job"
-        error={errorHandler(jobError)}
+        header={t('errors.transactions.load')}
+        error={errorHandler(error)}
       />
     )
   }
 
   if (!jobExists) {
-    return <ErrorWrapper header={`Job ${jobAddress} does not exist`} />
+    return (
+      <ErrorWrapper
+        header={t('errors.messages.not_found', { entity: `Job ${jobAddress}` })}
+      />
+    )
   }
 
   if (!job) {
-    return <JustOneSecond title="Initializing job..." />
+    return <JustOneSecond title={t('labels.initializing')} />
   }
 
   const isMyJob = job.customerAddress === currentAccount
@@ -100,9 +109,7 @@ const Wrapper = ({ job, children }) => {
   return (
     <Grid stackable columns={1}>
       <Grid.Column textAlign="center">
-        <Header as="h1" style={{ wordWrap: 'break-word' }}>
-          {title}
-        </Header>
+        <Header as="h1" style={{ wordWrap: 'break-word' }} content={title} />
       </Grid.Column>
 
       <Grid.Column>

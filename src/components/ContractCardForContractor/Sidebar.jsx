@@ -2,11 +2,12 @@ import React from 'react'
 import Link from 'next/link'
 import { List, Icon, Divider, Button, Segment, Header } from 'semantic-ui-react'
 import { formatDateTime } from '../../lib/formatDate'
+import useTranslation from 'next-translate/useTranslation'
 
-const formatTimestamp = (timestamp) => {
-  if (timestamp === 0) return 'No'
+const formatTimestamp = (timestamp, locale) => {
+  if (timestamp === 0) return ''
 
-  return formatDateTime(timestamp)
+  return formatDateTime(timestamp, locale)
 }
 
 export const Sidebar = ({
@@ -17,56 +18,105 @@ export const Sidebar = ({
   linkedInLink,
   discordLink,
 }) => {
+  const { t } = useTranslation('common')
+  const locale = t('date.locale')
+
   return (
     <>
       <Segment>
-        <Header as="h3">Your Contract</Header>
+        <Header
+          as="h3"
+          content={t('pages.contracts.show.sidebar.your_contract.header')}
+        />
 
         <List bulleted>
-          <List.Item>Current Status: {contract.status}</List.Item>
+          <List.Item
+            content={t(
+              'pages.contracts.show.sidebar.your_contract.current_status',
+              {
+                value: t(`contracts:model.statuses.${contract.status}`),
+              }
+            )}
+          />
+
+          <List.Item
+            content={t(
+              'pages.contracts.show.sidebar.your_contract.contract_value',
+              {
+                value: contract.value,
+                symbol: symbol,
+              }
+            )}
+          />
+
+          <List.Item
+            content={t(
+              'pages.contracts.show.sidebar.your_contract.contract_balance',
+              {
+                value: contract.balance,
+                symbol: symbol,
+              }
+            )}
+          />
+
           <List.Item>
-            Contract Value: {contract.value} {symbol}
-          </List.Item>
-          <List.Item>
-            Contract Balance: {contract.balance} {symbol}
-          </List.Item>
-          <List.Item>
-            Customer profile:{' '}
-            <Link href={`/customers/${contract.customerAddress}`}>open</Link>
+            <Link href={`/customers/${contract.customerAddress}`}>
+              {t(
+                'pages.contracts.show.sidebar.your_contract.open_customer_profile'
+              )}
+            </Link>
           </List.Item>
         </List>
 
         <Divider />
 
-        <p>
-          These values below are automatically calculated and depend on current
-          contract status. For example, you will know expected dates of your
-          contract when contract will be funded.
-        </p>
+        <p>{t('pages.contracts.show.sidebar.your_contract.description')}</p>
 
         <List bulleted>
-          <List.Item>
-            Work Should be Started Before:{' '}
-            {contract.workShouldBeStartedBefore > 0
-              ? formatTimestamp(contract.workShouldBeStartedBefore)
-              : 'N/A'}
-          </List.Item>
+          <List.Item
+            content={t(
+              'pages.contracts.show.sidebar.your_contract.work_should_be_started_before',
+              {
+                value:
+                  contract.workShouldBeStartedBefore > 0
+                    ? formatTimestamp(
+                        contract.workShouldBeStartedBefore,
+                        locale
+                      )
+                    : t('labels.not_available'),
+              }
+            )}
+          />
 
-          <List.Item>
-            Result Should be Delivered Before:{' '}
-            {contract.workShouldBeStartedBefore > 0
-              ? formatTimestamp(contract.resultShouldBeDeliveredBefore)
-              : 'N/A'}
-          </List.Item>
+          <List.Item
+            content={t(
+              'pages.contracts.show.sidebar.your_contract.result_should_be_delivered_before',
+              {
+                value:
+                  contract.resultShouldBeDeliveredBefore > 0
+                    ? formatTimestamp(
+                        contract.resultShouldBeDeliveredBefore,
+                        locale
+                      )
+                    : t('labels.not_available'),
+              }
+            )}
+          />
         </List>
       </Segment>
 
       <Segment>
-        <Header as="h3">Wallets & Transactions</Header>
+        <Header
+          as="h3"
+          content={t(
+            'pages.contracts.show.sidebar.wallets_and_transactions.header'
+          )}
+        />
 
         <p>
-          If you want to check all transactions of your customer or smart
-          contract on blockchain, feel free to use buttons below.
+          {t(
+            'pages.contracts.show.sidebar.wallets_and_transactions.description_for_contractor'
+          )}
         </p>
 
         <Button
@@ -78,7 +128,7 @@ export const Sidebar = ({
           rel="noreferrer noopener"
         >
           <Icon name="external alternate" />
-          Customer
+          {t('pages.contracts.show.sidebar.wallets_and_transactions.customer')}
         </Button>
 
         <Button
@@ -90,16 +140,20 @@ export const Sidebar = ({
           rel="noreferrer noopener"
         >
           <Icon name="external alternate" />
-          Contract
+          {t('pages.contracts.show.sidebar.wallets_and_transactions.contract')}
         </Button>
       </Segment>
 
       <Segment>
-        <Header as="h3">Do you need any help?</Header>
+        <Header
+          as="h3"
+          content={t(
+            'pages.contracts.show.sidebar.do_you_need_any_help.header'
+          )}
+        />
 
         <p>
-          Please join our social media community and ask anything what you want
-          about our platform.
+          {t('pages.contracts.show.sidebar.do_you_need_any_help.description')}
         </p>
 
         <Button

@@ -2,10 +2,12 @@ import React from 'react'
 import Link from 'next/link'
 import { Header, Divider, Label, Icon } from 'semantic-ui-react'
 import { formatDateTime } from '../../lib/formatDate'
+import useTranslation from 'next-translate/useTranslation'
 
 export const JobListItem = ({ job }) => {
-  const { budget, applicationsCount, categoryLabel } = job
-  const createdAt = formatDateTime(job.createdAt)
+  const { t } = useTranslation('jobs')
+  const { budget, applicationsCount, categoryCode } = job
+  const createdAt = formatDateTime(job.createdAt, t('common:date.locale'))
 
   return (
     <>
@@ -34,20 +36,22 @@ export const JobListItem = ({ job }) => {
 
       {budget && budget > 0 && (
         <Label>
-          <Icon name="money" /> {budget}
+          <Icon name="money" title={t('model.budget')} /> {budget}
         </Label>
       )}
 
       <Label>
-        <Icon name="user" title="Applications" /> {applicationsCount}
+        <Icon name="user" title={t('model.applications_count')} />
+        {' ' + applicationsCount}
       </Label>
 
       <Label>
-        <Icon name="list" /> {categoryLabel}
+        <Icon name="list" title={t('model.category')} />
+        {' ' + t(`categories.${categoryCode}`)}
       </Label>
 
       <Label>
-        <Icon name="clock" title="Created" /> {createdAt}
+        <Icon name="clock" title={t('model.created_at')} /> {createdAt}
       </Label>
     </>
   )

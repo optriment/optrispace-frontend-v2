@@ -3,12 +3,15 @@ import Link from 'next/link'
 import { Button, Label, Divider, Header, Icon } from 'semantic-ui-react'
 import { FormattedDescription } from '../FormattedDescription'
 import { formatDateTime } from '../../lib/formatDate'
+import useTranslation from 'next-translate/useTranslation'
 
 export default function ApplicationListItem({
   application,
   blockchainViewAddressURL,
 }) {
-  const createdAt = formatDateTime(application.createdAt)
+  const { t } = useTranslation('common')
+
+  const createdAt = formatDateTime(application.createdAt, t('date.locale'))
 
   return (
     <>
@@ -24,9 +27,8 @@ export default function ApplicationListItem({
           href={`${blockchainViewAddressURL}/${application.applicantAddress}`}
           target="_blank"
           rel="noreferrer noopener nofollow"
-          title="Open wallet information"
         >
-          <Icon name="address card" /> View transactions history
+          <Icon name="address card" /> {t('labels.view_transactions_history')}
         </a>
       </span>
 
@@ -39,11 +41,13 @@ export default function ApplicationListItem({
       <Divider />
 
       <Label>
-        <Icon name="money" /> {application.serviceFee}
+        <Icon name="money" title={t('applications:model.service_rate')} />{' '}
+        {application.serviceFee}
       </Label>
 
       <Label>
-        <Icon name="clock" title="Created" /> {createdAt}
+        <Icon name="clock" title={t('applications:model.created_at')} />{' '}
+        {createdAt}
       </Label>
 
       <Divider />
@@ -53,14 +57,14 @@ export default function ApplicationListItem({
           size="tiny"
           positive
           href={`/contracts/${application.contractAddress}`}
-          content="Open contract"
+          content={t('pages.jobs.show.applications.buttons.open_contract')}
         />
       ) : (
         <Button
           size="tiny"
           primary
           href={`/jobs/${application.jobAddress}/contracts/new?application_address=${application.address}`}
-          content="Create Contract"
+          content={t('pages.jobs.show.applications.buttons.create_contract')}
         />
       )}
     </>

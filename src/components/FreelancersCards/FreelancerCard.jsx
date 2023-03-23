@@ -2,9 +2,15 @@ import React from 'react'
 import Link from 'next/link'
 import { Card, List, Image, Divider } from 'semantic-ui-react'
 import { formatDateTime } from '../../lib/formatDate'
+import useTranslation from 'next-translate/useTranslation'
 
 export const FreelancerCard = ({ freelancer }) => {
-  const lastActivityAt = formatDateTime(freelancer.lastActivityAt)
+  const { t } = useTranslation('common')
+
+  const lastActivityAt = formatDateTime(
+    freelancer.lastActivityAt,
+    t('date.locale')
+  )
 
   const displayName = (freelancer.displayName || freelancer.address).replace(
     /(.{17})..+/,
@@ -26,7 +32,11 @@ export const FreelancerCard = ({ freelancer }) => {
         </Card.Header>
 
         <Card.Meta style={{ marginTop: '1em' }}>
-          <span className="date">Last activity: {lastActivityAt}</span>
+          <span className="date">
+            {t('pages.freelancers.index.last_activity', {
+              date: lastActivityAt,
+            })}
+          </span>
         </Card.Meta>
 
         {freelancer.about.length > 0 && (
@@ -36,7 +46,8 @@ export const FreelancerCard = ({ freelancer }) => {
         {freelancer.skills.length > 0 && (
           <Card.Description>
             <Divider hidden />
-            Skill tags:
+            {t('pages.freelancers.index.skill_tags')}
+
             {freelancer.skills.split(',').map((skill) => {
               return (
                 <Link key={skill} href="#">
@@ -50,15 +61,21 @@ export const FreelancerCard = ({ freelancer }) => {
 
       <Card.Content extra>
         <List>
-          <List.Item>
-            Total contracts: {freelancer.totalContractsCount}
-          </List.Item>
-          <List.Item>
-            Succeeded contracts: {freelancer.succeededContractsCount}
-          </List.Item>
-          <List.Item>
-            Failed contracts: {freelancer.failedContractsCount}
-          </List.Item>
+          <List.Item
+            content={t('pages.freelancers.index.total_contracts', {
+              count: freelancer.totalContractsCount,
+            })}
+          />
+          <List.Item
+            content={t('pages.freelancers.index.succeeded_contracts', {
+              count: freelancer.succeededContractsCount,
+            })}
+          />
+          <List.Item
+            content={t('pages.freelancers.index.failed_contracts', {
+              count: freelancer.failedContractsCount,
+            })}
+          />
         </List>
       </Card.Content>
     </Card>

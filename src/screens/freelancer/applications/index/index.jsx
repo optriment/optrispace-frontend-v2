@@ -1,23 +1,25 @@
 import React, { useState, useEffect } from 'react'
 import { ethers } from 'ethers'
 import getConfig from 'next/config'
-import { Grid, Header } from 'semantic-ui-react'
+import { Segment, Grid, Header } from 'semantic-ui-react'
 import { MyApplicationsList } from '../../../../components/MyApplicationsList'
 import { useContractRead } from 'wagmi'
-
 import gigsGetMyApplicationsQueryABI from '../../../../../contracts/GigsGetMyApplicationsQuery.json'
 import { JustOneSecondBlockchain } from '../../../../components/JustOneSecond'
 import { errorHandler } from '../../../../lib/errorHandler'
 import ErrorWrapper from '../../../../components/ErrorWrapper'
+import useTranslation from 'next-translate/useTranslation'
 
 const { publicRuntimeConfig } = getConfig()
 const { optriSpaceContractAddress } = publicRuntimeConfig
 
 export const ApplicationsScreen = ({ currentAccount }) => {
+  const { t } = useTranslation('common')
+
   const {
-    data: rawApplications,
-    error: applicationsError,
-    isLoading: applicationsLoading,
+    data: rawData,
+    error,
+    isLoading,
   } = useContractRead({
     address: optriSpaceContractAddress,
     abi: gigsGetMyApplicationsQueryABI,
@@ -25,13 +27,13 @@ export const ApplicationsScreen = ({ currentAccount }) => {
     overrides: { from: currentAccount },
   })
 
-  const [applications, setApplications] = useState(undefined)
+  const [data, setData] = useState(undefined)
 
   // FIXME: It should be replaced with: https://wagmi.sh/react/hooks/useContractRead#select-optional
   useEffect(() => {
-    if (!rawApplications) return
+    if (!rawData) return
 
-    const j = rawApplications.map((application) => {
+    const j = rawData.map((application) => {
       return {
         address: application.applicationAddress,
         jobAddress: application.jobAddress,
@@ -54,28 +56,43 @@ export const ApplicationsScreen = ({ currentAccount }) => {
       return +b.applicationCreatedAt - +a.applicationCreatedAt
     })
 
-    setApplications(orderedApplications)
-  }, [rawApplications])
+    setData(orderedApplications)
+  }, [rawData])
 
   return (
     <Grid stackable columns={1}>
       <Grid.Column textAlign="center">
-        <Header as="h1" content="My Applications" />
+        <Header
+          as="h1"
+          content={t('pages.freelancer.applications.index.header.title')}
+        />
       </Grid.Column>
 
       <Grid.Column>
-        {applicationsLoading && (
-          <JustOneSecondBlockchain message="Fetching applications from the blockchain..." />
-        )}
-
-        {applicationsError && (
-          <ErrorWrapper
-            header="Error fetching applications"
-            error={errorHandler(applicationsError)}
+        {isLoading && (
+          <JustOneSecondBlockchain
+            message={t('labels.loading_from_blockchain')}
           />
         )}
 
-        {applications && <MyApplicationsList applications={applications} />}
+        {error && (
+          <ErrorWrapper
+            header={t('errors.transactions.load')}
+            error={errorHandler(error)}
+          />
+        )}
+
+        {data && (
+          <>
+            {data.length > 0 ? (
+              <MyApplicationsList applications={data} />
+            ) : (
+              <Segment>
+                <p>{t('pages.freelancer.applications.index.no_records')}</p>
+              </Segment>
+            )}
+          </>
+        )}
       </Grid.Column>
     </Grid>
   )

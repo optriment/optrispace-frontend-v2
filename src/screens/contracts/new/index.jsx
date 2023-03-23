@@ -8,6 +8,7 @@ import { errorHandler } from '../../../lib/errorHandler'
 import gigsCustomerServiceABI from '../../../../contracts/GigsCustomerService.json'
 import ErrorWrapper from '../../../components/ErrorWrapper'
 import { NewContractForm } from '../../../forms/NewContractForm'
+import useTranslation from 'next-translate/useTranslation'
 
 import JustOneSecond, {
   JustOneSecondBlockchain,
@@ -22,6 +23,8 @@ export const NewContractScreen = ({
   currentAccount,
   accountBalance,
 }) => {
+  const { t } = useTranslation('common')
+
   const router = useRouter()
 
   const [dto, setDTO] = useState(undefined)
@@ -32,8 +35,8 @@ export const NewContractScreen = ({
 
   const {
     data: response,
-    error: jobAndApplicationForContractError,
-    isLoading: jobAndApplicationForContractLoading,
+    error,
+    isLoading,
   } = useContractRead({
     address: optriSpaceContractAddress,
     abi: gigsCustomerServiceABI,
@@ -59,29 +62,32 @@ export const NewContractScreen = ({
     setDTO(d)
   }, [response])
 
-  if (jobAndApplicationForContractLoading) {
+  if (isLoading) {
     return (
-      <JustOneSecondBlockchain message="Validating job and application..." />
+      <JustOneSecondBlockchain message={t('labels.loading_from_blockchain')} />
     )
   }
 
-  if (jobAndApplicationForContractError) {
+  if (error) {
     return (
       <ErrorWrapper
-        header="Error validating job and application"
-        error={errorHandler(jobAndApplicationForContractError)}
+        header={t('errors.transactions.load')}
+        error={errorHandler(error)}
       />
     )
   }
 
   if (!dto) {
-    return <JustOneSecond title="Initializing job and application..." />
+    return <JustOneSecond title={t('labels.initializing')} />
   }
 
   return (
     <Grid stackable columns={1}>
       <Grid.Column textAlign="center">
-        <Header as="h1">Add New Contract</Header>
+        <Header
+          as="h1"
+          content={t('pages.jobs.show.contracts.new.header.title')}
+        />
       </Grid.Column>
 
       <Grid.Column>

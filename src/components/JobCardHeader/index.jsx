@@ -2,10 +2,13 @@ import Link from 'next/link'
 import { Header, Divider, Label, Icon } from 'semantic-ui-react'
 import { formatDateTime } from '../../lib/formatDate'
 import { FormattedDescription } from '../FormattedDescription'
+import useTranslation from 'next-translate/useTranslation'
 
 export const JobCardHeader = ({ job, blockchainViewAddressURL }) => {
-  const { budget, applicationsCount, categoryLabel } = job
-  const createdAt = formatDateTime(job.createdAt)
+  const { t } = useTranslation('common')
+
+  const { budget, applicationsCount, categoryCode } = job
+  const createdAt = formatDateTime(job.createdAt, t('date.locale'))
 
   return (
     <>
@@ -21,9 +24,8 @@ export const JobCardHeader = ({ job, blockchainViewAddressURL }) => {
           href={`${blockchainViewAddressURL}/${job.customerAddress}`}
           target="_blank"
           rel="noreferrer noopener nofollow"
-          title="Open wallet information"
         >
-          <Icon name="address card" /> View transactions history
+          <Icon name="address card" /> {t('labels.view_transactions_history')}
         </a>
       </span>
 
@@ -37,22 +39,24 @@ export const JobCardHeader = ({ job, blockchainViewAddressURL }) => {
 
       {budget && budget > 0 && (
         <Label>
-          <Icon name="money" /> {budget}
+          <Icon name="money" title={t('jobs:model.budget')} /> {budget}
         </Label>
       )}
 
       <Label>
-        <Icon name="list" /> {categoryLabel}
+        <Icon name="list" title={t('jobs:model.category')} />{' '}
+        {t(`jobs:categories.${categoryCode}`)}
       </Label>
 
       {applicationsCount > 0 && (
         <Label>
-          <Icon name="user" title="Applicants" /> {applicationsCount}
+          <Icon name="user" title={t('jobs:model.applications_count')} />{' '}
+          {applicationsCount}
         </Label>
       )}
 
       <Label>
-        <Icon name="clock" title="Created" /> {createdAt}
+        <Icon name="clock" title={t('jobs:model.created_at')} /> {createdAt}
       </Label>
     </>
   )

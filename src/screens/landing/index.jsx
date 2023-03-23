@@ -1,11 +1,14 @@
 import React from 'react'
-import Link from 'next/link'
-import { Image, Container, Divider, Header, List } from 'semantic-ui-react'
 import getConfig from 'next/config'
+import { Image, Container, Divider, Header, List } from 'semantic-ui-react'
+import useTranslation from 'next-translate/useTranslation'
+
 const { publicRuntimeConfig } = getConfig()
 const { gitHubLink } = publicRuntimeConfig
 
 export const LandingScreen = () => {
+  const { t } = useTranslation('common')
+
   return (
     <>
       <Container textAlign="center">
@@ -23,118 +26,109 @@ export const LandingScreen = () => {
       <Divider hidden />
 
       <Container text textAlign="justified">
-        <Header as="h2" content="What is OptriSpace" />
+        <Header
+          as="h2"
+          content={t('pages.landing.what_is_optrispace.header.title')}
+        />
 
-        <p>
-          We are OptriSpace - an international team who got together to face a
-          challenge and build a brand-new platform for people like us:
-          freelancers, managers and entrepreneurs. We provide a platform for
-          people looking for jobs or for professionals for their projects.
-        </p>
+        <p>{t('pages.landing.what_is_optrispace.line1')}</p>
 
-        <p>
-          Our platform is based on the blockchain technology and uses
-          cryptocurrency as a payment method. That makes OptriSpace secure and
-          fast. Smart Contracts protect customers and freelancers from third
-          parties and middlemen. Smart Contracts handle all logic depends on
-          terms and conditions which have to be signed by both participants.
-        </p>
+        <p>{t('pages.landing.what_is_optrispace.line2')}</p>
 
-        <Header as="h2" content="How OptriSpace works" />
-
-        <Header as="h3" content="1. Customer posts a job on the platform" />
-
-        <p>
-          A customer lists a particular task on the platform and picks a person
-          who wants to work with upon this task. Both of them use our internal
-          messaging system to discuss terms and conditions (price, acceptance
-          criteria, etc.) of a future contract.
-        </p>
+        <Header
+          as="h2"
+          content={t('pages.landing.how_optrispace_works.header.title')}
+        />
 
         <Header
           as="h3"
-          content="2. Freelancer agrees to terms, accepts and signs the contract"
+          content={t('pages.landing.how_optrispace_works.section1.header')}
+        />
+
+        <p>{t('pages.landing.how_optrispace_works.section1.line1')}</p>
+
+        <Header
+          as="h3"
+          content={t('pages.landing.how_optrispace_works.section2.header')}
         />
 
         <p>
-          At this stage the freelancer has to accept the contract on our
-          platform.
+          {t('pages.landing.how_optrispace_works.section2.line1')}
           <br />
-          After that the customer will be able to create a Smart Contract on
-          blockchain.
-        </p>
-
-        <Header as="h3" content="3. Customer funds the Smart Contract" />
-
-        <p>
-          The customer initiates transaction on blockchain to send money from
-          own wallet to Smart Contract address. The funds are held on the Smart
-          Contract address until all conditions have been met.
+          {t('pages.landing.how_optrispace_works.section2.line2')}
         </p>
 
         <Header
           as="h3"
-          content="4. Freelancer starts working on the task and delivers a result"
+          content={t('pages.landing.how_optrispace_works.section3.header')}
         />
 
-        <p>
-          The freelancer can&apos;t request money before the customer accepts
-          the job result. The freelancer has to do best to finish the task to
-          get paid.
-        </p>
+        <p>{t('pages.landing.how_optrispace_works.section3.line1')}</p>
 
-        <Header as="h3" content="5. Customer approves money withdrawal" />
+        <Header
+          as="h3"
+          content={t('pages.landing.how_optrispace_works.section4.header')}
+        />
 
-        <p>
-          The customer gets the work result and approves money withdrawal from
-          the Smart Contract by the freelancer.
-        </p>
+        <p>{t('pages.landing.how_optrispace_works.section4.line1')}</p>
 
-        <Header as="h3" content="6. Freelancer withdraws money" />
+        <Header
+          as="h3"
+          content={t('pages.landing.how_optrispace_works.section5.header')}
+        />
 
-        <p>
-          Freelancer requests money from the Smart Contract to it&apos;s own
-          crypto wallet.
-        </p>
+        <p>{t('pages.landing.how_optrispace_works.section5.line1')}</p>
 
-        <Header as="h2" content="What is inside?" />
+        <Header
+          as="h3"
+          content={t('pages.landing.how_optrispace_works.section6.header')}
+        />
+
+        <p>{t('pages.landing.how_optrispace_works.section6.line1')}</p>
+
+        <Header
+          as="h2"
+          content={t('pages.landing.what_is_inside.header.title')}
+        />
 
         <List bulleted>
           <List.Item>
-            Powered by{' '}
-            <Link href={`${gitHubLink}/optrispace-contract-v2`} passHref>
-              <a
-                href={`${gitHubLink}/optrispace-contract-v2`}
-                target="_blank"
-                rel="noopener noreferrer nofollow"
-              >
-                Smart Contracts
-              </a>
-            </Link>
+            {t('pages.landing.what_is_inside.powered_by')}{' '}
+            <a
+              href={`${gitHubLink}/optrispace-contract-v2`}
+              target="_blank"
+              rel="noopener noreferrer nofollow"
+            >
+              {t('pages.landing.what_is_inside.smart_contracts')}
+            </a>
           </List.Item>
           <List.Item>
-            All of our code is{' '}
-            <Link href={gitHubLink} passHref>
-              <a
-                href={gitHubLink}
-                target="_blank"
-                rel="noopener noreferrer nofollow"
-              >
-                open source
-              </a>
-            </Link>
+            {t('pages.landing.what_is_inside.all_of_our_code')}{' '}
+            <a
+              href={gitHubLink}
+              target="_blank"
+              rel="noopener noreferrer nofollow"
+            >
+              {t('pages.landing.what_is_inside.open_source')}
+            </a>
           </List.Item>
-          <List.Item>All payments in crypto</List.Item>
-          <List.Item>No paperwork</List.Item>
-          <List.Item>No middlemen</List.Item>
+          <List.Item>
+            {t('pages.landing.what_is_inside.all_payments_in_crypto')}
+          </List.Item>
+          <List.Item>
+            {t('pages.landing.what_is_inside.no_paperwork')}
+          </List.Item>
+          <List.Item>
+            {t('pages.landing.what_is_inside.no_middlemen')}
+          </List.Item>
         </List>
 
         <Header as="h2" content="What network do we use?" />
 
         <p>
-          Binance Smart Chain.
+          {t('pages.landing.what_network_do_we_use.line1')}
           <br />
-          Our main currency is the native currency of this network (BNB).
+          {t('pages.landing.what_network_do_we_use.line2')}
         </p>
       </Container>
     </>

@@ -2,16 +2,22 @@ import React from 'react'
 import Link from 'next/link'
 import { Header, Divider, Label, Icon } from 'semantic-ui-react'
 import { formatDateTime } from '../../lib/formatDate'
+import useTranslation from 'next-translate/useTranslation'
 
 export const ApplicationListItem = ({ application }) => {
   const {
     jobBudget,
     applicationServiceFee,
-    jobCategoryLabel,
+    jobCategoryCode,
     hasContract,
     contractAddress,
   } = application
-  const applicationCreatedAt = formatDateTime(application.applicationCreatedAt)
+  const { t } = useTranslation('common')
+
+  const applicationCreatedAt = formatDateTime(
+    application.applicationCreatedAt,
+    t('date.locale')
+  )
 
   return (
     <>
@@ -21,7 +27,12 @@ export const ApplicationListItem = ({ application }) => {
         </Link>
       </Header>
 
-      <Header as="h4">Job Description Preview:</Header>
+      <Header
+        as="h4"
+        content={t(
+          'pages.freelancer.applications.index.job_description_preview'
+        )}
+      />
 
       <div style={{ wordWrap: 'break-word' }}>
         {application.jobDescription
@@ -40,7 +51,10 @@ export const ApplicationListItem = ({ application }) => {
           })}
       </div>
 
-      <Header as="h4">Comment:</Header>
+      <Header
+        as="h4"
+        content={t('pages.freelancer.applications.index.comment')}
+      />
 
       <div style={{ wordWrap: 'break-word' }}>
         {application.applicationComment.trim()}
@@ -50,27 +64,39 @@ export const ApplicationListItem = ({ application }) => {
 
       {jobBudget && jobBudget > 0 && (
         <Label>
-          <Icon name="money bill alternate" title="Job budget" /> {jobBudget}
+          <Icon
+            name="money bill alternate"
+            title={t('applications:model.job_budget')}
+          />{' '}
+          {jobBudget}
         </Label>
       )}
 
       <Label>
-        <Icon name="money bill alternate outline" title="Service rate" />
-        {' ' + applicationServiceFee}
+        <Icon
+          name="money bill alternate outline"
+          title={t('applications:model.service_rate')}
+        />{' '}
+        {applicationServiceFee}
       </Label>
 
       <Label>
-        <Icon name="list" /> {jobCategoryLabel}
+        <Icon name="list" title={t('applications:model.job_category')} />{' '}
+        {t(`jobs:categories.${jobCategoryCode}`)}
       </Label>
 
       <Label>
-        <Icon name="clock" title="Application created at" />
-        {' ' + applicationCreatedAt}
+        <Icon name="clock" title={t('applications:model.created_at')} />{' '}
+        {applicationCreatedAt}
       </Label>
 
       {hasContract && (
         <Label as="a" href={`/contracts/${contractAddress}`} color="green">
-          <Icon name="browser" title="Has contract" /> Open contract
+          <Icon
+            name="browser"
+            title={t('pages.freelancer.applications.index.has_contract')}
+          />{' '}
+          {t('pages.freelancer.applications.index.open_contract')}
         </Label>
       )}
     </>

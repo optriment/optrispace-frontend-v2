@@ -1,20 +1,18 @@
 import React from 'react'
 import { Grid, Header, Divider } from 'semantic-ui-react'
+import useTranslation from 'next-translate/useTranslation'
 
 export const UnauthorizedScreen = () => {
+  const { t } = useTranslation('common')
+
   return (
     <Grid stackable columns={1}>
       <Grid.Column textAlign="center">
-        <Header as="h1">
-          Please connect wallet to get access to the platform
-        </Header>
+        <Header as="h1" content={t('pages.unauthorized.header.title')} />
 
         <Divider hidden />
 
-        <p>
-          We store all data on blockchain, because of this we require connected
-          wallet to request all required information.
-        </p>
+        <p>{t('pages.unauthorized.line1')}</p>
       </Grid.Column>
     </Grid>
   )

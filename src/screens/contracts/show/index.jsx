@@ -11,6 +11,7 @@ import ErrorWrapper from '../../../components/ErrorWrapper'
 import JustOneSecond, {
   JustOneSecondBlockchain,
 } from '../../../components/JustOneSecond'
+import useTranslation from 'next-translate/useTranslation'
 
 const { publicRuntimeConfig } = getConfig()
 const { optriSpaceContractAddress } = publicRuntimeConfig
@@ -20,13 +21,15 @@ export const ContractScreen = ({
   currentAccount,
   accountBalance,
 }) => {
+  const { t } = useTranslation('common')
+
   const [contract, setContract] = useState(undefined)
   const [contractExists, setContractExists] = useState(false)
 
   const {
     data: response,
-    error: contractError,
-    isLoading: contractLoading,
+    error,
+    isLoading,
   } = useContractRead({
     address: optriSpaceContractAddress,
     abi: gigsContractsServiceABI,
@@ -90,26 +93,33 @@ export const ContractScreen = ({
     setContract(j)
   }, [response])
 
-  if (contractLoading) {
-    return <JustOneSecondBlockchain message="Loading contract..." />
+  if (isLoading) {
+    return (
+      <JustOneSecondBlockchain message={t('labels.loading_from_blockchain')} />
+    )
   }
 
-  if (contractError) {
+  if (error) {
     return (
       <ErrorWrapper
-        header="Error fetching contract"
-        error={errorHandler(contractError)}
+        header={t('errors.transactions.load')}
+        error={errorHandler(error)}
+      />
+    )
+  }
+
+  if (!contractExists) {
+    return (
+      <ErrorWrapper
+        header={t('errors.messages.not_found', {
+          entity: `Contract ${contractAddress}`,
+        })}
       />
     )
   }
 
   if (!contract) {
-    if (!contractExists) {
-      return (
-        <ErrorWrapper header={`Contract ${contractAddress} does not exist`} />
-      )
-    }
-    return <JustOneSecond title="Initializing contract..." />
+    return <JustOneSecond title={t('labels.initializing')} />
   }
 
   const isMyContract = contract.customerAddress === currentAccount
@@ -117,7 +127,7 @@ export const ContractScreen = ({
   return (
     <Grid stackable columns={1}>
       <Grid.Column textAlign="center">
-        <Header as="h1">{contract.title}</Header>
+        <Header as="h1" content={contract.title} />
       </Grid.Column>
 
       <Grid.Column>

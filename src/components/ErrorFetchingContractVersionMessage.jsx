@@ -1,25 +1,30 @@
 import { Divider, Message, Icon } from 'semantic-ui-react'
+import useTranslation from 'next-translate/useTranslation'
 
 export const ErrorFetchingContractVersionMessage = ({ description }) => {
+  const { t } = useTranslation('common')
+
   return (
     <Message negative icon>
       <Icon name="warning sign" />
 
       <Message.Content>
-        <Message.Header>Invalid Settings Detected!</Message.Header>
+        <Message.Header
+          content={t('components.error_fetching_contract_version.header')}
+        />
 
         <Divider />
 
         <p>
-          It looks like current application is connected to an invalid smart
-          contract address.
+          {t('components.error_fetching_contract_version.line1')}
           <br />
-          Please contact our team to get actual smart contract address and
-          update your application settings.
+          {t('components.error_fetching_contract_version.line2')}
         </p>
 
         <p>
-          <b>Error description:</b>
+          <b>
+            {t('components.error_fetching_contract_version.error_description')}
+          </b>
           <br />
           {description}
         </p>

@@ -23,6 +23,8 @@ import { formatDateTime, toDaysMinutesSeconds } from '../../lib/formatDate'
 import { ContractLifeCycle } from './ContractLifeCycle'
 import { ContractMeta } from './ContractMeta'
 import { ConfirmationMessage } from '../ConfirmationMessage'
+import { InsufficientBalance } from '../InsufficientBalance'
+import useTranslation from 'next-translate/useTranslation'
 
 const { publicRuntimeConfig } = getConfig()
 const {
@@ -38,6 +40,8 @@ export const ContractCardForCustomer = ({
   currentAccount,
   accountBalance,
 }) => {
+  const { t } = useTranslation('common')
+
   const router = useRouter()
 
   const {
@@ -127,14 +131,15 @@ export const ContractCardForCustomer = ({
     contractDeclined ||
     contractRefunded
   ) {
-    return (
-      <JustOneSecondBlockchain message="Waiting for the contract status..." />
-    )
+    return <JustOneSecondBlockchain />
   }
 
   const panes = [
     {
-      menuItem: { key: 'history', content: 'Contract History' },
+      menuItem: {
+        key: 'history',
+        content: t('pages.contracts.show.detailed_view.contract_history.title'),
+      },
       render: () => (
         <Tab.Pane>
           <ContractLifeCycle contract={contract} />
@@ -142,7 +147,12 @@ export const ContractCardForCustomer = ({
       ),
     },
     {
-      menuItem: { key: 'meta', content: 'Technical Details' },
+      menuItem: {
+        key: 'meta',
+        content: t(
+          'pages.contracts.show.detailed_view.technical_details.title'
+        ),
+      },
       render: () => (
         <Tab.Pane>
           <ContractMeta contract={contract} symbol={accountBalance.symbol} />
@@ -156,7 +166,7 @@ export const ContractCardForCustomer = ({
       {fundPrepareError && (
         <Grid.Column>
           <ErrorWrapper
-            header="Unable to prepare fund"
+            header={t('errors.transactions.prepare')}
             error={errorHandler(fundPrepareError, 'fundPrepareError')}
           />
         </Grid.Column>
@@ -165,7 +175,7 @@ export const ContractCardForCustomer = ({
       {fundError && (
         <Grid.Column>
           <ErrorWrapper
-            header="Unable to fund"
+            header={t('errors.transactions.execute')}
             error={errorHandler(fundError, 'fundError')}
           />
         </Grid.Column>
@@ -174,7 +184,7 @@ export const ContractCardForCustomer = ({
       {approvePrepareError && (
         <Grid.Column>
           <ErrorWrapper
-            header="Unable to prepare approve"
+            header={t('errors.transactions.prepare')}
             error={errorHandler(approvePrepareError, 'approvePrepareError')}
           />
         </Grid.Column>
@@ -183,7 +193,7 @@ export const ContractCardForCustomer = ({
       {approveError && (
         <Grid.Column>
           <ErrorWrapper
-            header="Unable to approve"
+            header={t('errors.transactions.execute')}
             error={errorHandler(approveError, 'approveError')}
           />
         </Grid.Column>
@@ -192,7 +202,7 @@ export const ContractCardForCustomer = ({
       {declinePrepareError && (
         <Grid.Column>
           <ErrorWrapper
-            header="Unable to prepare decline"
+            header={t('errors.transactions.prepare')}
             error={errorHandler(declinePrepareError, 'declinePrepareError')}
           />
         </Grid.Column>
@@ -201,7 +211,7 @@ export const ContractCardForCustomer = ({
       {declineError && (
         <Grid.Column>
           <ErrorWrapper
-            header="Unable to decline"
+            header={t('errors.transactions.execute')}
             error={errorHandler(declineError, 'declineError')}
           />
         </Grid.Column>
@@ -210,7 +220,7 @@ export const ContractCardForCustomer = ({
       {refundPrepareError && (
         <Grid.Column>
           <ErrorWrapper
-            header="Unable to prepare refund"
+            header={t('errors.transactions.prepare')}
             error={errorHandler(refundPrepareError, 'refundPrepareError')}
           />
         </Grid.Column>
@@ -219,22 +229,9 @@ export const ContractCardForCustomer = ({
       {refundError && (
         <Grid.Column>
           <ErrorWrapper
-            header="Unable to refund"
+            header={t('errors.transactions.execute')}
             error={errorHandler(refundError, 'refundError')}
           />
-        </Grid.Column>
-      )}
-
-      {currentStatus === 'created' && (
-        <Grid.Column>
-          <WhatIsNextMessage>
-            <p>
-              At this moment we are waiting for the contract to be accepted by
-              the contractor.
-              <br />
-              After this you will be able to create the contract on blockchain.
-            </p>
-          </WhatIsNextMessage>
         </Grid.Column>
       )}
 
@@ -245,14 +242,26 @@ export const ContractCardForCustomer = ({
             writeApprove?.()
             setShowIsApprove(false)
           }}
-          confirmationButtonContent="Approve result"
+          confirmationButtonContent={t(
+            'pages.contracts.show.customer_screen.approve_confirmation_message.confirm_button'
+          )}
           confirmationButtonPositive
         >
-          At this stage we notice that you will not be able to change contract
-          status after approving result. If you decide to approve the result, it
-          will not be possible to request a refund if you find any issues later.
+          <p>
+            {t(
+              'pages.contracts.show.customer_screen.approve_confirmation_message.line1'
+            )}
+          </p>
+
           <Divider />
-          <b>Please check twice all requirements in terms of contract.</b>
+
+          <p>
+            <b>
+              {t(
+                'pages.contracts.show.customer_screen.approve_confirmation_message.line2'
+              )}
+            </b>
+          </p>
         </ConfirmationMessage>
       )}
 
@@ -263,75 +272,91 @@ export const ContractCardForCustomer = ({
             writeDecline?.()
             setShowIsDecline(false)
           }}
-          confirmationButtonContent="Decline result"
+          confirmationButtonContent={t(
+            'pages.contracts.show.customer_screen.decline_confirmation_message.confirm_button'
+          )}
           confirmationButtonNegative
         >
-          At this stage we notice that you will not be able to change contract
-          status after declining result. If you decide to decline the result,
-          contractor will not be paid and you will be able to request a refund.
+          <p>
+            {t(
+              'pages.contracts.show.customer_screen.decline_confirmation_message.line1'
+            )}
+          </p>
+
           <Divider />
-          <b>Please check twice all requirements in terms of contract.</b>
+
+          <p>
+            <b>
+              {t(
+                'pages.contracts.show.customer_screen.decline_confirmation_message.line2'
+              )}
+            </b>
+          </p>
         </ConfirmationMessage>
+      )}
+
+      {currentStatus === 'created' && (
+        <Grid.Column>
+          <WhatIsNextMessage>
+            <p>
+              {t(
+                'pages.contracts.show.customer_screen.contract_created.what_is_next.line1'
+              )}
+              <br />
+              {t(
+                'pages.contracts.show.customer_screen.contract_created.what_is_next.line2'
+              )}
+            </p>
+          </WhatIsNextMessage>
+        </Grid.Column>
       )}
 
       {currentStatus === 'accepted' && (
         <Grid.Column>
           {+accountBalance.formatted > +contract.value ? (
             <>
-              <Message icon>
-                <Icon name="money" />
+              <WhatIsNextMessage>
+                <p>
+                  <b>
+                    {t(
+                      'pages.contracts.show.customer_screen.contract_accepted.what_is_next.header',
+                      {
+                        value: contract.value,
+                        symbol: accountBalance.symbol,
+                      }
+                    )}
+                  </b>
+                </p>
 
-                <Message.Content>
-                  <Message.Header>
-                    Smart contract is ready to be funded by
-                    {` ${contract.value} ${accountBalance.symbol}`}
-                  </Message.Header>
-
-                  <Divider />
-
-                  <p>
-                    Please click &quot;Fund smart contract&quot; to open
-                    MetaMask to confirm transaction.
-                    <br />
-                    You have to pay gas fee for this transaction.
-                    <br />
-                    After this step the contractor will be able to start
-                    working.
-                  </p>
-                </Message.Content>
-              </Message>
+                <p>
+                  {t(
+                    'pages.contracts.show.customer_screen.contract_accepted.what_is_next.line1'
+                  )}
+                  <br />
+                  {t(
+                    'pages.contracts.show.customer_screen.contract_accepted.what_is_next.line2'
+                  )}
+                  <br />
+                  {t(
+                    'pages.contracts.show.customer_screen.contract_accepted.what_is_next.line3'
+                  )}
+                </p>
+              </WhatIsNextMessage>
 
               <ExecuteBlockchainTransactionButton
-                content="Fund smart contract"
+                content={t(
+                  'pages.contracts.show.customer_screen.contract_accepted.fund_contract',
+                  {
+                    value: contract.value,
+                    symbol: accountBalance.symbol,
+                  }
+                )}
                 onClick={fundContract}
                 floated="right"
               />
             </>
           ) : (
-            <Message icon warning>
-              <Icon name="exclamation circle" />
-
-              <Message.Content>
-                <Message.Header>
-                  Smart contract is ready to be funded by
-                  {` ${contract.value} ${accountBalance.symbol}`}
-                </Message.Header>
-
-                <Divider />
-
-                <p>
-                  Unfortunately you do not have enough money in your account to
-                  fund this smart contract.
-                  <br />
-                  Please deposit at least{' '}
-                  {(+contract.value - +accountBalance.formatted).toFixed(6) +
-                    ' ' +
-                    accountBalance.symbol +
-                    ' '}
-                  to your wallet and try again.
-                </p>
-              </Message.Content>
-            </Message>
+            <InsufficientBalance />
           )}
         </Grid.Column>
       )}
@@ -341,43 +366,64 @@ export const ContractCardForCustomer = ({
           {contract.remainingTimeToStartWork > 0 ? (
             <WhatIsNextMessage>
               <p>
-                At this moment we are waiting for the contractor starts work.
+                {t(
+                  'pages.contracts.show.customer_screen.contract_funded.what_is_next.header'
+                )}
               </p>
 
               <p>
-                Contractor has about{' '}
-                {toDaysMinutesSeconds(contract.remainingTimeToStartWork)} to
-                update contract status. Expected date:{' '}
-                {formatDateTime(contract.workShouldBeStartedBefore)}.
+                {t(
+                  'pages.contracts.show.customer_screen.contract_funded.what_is_next.line1',
+                  {
+                    remainingTimeToStartWork: toDaysMinutesSeconds(
+                      contract.remainingTimeToStartWork
+                    ),
+                    expectedDate: formatDateTime(
+                      contract.workShouldBeStartedBefore,
+                      t('date.locale')
+                    ),
+                  }
+                )}
                 <br />
-                If work will not be started on time, you will be able to refund
-                your money.
+                {t(
+                  'pages.contracts.show.customer_screen.contract_funded.what_is_next.line2'
+                )}
               </p>
             </WhatIsNextMessage>
           ) : (
             <>
-              <Message icon>
+              <Message icon warning>
                 <Icon name="ban" />
 
                 <Message.Content>
-                  <Message.Header>
-                    Contractor did not start work on time!
-                  </Message.Header>
+                  <Message.Header
+                    content={t(
+                      'pages.contracts.show.customer_screen.contract_funded.out_of_time.header'
+                    )}
+                  />
 
                   <Divider />
 
                   <p>
-                    Please click &quot;Refund&quot; below to get your money
-                    back.
+                    {t(
+                      'pages.contracts.show.customer_screen.contract_funded.out_of_time.line1'
+                    )}
                     <br />
-                    All money ({contract.value} {accountBalance.symbol}) will be
-                    sent to your wallet immediately.
+                    {t(
+                      'pages.contracts.show.customer_screen.contract_funded.out_of_time.line2',
+                      {
+                        value: contract.value,
+                        symbol: accountBalance.symbol,
+                      }
+                    )}
                   </p>
                 </Message.Content>
               </Message>
 
               <ExecuteBlockchainTransactionButton
-                content="Refund"
+                content={t(
+                  'pages.contracts.show.customer_screen.contract_funded.out_of_time.refund_contract'
+                )}
                 icon="money"
                 onClick={refundContract}
                 floated="right"
@@ -393,38 +439,55 @@ export const ContractCardForCustomer = ({
             <>
               <WhatIsNextMessage>
                 <p>
-                  At this moment we are waiting for the contractor to deliver
-                  result.
+                  {t(
+                    'pages.contracts.show.customer_screen.contract_started.what_is_next.header'
+                  )}
                 </p>
 
                 <p>
-                  Contractor has about{' '}
-                  {toDaysMinutesSeconds(contract.remainingTimeToDeliverResult) +
-                    ' '}
-                  to update contract status. Expected date:{' '}
-                  {formatDateTime(contract.resultShouldBeDeliveredBefore)}.
+                  {t(
+                    'pages.contracts.show.customer_screen.contract_started.what_is_next.line1',
+                    {
+                      remainingTimeToDeliverResult: toDaysMinutesSeconds(
+                        contract.remainingTimeToDeliverResult
+                      ),
+                      expectedDate: formatDateTime(
+                        contract.resultShouldBeDeliveredBefore,
+                        t('date.locale')
+                      ),
+                    }
+                  )}
                   <br />
-                  If work result will not be delivered on time, you will be able
-                  to refund your money.
+                  {t(
+                    'pages.contracts.show.customer_screen.contract_started.what_is_next.line2'
+                  )}
                 </p>
 
                 <Divider />
 
                 <p>
-                  Also you are able to approve contract before getting delivered
-                  result.
+                  {t(
+                    'pages.contracts.show.customer_screen.contract_started.what_is_next.line3'
+                  )}
                   <br />
-                  Right after this contractor will be able to withdraw money.
+                  {t(
+                    'pages.contracts.show.customer_screen.contract_started.what_is_next.line4'
+                  )}
                 </p>
 
-                <b>
-                  You will not be able to refund money if you approve this
-                  contract at this step! Think twice please.
-                </b>
+                <p>
+                  <b>
+                    {t(
+                      'pages.contracts.show.customer_screen.contract_started.what_is_next.line5'
+                    )}
+                  </b>
+                </p>
               </WhatIsNextMessage>
 
               <ExecuteBlockchainTransactionButton
-                content="I understand and I want to approve the contract"
+                content={t(
+                  'pages.contracts.show.customer_screen.contract_started.approve_contract'
+                )}
                 icon="check"
                 onClick={approveContract}
                 floated="right"
@@ -432,28 +495,38 @@ export const ContractCardForCustomer = ({
             </>
           ) : (
             <>
-              <Message icon>
+              <Message icon warning>
                 <Icon name="ban" />
 
                 <Message.Content>
-                  <Message.Header>
-                    Contractor did not deliver result on time!
-                  </Message.Header>
+                  <Message.Header
+                    content={t(
+                      'pages.contracts.show.customer_screen.contract_started.out_of_time.header'
+                    )}
+                  />
 
                   <Divider />
 
                   <p>
-                    Please click &quot;Refund&quot; below to get your money
-                    back.
+                    {t(
+                      'pages.contracts.show.customer_screen.contract_started.out_of_time.line1'
+                    )}
                     <br />
-                    All money ({contract.value} {accountBalance.symbol}) will be
-                    sent to your wallet immediately.
+                    {t(
+                      'pages.contracts.show.customer_screen.contract_started.out_of_time.line2',
+                      {
+                        value: contract.value,
+                        symbol: accountBalance.symbol,
+                      }
+                    )}
                   </p>
                 </Message.Content>
               </Message>
 
               <ExecuteBlockchainTransactionButton
-                content="Refund"
+                content={t(
+                  'pages.contracts.show.customer_screen.contract_started.out_of_time.refund_contract'
+                )}
                 icon="money"
                 onClick={refundContract}
                 floated="right"
@@ -469,37 +542,46 @@ export const ContractCardForCustomer = ({
             <Icon name="check" />
 
             <Message.Content>
-              <Message.Header>
-                Wow! It looks like your contractor has delivered result on time!
-              </Message.Header>
+              <Message.Header
+                content={t(
+                  'pages.contracts.show.customer_screen.contract_delivered.header'
+                )}
+              />
 
               <Divider />
 
-              <p>Right now you have two options. Let us explain.</p>
-
               <p>
-                You are able to approve delivered result and right after this
-                contractor will be able to withdraw money. Please check: were
-                all terms, conditions and requirements of the contract met? Do
-                you have any questions, additional information or improvements
-                have to be done in terms of this contract?
+                {t(
+                  'pages.contracts.show.customer_screen.contract_delivered.line1'
+                )}
               </p>
 
-              <b>
-                You will not be able to refund money if you approve this
-                contract!
-              </b>
+              <p>
+                {t(
+                  'pages.contracts.show.customer_screen.contract_delivered.line2'
+                )}
+              </p>
 
               <p>
-                If you decide to decline contract, you will be able to refund
-                your money and contractor will not get paid. Contract will be
-                closed instantly.
+                <b>
+                  {t(
+                    'pages.contracts.show.customer_screen.contract_delivered.line3'
+                  )}
+                </b>
+              </p>
+
+              <p>
+                {t(
+                  'pages.contracts.show.customer_screen.contract_delivered.line4'
+                )}
               </p>
             </Message.Content>
           </Message>
 
           <ExecuteBlockchainTransactionButton
-            content="Approve"
+            content={t(
+              'pages.contracts.show.customer_screen.contract_delivered.approve_contract'
+            )}
             icon="check"
             onClick={approveContract}
             positive
@@ -507,7 +589,9 @@ export const ContractCardForCustomer = ({
           />
 
           <ExecuteBlockchainTransactionButton
-            content="Decline"
+            content={t(
+              'pages.contracts.show.customer_screen.contract_delivered.decline_contract'
+            )}
             icon="close"
             onClick={declineContract}
             negative
@@ -523,15 +607,24 @@ export const ContractCardForCustomer = ({
             <Icon name="fire" />
 
             <Message.Content>
-              <Message.Header>Congratulations!</Message.Header>
+              <Message.Header
+                content={t(
+                  'pages.contracts.show.customer_screen.contract_approved.header'
+                )}
+              />
 
               <Divider />
 
-              <p>We hope you have enjoyed working with this freelancer!</p>
+              <p>
+                {t(
+                  'pages.contracts.show.customer_screen.contract_approved.line1'
+                )}
+              </p>
 
               <p>
-                If you have any ideas on how to improve OptriSpace – feel free
-                to contact us.
+                {t(
+                  'pages.contracts.show.customer_screen.contract_approved.line2'
+                )}
               </p>
             </Message.Content>
           </Message>
@@ -544,21 +637,36 @@ export const ContractCardForCustomer = ({
             <Icon name="ban" />
 
             <Message.Content>
-              <Message.Header>Your have declined this contract!</Message.Header>
+              <Message.Header
+                content={t(
+                  'pages.contracts.show.customer_screen.contract_declined.header'
+                )}
+              />
 
               <Divider />
 
               <p>
-                Please click &quot;Refund&quot; below to get your money back.
-                <br />
-                All money ({contract.value} {accountBalance.symbol}) will be
-                sent to your wallet immediately.
+                {t(
+                  'pages.contracts.show.customer_screen.contract_declined.line1'
+                )}
+              </p>
+
+              <p>
+                {t(
+                  'pages.contracts.show.customer_screen.contract_declined.line2',
+                  {
+                    value: contract.value,
+                    symbol: accountBalance.symbol,
+                  }
+                )}
               </p>
             </Message.Content>
           </Message>
 
           <ExecuteBlockchainTransactionButton
-            content="Refund"
+            content={t(
+              'pages.contracts.show.customer_screen.contract_declined.refund_contract'
+            )}
             icon="money"
             onClick={refundContract}
             floated="right"
@@ -572,17 +680,24 @@ export const ContractCardForCustomer = ({
             <Icon name="money" />
 
             <Message.Content>
-              <Message.Header>Your refund has been processed!</Message.Header>
+              <Message.Header
+                content={t(
+                  'pages.contracts.show.customer_screen.contract_refunded.header'
+                )}
+              />
 
               <Divider />
 
               <p>
-                We hope you will enjoy working with this freelancer next time!
+                {t(
+                  'pages.contracts.show.customer_screen.contract_refunded.line1'
+                )}
               </p>
 
               <p>
-                If you have any ideas on how to improve OptriSpace – feel free
-                to contact us.
+                {t(
+                  'pages.contracts.show.customer_screen.contract_refunded.line2'
+                )}
               </p>
             </Message.Content>
           </Message>
@@ -591,7 +706,10 @@ export const ContractCardForCustomer = ({
 
       <Grid.Column mobile={16} computer={10}>
         <Segment>
-          <Header as="h3">Contract Description, Terms & Conditions</Header>
+          <Header
+            as="h3"
+            content={t('pages.contracts.show.contract_description.title')}
+          />
 
           <div style={{ wordWrap: 'break-word' }}>
             <FormattedDescription description={contract.description} />
@@ -599,20 +717,13 @@ export const ContractCardForCustomer = ({
         </Segment>
 
         <Segment>
-          <Header as="h3">Detailed View</Header>
+          <Header
+            as="h3"
+            content={t('pages.contracts.show.detailed_view.title')}
+          />
 
-          <p>
-            We provide some additional information (it is usually bored for
-            non-technical people) to let you know what is happening with your
-            smart contract on blockchain. If you don&apos;t need it - ignore
-            this section below :-)
-          </p>
-
-          <p>
-            But! These tables will be necessary if you will have any issues with
-            our platform. Please provide this details to our support team with
-            any problems or unexpected behaviours while using this contract.
-          </p>
+          <p>{t('pages.contracts.show.detailed_view.line1')}</p>
+          <p>{t('pages.contracts.show.detailed_view.line2')}</p>
 
           <Tab panes={panes} />
         </Segment>

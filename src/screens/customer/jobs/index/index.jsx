@@ -1,24 +1,26 @@
 import React, { useState, useEffect } from 'react'
 import { ethers } from 'ethers'
 import getConfig from 'next/config'
-import { Grid, Header, Button } from 'semantic-ui-react'
+import { Segment, Grid, Header, Button } from 'semantic-ui-react'
 import { JobsList } from '../../../../components/JobsList'
 import { JobsSidebar } from '../../../../components/JobsSidebar'
 import { useContractRead } from 'wagmi'
-
 import gigsCustomerServiceABI from '../../../../../contracts/GigsCustomerService.json'
 import { JustOneSecondBlockchain } from '../../../../components/JustOneSecond'
 import { errorHandler } from '../../../../lib/errorHandler'
 import ErrorWrapper from '../../../../components/ErrorWrapper'
+import useTranslation from 'next-translate/useTranslation'
 
 const { publicRuntimeConfig } = getConfig()
 const { optriSpaceContractAddress } = publicRuntimeConfig
 
 export const JobsScreen = ({ currentAccount }) => {
+  const { t } = useTranslation('common')
+
   const {
-    data: rawJobs,
-    error: jobsError,
-    isLoading: jobsLoading,
+    data: rawData,
+    error,
+    isLoading,
   } = useContractRead({
     address: optriSpaceContractAddress,
     abi: gigsCustomerServiceABI,
@@ -26,21 +28,21 @@ export const JobsScreen = ({ currentAccount }) => {
     overrides: { from: currentAccount },
   })
 
-  const [jobs, setJobs] = useState(undefined)
+  const [data, setData] = useState(undefined)
 
   // FIXME: It should be replaced with: https://wagmi.sh/react/hooks/useContractRead#select-optional
   useEffect(() => {
-    if (!rawJobs) return
+    if (!rawData) return
 
-    const j = rawJobs.map((job) => {
+    const j = rawData.map((job) => {
       return {
         address: job.id,
         title: job.title,
         description: job.description,
         budget: ethers.utils.formatEther(job.budget.toString()),
         applicationsCount: +job.applicationsCount.toString(),
-        categoryCode: job.categoryCode,
-        categoryLabel: job.categoryLabel,
+        categoryCode: job.category.code,
+        categoryLabel: job.category.label,
         owner: job.owner,
         createdAt: +job.createdAt.toString(),
       }
@@ -50,13 +52,13 @@ export const JobsScreen = ({ currentAccount }) => {
       return +b.createdAt - +a.createdAt
     })
 
-    setJobs(orderedJobs)
-  }, [rawJobs])
+    setData(orderedJobs)
+  }, [rawData])
 
   return (
     <Grid stackable columns={1}>
       <Grid.Column textAlign="center">
-        <Header as="h1" content="My Jobs" />
+        <Header as="h1" content={t('pages.customer.jobs.index.header.title')} />
       </Grid.Column>
 
       <Grid.Column>
@@ -65,25 +67,37 @@ export const JobsScreen = ({ currentAccount }) => {
           primary
           href="/jobs/new"
           floated="right"
-          content="Post New Job"
+          content={t('buttons.add_new')}
         />
       </Grid.Column>
 
       <Grid.Column>
         <Grid columns={2} stackable>
           <Grid.Column mobile={16} computer={11}>
-            {jobsLoading && (
-              <JustOneSecondBlockchain message="Fetching jobs from the blockchain..." />
-            )}
-
-            {jobsError && (
-              <ErrorWrapper
-                header="Error fetching jobs"
-                error={errorHandler(jobsError)}
+            {isLoading && (
+              <JustOneSecondBlockchain
+                message={t('labels.loading_from_blockchain')}
               />
             )}
 
-            {jobs && <JobsList jobs={jobs} />}
+            {error && (
+              <ErrorWrapper
+                header={t('errors.transactions.load')}
+                error={errorHandler(error)}
+              />
+            )}
+
+            {data && (
+              <>
+                {data.length > 0 ? (
+                  <JobsList jobs={data} />
+                ) : (
+                  <Segment>
+                    <p>{t('pages.customer.jobs.index.no_records')}</p>
+                  </Segment>
+                )}
+              </>
+            )}
           </Grid.Column>
 
           <Grid.Column computer={5} only="computer">

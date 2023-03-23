@@ -1,24 +1,26 @@
 import React, { useState, useEffect } from 'react'
 import { ethers } from 'ethers'
 import getConfig from 'next/config'
-import { Grid, Header } from 'semantic-ui-react'
+import { Segment, Grid, Header } from 'semantic-ui-react'
 import { ContractsList } from '../../../../components/ContractsList'
 import { ContractsSidebar } from '../../../../components/ContractsSidebar'
 import { useContractRead } from 'wagmi'
-
 import gigsCustomerServiceABI from '../../../../../contracts/GigsCustomerService.json'
 import { JustOneSecondBlockchain } from '../../../../components/JustOneSecond'
 import { errorHandler } from '../../../../lib/errorHandler'
 import ErrorWrapper from '../../../../components/ErrorWrapper'
+import useTranslation from 'next-translate/useTranslation'
 
 const { publicRuntimeConfig } = getConfig()
 const { optriSpaceContractAddress } = publicRuntimeConfig
 
 export const ContractsScreen = ({ currentAccount }) => {
+  const { t } = useTranslation('common')
+
   const {
-    data: rawContracts,
-    error: contractsError,
-    isLoading: contractsLoading,
+    data: rawData,
+    error,
+    isLoading,
   } = useContractRead({
     address: optriSpaceContractAddress,
     abi: gigsCustomerServiceABI,
@@ -26,13 +28,13 @@ export const ContractsScreen = ({ currentAccount }) => {
     overrides: { from: currentAccount },
   })
 
-  const [contracts, setContracts] = useState(undefined)
+  const [data, setData] = useState(undefined)
 
   // FIXME: It should be replaced with: https://wagmi.sh/react/hooks/useContractRead#select-optional
   useEffect(() => {
-    if (!rawContracts) return
+    if (!rawData) return
 
-    const j = rawContracts.map((contract) => {
+    const j = rawData.map((contract) => {
       return {
         address: contract.id,
         customerAddress: contract.customerAddress,
@@ -51,30 +53,45 @@ export const ContractsScreen = ({ currentAccount }) => {
       return +b.createdAt - +a.createdAt
     })
 
-    setContracts(orderedContracts)
-  }, [rawContracts])
+    setData(orderedContracts)
+  }, [rawData])
 
   return (
     <Grid stackable columns={1}>
       <Grid.Column textAlign="center">
-        <Header as="h1">My Contracts as Customer</Header>
+        <Header
+          as="h1"
+          content={t('pages.customer.contracts.index.header.title')}
+        />
       </Grid.Column>
 
       <Grid.Column>
         <Grid columns={2} stackable>
           <Grid.Column mobile={16} computer={11}>
-            {contractsLoading && (
-              <JustOneSecondBlockchain message="Fetching contracts from the blockchain..." />
-            )}
-
-            {contractsError && (
-              <ErrorWrapper
-                header="Error fetching contracts"
-                error={errorHandler(contractsError)}
+            {isLoading && (
+              <JustOneSecondBlockchain
+                message={t('labels.loading_from_blockchain')}
               />
             )}
 
-            {contracts && <ContractsList contracts={contracts} as="customer" />}
+            {error && (
+              <ErrorWrapper
+                header={t('errors.transactions.load')}
+                error={errorHandler(error)}
+              />
+            )}
+
+            {data && (
+              <>
+                {data.length > 0 ? (
+                  <ContractsList contracts={data} as="customer" />
+                ) : (
+                  <Segment>
+                    <p>{t('pages.customer.contracts.index.no_records')}</p>
+                  </Segment>
+                )}
+              </>
+            )}
           </Grid.Column>
 
           <Grid.Column computer={5} only="computer">

@@ -1,0 +1,25 @@
+{
+  "model": {
+    "title": "Title",
+    "description": "Description",
+    "value": "Value",
+    "days_to_deliver_result": "Days to deliver result",
+    "days_to_start_work": "Days to start work",
+    "status": "Status",
+    "created_at": "Created",
+    "customer_address": "Customer Address",
+    "contractor_address": "Contractor Address",
+    "statuses": {
+      "created": "Created",
+      "accepted": "Accepted",
+      "funded": "Funded",
+      "started": "Work Started",
+      "delivered": "Result Delivered",
+      "approved": "Approved",
+      "declined": "Declined",
+      "withdrew": "Withdrew",
+      "refunded": "Refunded",
+      "closed": "Closed"
+    }
+  }
+}
