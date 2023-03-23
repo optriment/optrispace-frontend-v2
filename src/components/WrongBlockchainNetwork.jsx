@@ -1,31 +1,38 @@
 import React from 'react'
 import { Button, Divider, Message, Icon } from 'semantic-ui-react'
+import useTranslation from 'next-translate/useTranslation'
 
 export const WrongBlockchainNetwork = ({
   blockchainNetworkName,
   switchNetwork,
 }) => {
+  const { t } = useTranslation('common')
+
   return (
     <Message warning icon>
       <Icon name="warning sign" />
 
       <Message.Content>
-        <Message.Header>
-          You are connected to the wrong blockchain network
-        </Message.Header>
+        <Message.Header
+          content={t('components.wrong_blockchain_network.header')}
+        />
 
         <Divider />
 
         <p>
-          Our platform uses {blockchainNetworkName}.
+          {t('components.wrong_blockchain_network.our_platform_uses', {
+            blockchainNetworkName: blockchainNetworkName,
+          })}
           <br />
-          Please connect your wallet to the valid network and reload the page.
+          {t('components.wrong_blockchain_network.connect_to_valid_network')}
         </p>
 
         <Divider />
 
         <Button primary onClick={() => switchNetwork()}>
-          Switch Network to {blockchainNetworkName}
+          {t('components.wrong_blockchain_network.switch_network', {
+            blockchainNetworkName: blockchainNetworkName,
+          })}
         </Button>
       </Message.Content>
     </Message>

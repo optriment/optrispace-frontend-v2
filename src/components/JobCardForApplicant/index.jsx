@@ -6,11 +6,13 @@ import { Message, Segment, Header, Grid } from 'semantic-ui-react'
 import { ApplicationForm } from '../../forms/ApplicationForm'
 import ErrorWrapper from '../ErrorWrapper'
 import { JobCardHeader } from '../JobCardHeader'
-import JustOneSecond from '../JustOneSecond'
+import JustOneSecond, { JustOneSecondBlockchain } from '../JustOneSecond'
 import { useContractRead } from 'wagmi'
 import gigsFreelancerServiceABI from '../../../contracts/GigsFreelancerService.json'
 import { InsufficientBalance } from '../InsufficientBalance'
 import { ApplicationCreatedMessage } from './ApplicationCreatedMessage'
+import useTranslation from 'next-translate/useTranslation'
+import { errorHandler } from '../../lib/errorHandler'
 
 const { publicRuntimeConfig } = getConfig()
 const { optriSpaceContractAddress, blockchainViewAddressURL } =
@@ -21,6 +23,8 @@ export const JobCardForApplicant = ({
   currentAccount,
   accountBalance,
 }) => {
+  const { t } = useTranslation('common')
+
   const {
     data: response,
     error: applicationError,
@@ -70,20 +74,22 @@ export const JobCardForApplicant = ({
   }, [response])
 
   if (applicationLoading) {
-    return <JustOneSecond title="Fetching application..." />
+    return (
+      <JustOneSecondBlockchain message={t('labels.loading_from_blockchain')} />
+    )
   }
 
   if (applicationError) {
     return (
       <ErrorWrapper
-        header="Error fetching application"
-        error={applicationError.message}
+        header={t('errors.transactions.load')}
+        error={errorHandler(applicationError)}
       />
     )
   }
 
   if (!application) {
-    return <JustOneSecond title="Initializing application..." />
+    return <JustOneSecond title={t('labels.initializing')} />
   }
 
   return (
@@ -99,19 +105,27 @@ export const JobCardForApplicant = ({
 
       <Grid.Column>
         <Segment>
-          <Header as="h3">Apply for this job</Header>
+          <Header as="h3" content={t('pages.jobs.show.apply_for_this_job')} />
           {isExists || applicationCreated ? (
             <>
               {application.hasContract ? (
                 <Message positive>
-                  <Message.Header>You have a contract</Message.Header>
+                  <Message.Header
+                    content={t(
+                      'pages.jobs.show.application.you_have_a_contract'
+                    )}
+                  />
                   <p>
                     <Link
                       href="/contracts/[id]"
                       as={`/contracts/${application.contractAddress}`}
                       passHref
                     >
-                      <a>Click here to open contract</a>
+                      <a>
+                        {t(
+                          'pages.jobs.show.application.click_here_to_open_contract'
+                        )}
+                      </a>
                     </Link>
                   </p>
                 </Message>
@@ -125,7 +139,7 @@ export const JobCardForApplicant = ({
             </>
           ) : (
             <>
-              {accountBalance.formatted > 0 ? (
+              {+accountBalance.formatted > 0 ? (
                 <ApplicationForm
                   job={job}
                   currentAccount={currentAccount}

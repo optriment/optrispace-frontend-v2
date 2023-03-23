@@ -31,6 +31,7 @@ import { AutoFillFormDialog } from './AutoFillFormDialog'
 
 import gigsAddContractCommandABI from '../../../contracts/GigsAddContractCommand.json'
 import { ValidationErrors } from '../../components/ValidationErrors'
+import useTranslation from 'next-translate/useTranslation'
 
 const { publicRuntimeConfig } = getConfig()
 const {
@@ -45,6 +46,8 @@ export const NewContractForm = ({
   accountBalance,
   onContractCreated,
 }) => {
+  const { t } = useTranslation('common')
+
   const [displayModal, setDisplayModal] = useState(true)
   const [fillForm, setFillForm] = useState(false)
 
@@ -151,25 +154,33 @@ export const NewContractForm = ({
     let error
 
     if (isEmptyString(debouncedTitle)) {
-      error = 'Title must be filled'
+      error = t('errors.messages.empty', { field: t('contracts:model.title') })
       setTitleError(error)
       errors.push(error)
     }
 
     if (isEmptyString(debouncedDescription)) {
-      error = 'Description must be filled'
+      error = t('errors.messages.empty', {
+        field: t('contracts:model.description'),
+      })
       setDescriptionError(error)
       errors.push(error)
     }
 
     if (!isEmptyString(debouncedValue) && isNumber(debouncedValue)) {
       if (+debouncedValue <= 0 || +debouncedValue > 100) {
-        error = 'Value must be greater than zero and less or equal to 100'
+        error = t('errors.messages.between', {
+          field: t('contracts:model.value'),
+          from: '0.001',
+          to: '100.0',
+        })
         setValueError(error)
         errors.push(error)
       }
     } else {
-      error = 'Contract value must be a number'
+      error = t('errors.messages.not_a_number', {
+        field: t('contracts:model.value'),
+      })
       setValueError(error)
       errors.push(error)
     }
@@ -178,21 +189,32 @@ export const NewContractForm = ({
 
     if (isPositiveInteger(debouncedDurationInDays)) {
       if (+debouncedDurationInDays > 31) {
-        error = 'Days to deliver result must be between 1-31'
+        error = t('errors.messages.between', {
+          field: t('contracts:model.days_to_deliver_result'),
+          from: '1',
+          to: '31',
+        })
         setDurationInDaysError(error)
         errors.push(error)
       } else {
         _durationInDaysValid = true
       }
     } else {
-      error = 'Days to deliver result must be greater than zero'
+      error = t('errors.messages.greater_than', {
+        field: t('contracts:model.days_to_deliver_result'),
+        count: '0',
+      })
       setDurationInDaysError(error)
       errors.push(error)
     }
 
     if (isPositiveInteger(debouncedDaysToStartWork)) {
       if (+debouncedDaysToStartWork > 7) {
-        error = 'Days to start work must be between 1-7'
+        error = t('errors.messages.between', {
+          field: t('contracts:model.days_to_start_work'),
+          from: '1',
+          to: '7',
+        })
         setDaysToStartWorkError(error)
         errors.push(error)
       } else {
@@ -200,14 +222,19 @@ export const NewContractForm = ({
           _durationInDaysValid &&
           +debouncedDaysToStartWork >= +debouncedDurationInDays
         ) {
-          error =
-            'Days to start work must not be greater than days to deliver result'
+          error = t('errors.messages.less_than', {
+            field: t('contracts:model.days_to_start_work'),
+            count: t('contracts:model.days_to_deliver_result'),
+          })
           setDaysToStartWorkError(error)
           errors.push(error)
         }
       }
     } else {
-      error = 'Days to start work must be greater than zero'
+      error = t('errors.messages.greater_than', {
+        field: t('contracts:model.days_to_start_work'),
+        count: '0',
+      })
       setDaysToStartWorkError(error)
       errors.push(error)
     }
@@ -215,6 +242,7 @@ export const NewContractForm = ({
     setIsValidForm(errors.length === 0)
     setValidationErrors(errors)
   }, [
+    t,
     debouncedTitle,
     debouncedDescription,
     debouncedValue,
@@ -227,9 +255,7 @@ export const NewContractForm = ({
   }
 
   if (contractCreated) {
-    return (
-      <JustOneSecondBlockchain message="Waiting for the contract address..." />
-    )
+    return <JustOneSecondBlockchain />
   }
 
   return (
@@ -240,14 +266,14 @@ export const NewContractForm = ({
 
       {createError && (
         <ErrorWrapper
-          header="Unable to create a contract"
+          header={t('errors.transactions.execute')}
           error={errorHandler(createError)}
         />
       )}
 
       {prepareError && (
         <ErrorWrapper
-          header="Contract prepare error"
+          header={t('errors.transactions.prepare')}
           error={errorHandler(prepareError)}
         />
       )}
@@ -262,17 +288,21 @@ export const NewContractForm = ({
           <Grid.Column textAlign="right">
             {!fillForm && (
               <Button
-                content="Fill form from job and application"
+                content={t('forms.contract_form.buttons.fill_form')}
                 onClick={() => setFillForm(true)}
               />
             )}
 
-            <Button content="Publish" primary disabled={!isValidForm} />
+            <Button
+              content={t('buttons.publish')}
+              primary
+              disabled={!isValidForm}
+            />
           </Grid.Column>
 
           <Grid.Column mobile={16} computer={11}>
             <Segment>
-              <Header as="h3">Title:</Header>
+              <Header as="h3" content={t('forms.contract_form.title.label')} />
 
               <Form.Input
                 id="title"
@@ -287,20 +317,17 @@ export const NewContractForm = ({
             </Segment>
 
             <Segment>
-              <Header as="h3">
-                Please describe everything you need to be done by your
-                contractor in terms of contract
-              </Header>
+              <Header
+                as="h3"
+                content={t('forms.contract_form.description.label')}
+              />
 
               <p>
-                Put here whatever you want: acceptance criteria, links to
-                required documents, assets, or references.
+                {t('forms.contract_form.description.line1')}
                 <br />
-                Pay attention: you will pay extra gas fee if you would like to
-                make changes in this contract later.
+                {t('forms.contract_form.description.line2')}
                 <br />
-                So, we recommend you to put all information right now just to
-                save your money.
+                {t('forms.contract_form.description.line3')}
               </p>
 
               <Form.Input
@@ -317,59 +344,75 @@ export const NewContractForm = ({
             </Segment>
 
             <Segment>
-              <Header as="h3">Contract Lifecycle:</Header>
+              <Header
+                as="h3"
+                content={t('forms.contract_form.contract_lifecycle.label')}
+              />
 
-              <Step.Group widths={3}>
-                <Step active link>
-                  <Step.Content>
-                    <Step.Title>1. Create</Step.Title>
-                    <Step.Description>
-                      Customer creates a contract
-                    </Step.Description>
-                  </Step.Content>
+              <p>{t('forms.contract_form.contract_lifecycle.description')}</p>
+
+              <Step.Group fluid widths={3}>
+                <Step active>
+                  <Step.Content
+                    title={t(
+                      'forms.contract_form.contract_lifecycle.steps.create.title'
+                    )}
+                    description={t(
+                      'forms.contract_form.contract_lifecycle.steps.create.description'
+                    )}
+                  />
                 </Step>
-                <Step link>
-                  <Step.Content>
-                    <Step.Title>2. Accept</Step.Title>
-                    <Step.Description>
-                      Contractor accepts the terms
-                    </Step.Description>
-                  </Step.Content>
+                <Step>
+                  <Step.Content
+                    title={t(
+                      'forms.contract_form.contract_lifecycle.steps.accept.title'
+                    )}
+                    description={t(
+                      'forms.contract_form.contract_lifecycle.steps.accept.description'
+                    )}
+                  />
                 </Step>
-                <Step link>
-                  <Step.Content>
-                    <Step.Title>3. Fund</Step.Title>
-                    <Step.Description>
-                      Customer funds the contract
-                    </Step.Description>
-                  </Step.Content>
+                <Step>
+                  <Step.Content
+                    title={t(
+                      'forms.contract_form.contract_lifecycle.steps.fund.title'
+                    )}
+                    description={t(
+                      'forms.contract_form.contract_lifecycle.steps.fund.description'
+                    )}
+                  />
                 </Step>
               </Step.Group>
-
-              <Step.Group widths={3}>
-                <Step link>
-                  <Step.Content>
-                    <Step.Title>4. Start</Step.Title>
-                    <Step.Description>
-                      Contractor starts working
-                    </Step.Description>
-                  </Step.Content>
+              <Step.Group fluid widths={3}>
+                <Step>
+                  <Step.Content
+                    title={t(
+                      'forms.contract_form.contract_lifecycle.steps.start.title'
+                    )}
+                    description={t(
+                      'forms.contract_form.contract_lifecycle.steps.start.description'
+                    )}
+                  />
                 </Step>
-                <Step link>
-                  <Step.Content>
-                    <Step.Title>5. Deliver</Step.Title>
-                    <Step.Description>
-                      Contractor delivers the results
-                    </Step.Description>
-                  </Step.Content>
+                <Step>
+                  <Step.Content
+                    title={t(
+                      'forms.contract_form.contract_lifecycle.steps.deliver.title'
+                    )}
+                    description={t(
+                      'forms.contract_form.contract_lifecycle.steps.deliver.description'
+                    )}
+                  />
                 </Step>
-                <Step link>
-                  <Step.Content>
-                    <Step.Title>6. Confirm</Step.Title>
-                    <Step.Description>
-                      Customer allows withdrawal
-                    </Step.Description>
-                  </Step.Content>
+                <Step>
+                  <Step.Content
+                    title={t(
+                      'forms.contract_form.contract_lifecycle.steps.confirm_decline.title'
+                    )}
+                    description={t(
+                      'forms.contract_form.contract_lifecycle.steps.confirm_decline.description'
+                    )}
+                  />
                 </Step>
               </Step.Group>
             </Segment>
@@ -377,7 +420,12 @@ export const NewContractForm = ({
 
           <Grid.Column mobile={16} computer={5}>
             <Segment>
-              <Header as="h3">Contract Value ({accountBalance.symbol}):</Header>
+              <Header
+                as="h3"
+                content={t('forms.contract_form.value.label', {
+                  symbol: accountBalance.symbol,
+                })}
+              />
 
               <Form.Input
                 id="value"
@@ -392,7 +440,10 @@ export const NewContractForm = ({
             </Segment>
 
             <Segment>
-              <Header as="h3">Days to Start Work:</Header>
+              <Header
+                as="h3"
+                content={t('forms.contract_form.days_to_start_work.label')}
+              />
 
               <Form.Input
                 id="daysToStartWork"
@@ -402,7 +453,7 @@ export const NewContractForm = ({
                 step={1}
                 inputMode="numeric"
                 pattern="[0-9]*"
-                placeholder="Our recommendation: 3"
+                placeholder={t('labels.our_recommendation', { value: '3' })}
                 value={daysToStartWork}
                 onChange={(e) => setDaysToStartWork(e.target.value)}
                 required
@@ -410,20 +461,15 @@ export const NewContractForm = ({
                 maxLength={1}
               />
 
-              <p>
-                How many days contractor will have to start working on your
-                contract, starting from the date when the contract was funded.
-              </p>
-
-              <p>
-                If the contractor does not change the contract status from
-                &quot;Funded&quot; to &quot;Started&quot; within these number of
-                days, you will be able to refund your money.
-              </p>
+              <p>{t('forms.contract_form.days_to_start_work.line1')}</p>
+              <p>{t('forms.contract_form.days_to_start_work.line2')}</p>
             </Segment>
 
             <Segment>
-              <Header as="h3">Days to Deliver Result:</Header>
+              <Header
+                as="h3"
+                content={t('forms.contract_form.days_to_deliver_result.label')}
+              />
 
               <Form.Input
                 id="durationInDays"
@@ -433,7 +479,7 @@ export const NewContractForm = ({
                 step={1}
                 inputMode="numeric"
                 pattern="[0-9]*"
-                placeholder="Our recommendation: 7"
+                placeholder={t('labels.our_recommendation', { value: '7' })}
                 value={durationInDays}
                 onChange={(e) => setDurationInDays(e.target.value)}
                 required
@@ -441,38 +487,27 @@ export const NewContractForm = ({
                 maxLength={2}
               />
 
-              <p>This is a contract lifetime after fund.</p>
-
+              <p>{t('forms.contract_form.days_to_deliver_result.line1')}</p>
               <p>
-                <b>It must be greater than &quot;Days to Start Work&quot;.</b>
+                <b>{t('forms.contract_form.days_to_deliver_result.line2')}</b>
               </p>
-
-              <p>
-                If the contractor does not send the final results in accordance
-                with the terms of this contract within the deadline, you will be
-                able to request a refund.
-              </p>
-
-              <p>This value will be used after you fund the contract.</p>
-
-              <p>
-                <Link href="#">Please show me some examples how it works.</Link>
-              </p>
+              <p>{t('forms.contract_form.days_to_deliver_result.line3')}</p>
+              <p>{t('forms.contract_form.days_to_deliver_result.line4')}</p>
             </Segment>
 
             <Segment>
-              <Header as="h3">Meta:</Header>
+              <Header as="h3" content={t('forms.contract_form.meta.label')} />
 
               <List bulleted>
                 <List.Item>
                   <Link href={`/jobs/${dto.jobAddress}`} target="_blank">
-                    Open original job
+                    {t('forms.contract_form.meta.open_original_job')}
                   </Link>
                 </List.Item>
 
                 <List.Item>
                   <Link href={`/freelancers/${dto.applicantAddress}`}>
-                    Open contractor&apos; profile
+                    {t('forms.contract_form.meta.open_contractor_profile')}
                   </Link>
                 </List.Item>
 
@@ -482,16 +517,24 @@ export const NewContractForm = ({
                     target="_blank"
                     rel="nofollow noreferrer noopener"
                   >
-                    Check contractor&apos;s transactions
+                    {t(
+                      'forms.contract_form.meta.check_contractor_transactions'
+                    )}
                   </a>
                 </List.Item>
 
                 <List.Item>
-                  Job budget: {`${dto.budget} (${accountBalance.symbol})`}
+                  {t('forms.contract_form.meta.job_budget', {
+                    budget: dto.budget,
+                    symbol: accountBalance.symbol,
+                  })}
                 </List.Item>
+
                 <List.Item>
-                  Contractor&apos;s service rate:{' '}
-                  {`${dto.serviceFee} (${accountBalance.symbol})`}
+                  {t('forms.contract_form.meta.contractor_service_rate', {
+                    serviceRate: dto.serviceFee,
+                    symbol: accountBalance.symbol,
+                  })}
                 </List.Item>
               </List>
             </Segment>

@@ -30,6 +30,7 @@ import gigsAddJobCommandABI from '../../../contracts/GigsAddJobCommand.json'
 import { ValidationErrors } from '../../components/ValidationErrors'
 import { SuggestMinimizeGasFees } from '../../components/SuggestMinimizeGasFees'
 import { useConversionRate } from '../../hooks/useConversionRate'
+import useTranslation from 'next-translate/useTranslation'
 
 const { publicRuntimeConfig } = getConfig()
 const { optriSpaceContractAddress, frontendNodeAddress } = publicRuntimeConfig
@@ -40,6 +41,8 @@ export const NewJobForm = ({
   onJobCreated,
   jobsCategories,
 }) => {
+  const { t } = useTranslation('common')
+
   const [displayModal, setDisplayModal] = useState(false)
   const [isLoaded, setIsLoaded] = useState(false)
 
@@ -126,31 +129,37 @@ export const NewJobForm = ({
     let error
 
     if (isEmptyString(debouncedTitle)) {
-      error = 'Title must be filled'
+      error = t('errors.messages.empty', { field: t('jobs:model.title') })
       setTitleError(error)
       errors.push(error)
     }
 
     if (isEmptyString(debouncedDescription)) {
-      error = 'Description must be filled'
+      error = t('errors.messages.empty', { field: t('jobs:model.description') })
       setDescriptionError(error)
       errors.push(error)
     }
 
     if (!isEmptyString(debouncedBudget) && isNumber(debouncedBudget)) {
       if (+debouncedBudget < 0 || +debouncedBudget > 100) {
-        error = 'Budget must be between 0-100'
+        error = t('errors.messages.between', {
+          field: t('jobs:model.budget'),
+          from: '0',
+          to: '100.0',
+        })
         setBudgetError(error)
         errors.push(error)
       }
     } else {
-      error = 'Budget must be a number'
+      error = t('errors.messages.not_a_number', {
+        field: t('jobs:model.budget'),
+      })
       setBudgetError(error)
       errors.push(error)
     }
 
     if (categoryId < 0 || isEmptyString(categoryCode)) {
-      error = 'Category must be set'
+      error = t('errors.messages.empty', { field: t('jobs:model.category') })
       setCategoryError(error)
       errors.push(error)
     }
@@ -158,6 +167,7 @@ export const NewJobForm = ({
     setIsValidForm(errors.length === 0)
     setValidationErrors(errors)
   }, [
+    t,
     debouncedTitle,
     debouncedDescription,
     debouncedBudget,
@@ -167,11 +177,19 @@ export const NewJobForm = ({
 
   const panes = [
     {
-      menuItem: { key: 'write', icon: 'pencil', content: 'Edit' },
+      menuItem: {
+        key: 'write',
+        icon: 'pencil',
+        content: t('forms.job_form.description.tab_edit'),
+      },
       render: () => <Tab.Pane>{renderWriteJob()}</Tab.Pane>,
     },
     {
-      menuItem: { key: 'preview', icon: 'eye', content: 'Preview' },
+      menuItem: {
+        key: 'preview',
+        icon: 'eye',
+        content: t('forms.job_form.description.tab_preview'),
+      },
       render: () => <Tab.Pane>{renderPreviewJob()}</Tab.Pane>,
     },
   ]
@@ -247,7 +265,7 @@ export const NewJobForm = ({
   const categories = jobsCategories.map((jobsCategory) => {
     return {
       key: jobsCategory.code,
-      text: jobsCategory.label,
+      text: t(`jobs:categories.${jobsCategory.code}`),
       value: jobsCategory.code,
     }
   })
@@ -295,7 +313,7 @@ export const NewJobForm = ({
         description={
           !isEmptyString(description)
             ? getFromStorage('newJobDescription')
-            : 'Nothing to preview!'
+            : t('forms.job_form.description.nothing_to_preview')
         }
       />
     )
@@ -306,7 +324,7 @@ export const NewJobForm = ({
   }
 
   if (jobCreated) {
-    return <JustOneSecondBlockchain message="Waiting for the job address..." />
+    return <JustOneSecondBlockchain />
   }
 
   return (
@@ -317,14 +335,14 @@ export const NewJobForm = ({
 
       {createError && (
         <ErrorWrapper
-          header="Unable to create a job"
+          header={t('errors.transactions.execute')}
           error={errorHandler(createError)}
         />
       )}
 
       {prepareError && (
         <ErrorWrapper
-          header="Job prepare error"
+          header={t('errors.transactions.prepare')}
           error={errorHandler(prepareError)}
         />
       )}
@@ -337,12 +355,16 @@ export const NewJobForm = ({
       >
         <Grid stackable columns={1}>
           <Grid.Column textAlign="right">
-            <Button content="Publish" primary disabled={!isValidForm} />
+            <Button
+              content={t('buttons.publish')}
+              primary
+              disabled={!isValidForm}
+            />
           </Grid.Column>
 
           <Grid.Column mobile={16} computer={11}>
             <Segment>
-              <Header as="h3">Title:</Header>
+              <Header as="h3" content={t('forms.job_form.title.label')} />
 
               <Form.Input
                 id="title"
@@ -356,20 +378,23 @@ export const NewJobForm = ({
             </Segment>
 
             <Segment>
-              <Header as="h3">
-                Please describe everything you need to be done by freelancers:
-              </Header>
+              <Header as="h3" content={t('forms.job_form.description.label')} />
 
               <Tab panes={panes} />
 
-              <MarkdownIsSupported />
               <SuggestMinimizeGasFees />
+              <MarkdownIsSupported />
             </Segment>
           </Grid.Column>
 
           <Grid.Column mobile={16} computer={5}>
             <Segment>
-              <Header as="h3">Budget ({accountBalance.symbol}):</Header>
+              <Header
+                as="h3"
+                content={t('forms.job_form.budget.label', {
+                  symbol: accountBalance.symbol,
+                })}
+              />
               <Form.Input
                 id="budget"
                 error={budgetError}
@@ -388,11 +413,17 @@ export const NewJobForm = ({
                 </Label>
               </Form.Input>
 
-              <p>Minimum budget: 0, maximum: 100.0 {accountBalance.symbol}.</p>
+              <p>
+                {t('forms.job_form.budget.range', {
+                  min: '0',
+                  max: '100.0',
+                  symbol: accountBalance.symbol,
+                })}
+              </p>
             </Segment>
 
             <Segment>
-              <Header as="h3">Category:</Header>
+              <Header as="h3" content={t('forms.job_form.category.label')} />
 
               <Form.Select
                 fluid
@@ -400,7 +431,7 @@ export const NewJobForm = ({
                 required
                 options={categories}
                 value={categoryCode}
-                placeholder="Please select"
+                placeholder={t('labels.please_select')}
                 onChange={handleCategoryChange}
               />
             </Segment>

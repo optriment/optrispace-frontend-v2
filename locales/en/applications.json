@@ -1,0 +1,9 @@
+{
+  "model": {
+    "comment": "Comment",
+    "job_budget": "Job budget",
+    "job_category": "Job category",
+    "service_rate": "Service rate",
+    "created_at": "Created"
+  }
+}

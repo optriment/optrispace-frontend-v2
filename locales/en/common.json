@@ -1,0 +1,759 @@
+{
+  "date": {
+    "locale": "en-GB"
+  },
+  "footer": {
+    "version": "Version",
+    "node": "Node",
+    "platform_is_in_testing_stage": "<0>The platform is in testing stage. If you find any issues, errors or unexpected behaviour while using our platform, please contact us via <1>Discord</1> or <2>GitHub</2>. We would appreciate your help!</0>"
+  },
+  "buttons": {
+    "add_new": "Add New",
+    "reset": "Reset",
+    "agree": "Agree",
+    "apply": "Apply",
+    "publish": "Publish"
+  },
+  "labels": {
+    "loading_from_blockchain": "Loading data from the blockchain...",
+    "please_select": "Please select",
+    "view_transactions_history": "View transactions history",
+    "initializing": "Initializing...",
+    "access_denied": "Access to this page is restricted",
+    "our_recommendation": "Our recommendation: {{ value }}",
+    "not_available": "N/A"
+  },
+  "errors": {
+    "transactions": {
+      "load": "Unable to load data from the blockchain",
+      "execute": "Unable to execute transaction",
+      "prepare": "Unable to prepare transaction"
+    },
+    "messages": {
+      "not_found": "{{ entity }} does not exist",
+      "empty": "{{ field }} can't be empty",
+      "greater_than": "{{ field }} must be greater than {{ count }}",
+      "between": "{{ field }} must be between {{ from }} and {{ to }}",
+      "less_than": "{{ field }} must be less than {{ count }}",
+      "not_a_number": "{{ field }} is not a number",
+      "not_a_blockchain_address": "{{ field }} is not a valid blockchain address"
+    },
+    "template": {
+      "body": "There were problems with the following fields:"
+    }
+  },
+  "pages": {
+    "unauthorized": {
+      "header": {
+        "title": "Please connect wallet to get access to the platform"
+      },
+      "line1": "We store all data on blockchain, because of this we require connected wallet to request all required information."
+    },
+    "landing": {
+      "what_is_optrispace": {
+        "header": {
+          "title": "What is OptriSpace"
+        },
+        "line1": "We are OptriSpace - an international team who got together to face a challenge and build a brand-new platform for people like us: freelancers, managers and entrepreneurs. We provide a platform for people looking for jobs or for professionals for their projects.",
+        "line2": "Our platform is based on the blockchain technology and uses cryptocurrency as a payment method. That makes OptriSpace secure and fast. Smart contracts protect customers and freelancers from third parties and middlemen. Smart contracts handle all logic depends on terms and conditions which have to be signed by both participants."
+      },
+      "how_optrispace_works": {
+        "header": {
+          "title": "How OptriSpace works"
+        },
+        "section1": {
+          "header": "1. Customer posts a job on the platform",
+          "line1": "A customer lists a particular task on the platform and picks a person who wants to work with upon this task. Both of them use external messaging system to discuss terms and conditions (price, acceptance criteria, etc.) of a future contract."
+        },
+        "section2": {
+          "header": "2. Freelancer agrees to terms, accepts and signs the contract",
+          "line1": "At this stage the freelancer has to accept the contract on our platform.",
+          "line2": "After that the customer will be able to fund a smart contract on blockchain."
+        },
+        "section3": {
+          "header": "3. Customer funds the smart contract",
+          "line1": "The customer initiates transaction on blockchain to send money from own wallet to smart contract address. The funds are held on the smart contract address until all conditions have been met."
+        },
+        "section4": {
+          "header": "4. Freelancer starts working on the task and delivers a result",
+          "line1": "The freelancer can't request money before the customer approves the job result. The freelancer has to do best to finish the task to get paid."
+        },
+        "section5": {
+          "header": "5. Customer approves money withdrawal",
+          "line1": "The customer gets the work result and approves money withdrawal from the smart contract by the freelancer."
+        },
+        "section6": {
+          "header": "6. Freelancer withdraws money",
+          "line1": "Freelancer requests money from the smart contract to it's own crypto wallet."
+        }
+      },
+      "what_is_inside": {
+        "header": {
+          "title": "What is inside?"
+        },
+        "powered_by": "Powered by",
+        "smart_contracts": "Smart contracts",
+        "all_of_our_code": "All of our code is",
+        "open_source": "open source",
+        "all_payments_in_crypto": "All payments in crypto",
+        "no_middlemen": "No middlemen",
+        "no_paperwork": "No paperwork"
+      },
+      "what_network_do_we_use": {
+        "header": {
+          "title": "What network do we use?"
+        },
+        "line1": "Binance Smart Chain.",
+        "line2": "Our main currency is the native coin of this network (BNB)."
+      }
+    },
+    "dashboard": {
+      "header": {
+        "title": "Dashboard"
+      },
+      "your_stats": {
+        "header": "Your Stats",
+        "total_jobs_created": "Total jobs created: {{ value }}",
+        "available_jobs": "Available jobs: {{ value }}",
+        "created_applications": "Created applications: {{ value }}",
+        "total_contracts": "Total contracts: {{ value }}",
+        "active_contracts": "Active contracts: {{ value }}",
+        "total_transactions_volume": "Total transactions volume: {{ value }}",
+        "income_as_a_freelancer": "Income as a freelancer: {{ value }}"
+      },
+      "current_node_stats": {
+        "header": "Current Node Stats",
+        "clients": "Clients: {{ value }}",
+        "processed_jobs": "Processed jobs: {{ value }}",
+        "processed_applications": "Processed applications: {{ value }}",
+        "processed_contracts": "Processed contracts: {{ value }}"
+      },
+      "platform_stats": {
+        "header": "Platform Stats",
+        "node_owners": "Node owners: {{ value }}",
+        "frontend_nodes": "Frontend nodes: {{ value }}",
+        "members": "Members: {{ value }}",
+        "freelancers": "Freelancers: {{ value }}",
+        "customers": "Customers: {{ value }}",
+        "jobs": "Jobs: {{ value }}",
+        "applications": "Applications: {{ value }}",
+        "contracts": "Contracts: {{ value }}",
+        "jobs_categories": "Jobs categories: {{ value }}"
+      }
+    },
+    "jobs": {
+      "index": {
+        "header": {
+          "title": "OptriSpace",
+          "subtitle": "No Middlemen. No Paperwork. Fast & Secure Payments."
+        },
+        "buttons": {
+          "add_new": "Add New Job"
+        },
+        "no_records": "No jobs yet"
+      },
+      "new": {
+        "header": {
+          "title": "Add New Job"
+        },
+        "no_jobs_categories": {
+          "header": "There are no jobs categories",
+          "description": "Please contact our support team"
+        }
+      },
+      "show": {
+        "apply_for_this_job": "Apply for this job",
+        "application_created_message": {
+          "header": "You've applied with the service rate of {{ serviceRate }} {{ symbol}} (application price).",
+          "comment": "Your comment: {{ comment }}",
+          "line1": "The next step is to get a contract from the customer to do this task and get paid.",
+          "line2": "You have to discuss terms and conditions and then prove, that you are ready to work.",
+          "line3": "Pay attention and ask anything you need to complete this task.",
+          "line4": "Please do not start working before getting funded contract!"
+        },
+        "applications": {
+          "header": "Applications ({{ count }})",
+          "no_records": "No applications yet",
+          "buttons": {
+            "create_contract": "Create Contract",
+            "open_contract": "Open Contract"
+          }
+        },
+        "application": {
+          "you_have_a_contract": "You have a contract",
+          "click_here_to_open_contract": "Click here to open the contract"
+        },
+        "contracts": {
+          "new": {
+            "header": {
+              "title": "Add New Contract"
+            }
+          }
+        }
+      }
+    },
+    "contracts": {
+      "show": {
+        "contract_description": {
+          "title": "Contract Description, Terms & Conditions"
+        },
+        "detailed_view": {
+          "title": "Detailed View",
+          "line1": "We provide some additional information (it is usually bored for non-technical people) to let you know what is happening with your smart contract on blockchain. If you don't need it - ignore this section below :-)",
+          "line2": "But! These tables will be necessary if you will have any issues with our platform. Please provide this details to our support team with any problems or unexpected behaviour while using our platform.",
+          "contract_history": {
+            "title": "Contract History"
+          },
+          "technical_details": {
+            "title": "Technical Details"
+          }
+        },
+        "contract_lifecycle": {
+          "headers": {
+            "status": "Status",
+            "responsible": "Responsible",
+            "time": "Time"
+          },
+          "you": "You",
+          "customer": "Customer",
+          "contractor": "Contractor",
+          "accept": "Accept",
+          "fund": "Fund",
+          "start": "Start Work",
+          "deliver": "Deliver Result",
+          "approve_or_decline": "Approve or Decline",
+          "withdraw": "Withdraw",
+          "refund": "Refund"
+        },
+        "contract_meta": {
+          "headers": {
+            "key": "Key",
+            "value": "Value"
+          },
+          "current_status": "Current Status",
+          "contract_value": "Contract Value",
+          "contract_balance": "Contract Balance",
+          "days_to_start_work": "Days to Start Work (after funding)",
+          "days_to_deliver_result": "Days to Deliver Result (after funding)",
+          "work_should_be_started_before": "Work Should be Started Before",
+          "result_should_be_delivered_before": "Result Should be Delivered Before",
+          "remaining_time_to_start_work": "Remaining Time to Start Work",
+          "remaining_time_to_deliver_result": "Remaining Time to Deliver Result",
+          "you_are_great": "Awesome! You are great!",
+          "work_started_on_time": "Work started on time!",
+          "result_delivered_on_time": "Result delivered on time!"
+        },
+        "sidebar": {
+          "your_contract": {
+            "header": "Your Contract",
+            "current_status": "Current Status: {{ value }}",
+            "contract_value": "Contract Value: {{ value }} {{ symbol }}",
+            "contract_balance": "Contract Balance: {{ value }} {{ symbol }}",
+            "open_contractor_profile": "Open contractor's profile",
+            "open_customer_profile": "Open customer's profile",
+            "description": "These values below are automatically calculated and depend on current contract status. For example, you will know expected dates of your contract when contract will be funded.",
+            "work_should_be_started_before": "Work Should be Started Before: {{ value }}",
+            "result_should_be_delivered_before": "Result Should be Delivered Before: {{ value }}"
+          },
+          "wallets_and_transactions": {
+            "header": "Wallets & Transactions",
+            "description_for_contractor": "If you want to check all transactions of your customer or smart contract on blockchain, feel free to use buttons below.",
+            "description_for_customer": "If you want to check all transactions of your contractor or smart contract on blockchain, feel free to use buttons below.",
+            "contractor": "Contractor",
+            "customer": "Customer",
+            "contract": "Contract"
+          },
+          "do_you_need_any_help": {
+            "header": "Do you need any help?",
+            "description": "Please join our social media community and ask anything what you want about our platform."
+          }
+        },
+        "customer_screen": {
+          "approve_confirmation_message": {
+            "line1": "At this stage we notice that you will not be able to change contract status after approving result. If you decide to approve the result, it will not be possible to request a refund if you find any issues later.",
+            "line2": "Please check twice all requirements in terms of contract.",
+            "confirm_button": "Approve result"
+          },
+          "decline_confirmation_message": {
+            "line1": "At this stage we notice that you will not be able to change contract status after declining result. If you decide to decline the result, contractor will not be paid and you will be able to request a refund.",
+            "line2": "Please check twice all requirements in terms of contract.",
+            "confirm_button": "Decline result"
+          },
+          "contract_created": {
+            "what_is_next": {
+              "line1": "At this moment we are waiting for the contract to be accepted by the contractor.",
+              "line2": "After this you will be able to fund the contract."
+            }
+          },
+          "contract_accepted": {
+            "what_is_next": {
+              "header": "Smart contract is ready to be funded by {{ value }} {{ symbol }}",
+              "line1": "Please click \"Fund smart contract\" to open MetaMask to confirm transaction.",
+              "line2": "You have to pay gas fee for this transaction.",
+              "line3": "After this step the contractor will be able to start working."
+            },
+            "fund_contract": "Fund smart contract ({{ value }} {{ symbol }})"
+          },
+          "contract_funded": {
+            "what_is_next": {
+              "header": "At this moment we are waiting for the contractor starts work.",
+              "line1": "Contractor has about {{ remainingTimeToStartWork }} to update contract status. Expected date: {{ expectedDate }}.",
+              "line2": "If work will not be started on time, you will be able to refund your money."
+            },
+            "out_of_time": {
+              "header": "Contractor did not start work on time!",
+              "line1": "Please click \"Refund\" below to get your money back.",
+              "line2": "All money ({{ value}} {{ symbol }}) will be sent to your wallet immediately.",
+              "refund_contract": "Refund"
+            }
+          },
+          "contract_started": {
+            "what_is_next": {
+              "header": "At this moment we are waiting for the contractor to deliver result.",
+              "line1": "Contractor has about {{ remainingTimeToDeliverResult }} to update contract status. Expected date: {{ expectedDate }}.",
+              "line2": "If work result will not be delivered on time, you will be able to refund your money.",
+              "line3": "Also you are able to approve contract before getting delivered result.",
+              "line4": "Right after this contractor will be able to withdraw money.",
+              "line5": "You will not be able to refund money if you approve this contract at this step! Think twice please."
+            },
+            "out_of_time": {
+              "header": "Contractor did not deliver result on time!",
+              "line1": "Please click \"Refund\" below to get your money back.",
+              "line2": "All money ({{ value}} {{ symbol }}) will be sent to your wallet immediately.",
+              "refund_contract": "Refund"
+            },
+            "approve_contract": "I understand and I want to approve the contract"
+          },
+          "contract_delivered": {
+            "header": "Wow! It looks like your contractor has delivered result on time!",
+            "line1": "Right now you have two options. Let us explain.",
+            "line2": "You are able to approve delivered result and right after this contractor will be able to withdraw money. Please check: were all terms, conditions and requirements of the contract met? Do you have any questions, additional information or improvements have to be done in terms of this contract?",
+            "line3": "You will not be able to refund money if you approve this contract!",
+            "line4": "If you decide to decline contract, you will be able to refund your money and contractor will not get paid. Contract will be closed instantly.",
+            "approve_contract": "Approve",
+            "decline_contract": "Decline"
+          },
+          "contract_approved": {
+            "header": "Congratulations!",
+            "line1": "We hope you have enjoyed working with this freelancer!",
+            "line2": "If you have any ideas on how to improve OptriSpace – feel free to contact us."
+          },
+          "contract_declined": {
+            "header": "You have declined this contract!",
+            "line1": "Please click \"Refund\" below to get your money back.",
+            "line2": "All money ({{ value }} {{ symbol }}) will be sent to your wallet immediately.",
+            "refund_contract": "Refund"
+          },
+          "contract_refunded": {
+            "header": "Your refund has been processed!",
+            "line1": "We hope you will enjoy working with this freelancer next time!",
+            "line2": "If you have any ideas on how to improve OptriSpace – feel free to contact us."
+          }
+        },
+        "contractor_screen": {
+          "do_not_start_working": {
+            "header": "Friendly reminder from OptriSpace Team:",
+            "line1": "This contract has not been funded yet!",
+            "line2": "Please don't start working on this job before getting funded contract!"
+          },
+          "contract_created": {
+            "what_is_next": {
+              "line1": "Please ask your customer whatever you need to make this job done.",
+              "line2": "If you agree with the contract and everything is good for you, please click \"Accept Terms & Conditions\" to continue.",
+              "line3": "After this step the customer will be able to fund the smart contract."
+            },
+            "accept_contract": "Accept Terms & Conditions"
+          },
+          "contract_accepted": {
+            "what_is_next": {
+              "line1": "At this moment we are waiting for the smart contract to be funded by the customer.",
+              "line2": "After this you will be able to start your work."
+            }
+          },
+          "contract_funded": {
+            "what_is_next": {
+              "header": "At this moment customer is waiting for you to start work.",
+              "line1": "You have about {{ remainingTimeToStartWork }} to update contract status. Expected date: {{ expectedDate }}.",
+              "line2": "If work will not be started on time, customer will be able to refund money!"
+            },
+            "out_of_time": {
+              "header": "Too late to start work",
+              "line1": "Unfortunately you are out of time to start work within this contract.",
+              "line2": "Customer will request money back."
+            },
+            "start_work": "Start Work"
+          },
+          "contract_started": {
+            "what_is_next": {
+              "header": "Please do not forget to deliver result on time!",
+              "line1": "At this moment customer is waiting for you to deliver result.",
+              "line2": "You have about {{ remainingTimeToDeliverResult }} to update contract status. Expected date: {{ expectedDate }}.",
+              "line3": "If work will not be delivered on time, customer will be able to refund money."
+            },
+            "confirmation_message": {
+              "confirm_button": "Deliver Result",
+              "line1": "At this stage we notice that you will not be able to change contract status after delivering result. If customer decides to decline your contract, you will not be paid.",
+              "line2": "Please check twice all requirements in terms of contract."
+            },
+            "out_of_time": {
+              "header": "Too late to deliver result",
+              "line1": "Unfortunately you are out of time to deliver work result within this contract.",
+              "line2": "Customer will request money back."
+            },
+            "deliver_result": "Deliver Result"
+          },
+          "contract_delivered": {
+            "what_is_next": {
+              "line1": "At this moment we are waiting for the smart contract to be approved (or even declined) by the customer.",
+              "line2": "Please do your best to help your customer to confirm your work result."
+            }
+          },
+          "contract_approved": {
+            "header": "You contract has been approved!",
+            "line1": "Now you can request your money.",
+            "withdraw_contract": "Withdraw"
+          },
+          "contract_declined": {
+            "header": "Your contract has been declined!",
+            "line1": "Customer has rejected your work result.",
+            "line2": "Please do your best next time and wish you good luck!"
+          },
+          "contract_withdrew": {
+            "header": "Congratulations!",
+            "line1": "We hope you have enjoyed working with this customer!",
+            "line2": "If you have any ideas on how to improve OptriSpace – feel free to contact us."
+          }
+        }
+      }
+    },
+    "customer": {
+      "jobs": {
+        "index": {
+          "header": {
+            "title": "My Jobs"
+          },
+          "no_records": "No owned jobs yet"
+        }
+      },
+      "contracts": {
+        "index": {
+          "header": {
+            "title": "My Contracts as Customer"
+          },
+          "no_records": "No contracts yet"
+        }
+      }
+    },
+    "customers": {
+      "show": {
+        "header": {
+          "title": "Welcome to {{ name }} profile!"
+        },
+        "blockchain_address": {
+          "header": "Blockchain address:"
+        },
+        "stats": {
+          "header": "Stats:",
+          "total_contracts": "Total contracts: {{ count }}"
+        },
+        "last_transaction_was": {
+          "header": "Last transaction was:"
+        },
+        "profile_picture": "Profile picture"
+      }
+    },
+    "freelancers": {
+      "index": {
+        "header": {
+          "title": "Freelancers"
+        },
+        "no_records": "No freelancers yet",
+        "last_activity": "Last activity: {{ date }}",
+        "skill_tags": "Skill tags:",
+        "total_contracts": "Total contracts: {{ count }}",
+        "succeeded_contracts": "Succeeded contracts: {{ count }}",
+        "failed_contracts": "Failed contracts: {{ count }}"
+      },
+      "show": {
+        "header": {
+          "title": "Welcome to {{ name }} profile!"
+        },
+        "about": {
+          "header": "A few sentences about the freelancer:",
+          "no_information_given": "No information given"
+        },
+        "blockchain_address": {
+          "header": "Blockchain address:"
+        },
+        "stats": {
+          "header": "Stats:",
+          "total_contracts": "Total contracts: {{ count }}",
+          "succeeded_contracts": "Succeeded contracts: {{ count }}",
+          "failed_contracts": "Failed contracts: {{ count }}"
+        },
+        "last_transaction_was": {
+          "header": "Last transaction was:"
+        },
+        "profile_picture": "Profile picture"
+      }
+    },
+    "freelancer": {
+      "applications": {
+        "index": {
+          "header": {
+            "title": "My Applications"
+          },
+          "job_description_preview": "Job Description Preview:",
+          "comment": "Comment:",
+          "has_contract": "Has contract",
+          "open_contract": "Open Contract",
+          "no_records": "No applications yet"
+        }
+      },
+      "contracts": {
+        "index": {
+          "header": {
+            "title": "My Contracts as Freelancer"
+          },
+          "no_records": "No contracts yet"
+        }
+      }
+    }
+  },
+  "forms": {
+    "job_form": {
+      "title": {
+        "label": "Title:"
+      },
+      "description": {
+        "label": "Please describe everything you need to be done by freelancers:",
+        "tab_edit": "Edit",
+        "tab_preview": "Preview",
+        "nothing_to_preview": "Nothing to preview"
+      },
+      "budget": {
+        "label": "Budget ({{ symbol }}):",
+        "range": "Minimum budget: {{ min }}, maximum: {{ max }} {{symbol}}"
+      },
+      "category": {
+        "label": "Category:"
+      }
+    },
+    "application_form": {
+      "comment": {
+        "label": "Comment:"
+      },
+      "service_rate": {
+        "label": "Expected service rate ({{symbol}}):"
+      },
+      "friendly_reminder_message": {
+        "header": "Friendly reminder from OptriSpace Team",
+        "line1": "<0>Please note that we will do our best to review all applications (for our tasks) and answer everyone ASAP. If you really like the project, and you&apos;d like your application to be reviewed sooner, please consider creating some meaningful Pull Requests to any of our <1>open-source projects</1> and include the link to a PR to your application.</0>",
+        "line2": "Pay attention! When applying for jobs, you should never have to pay to apply (except gas fees for processing transactions on the blockchain). You should also never have to pay a customer for something (to speed up your application processing, etc.)"
+      }
+    },
+    "contract_form": {
+      "buttons": {
+        "fill_form": "Fill form from job and application"
+      },
+      "title": {
+        "label": "Title:"
+      },
+      "description": {
+        "label": "Please describe everything you need to be done by your contractor in terms of contract",
+        "line1": "Put here whatever you want: acceptance criteria, links to required documents, assets, or references.",
+        "line2": "Pay attention: you will pay extra gas fee if you would like to make changes in this contract later.",
+        "line3": "So, we recommend you to put all information right now just to save your money."
+      },
+      "contract_lifecycle": {
+        "label": "Contract Lifecycle:",
+        "description": "This is a short explanation of future steps of a contract between you and your contractor.",
+        "steps": {
+          "create": {
+            "title": "1. Create",
+            "description": "Customer creates a contract"
+          },
+          "accept": {
+            "title": "2. Accept",
+            "description": "Contractor accepts the terms"
+          },
+          "fund": {
+            "title": "3. Fund",
+            "description": "Customer funds the contract"
+          },
+          "start": {
+            "title": "4. Start",
+            "description": "Contractor starts working"
+          },
+          "deliver": {
+            "title": "5. Deliver",
+            "description": "Contractor delivers result"
+          },
+          "confirm_decline": {
+            "title": "6. Confirm/Decline",
+            "description": "Customer checks the result"
+          }
+        }
+      },
+      "value": {
+        "label": "Contract Value ({{ symbol }}):"
+      },
+      "days_to_start_work": {
+        "label": "Days to Start Work:",
+        "line1": "How many days contractor will have to start working on your contract, starting from the date when the contract was funded.",
+        "line2": "If the contractor does not change the contract status from \"Funded\" to \"Started\" within these number of days, you will be able to refund your money."
+      },
+      "days_to_deliver_result": {
+        "label": "Days to Deliver Result:",
+        "line1": "This is a contract lifetime after fund.",
+        "line2": "It must be greater than \"Days to Start Work\".",
+        "line3": "If the contractor does not send the final results in accordance with the terms of this contract within the deadline, you will be able to request a refund.",
+        "line4": "This value will be used after you fund the contract."
+      },
+      "meta": {
+        "label": "Meta:",
+        "open_original_job": "Open original job",
+        "open_contractor_profile": "Open contractor's profile",
+        "check_contractor_transactions": "Check contractor's transactions",
+        "job_budget": "Job budget: {{ budget }} ({{ symbol }})",
+        "contractor_service_rate": "Contractor's service rate: {{ serviceRate }} ({{ symbol }})"
+      },
+      "auto_fill_form_dialog": {
+        "header": "Do you want to fill all fields in this form automatically?",
+        "line1": "We can collect all required information from your job card and applicant's application and fill this form.",
+        "line2": "Title and description will be loaded from a job",
+        "line3": "Contract value will be loaded from an application.",
+        "line4": "Do you want to proceed?",
+        "negative_button": "No, I'll do it manually",
+        "positive_button": "Yes, please fill"
+      }
+    }
+  },
+  "components": {
+    "wallet_loader": {
+      "connecting_to_account": "Connecting to account...",
+      "reconnecting_to_account": "Reconnecting to account...",
+      "error_loading_account": "Error loading account",
+      "switching_network": "Switching network...",
+      "error_switching_network": "Error switching network",
+      "loading_balance": "Loading balance...",
+      "error_loading_balance": "Error loading balance",
+      "loading_contract_version": "Loading contract version..."
+    },
+    "menu": {
+      "connect_wallet": "Connect Wallet",
+      "disconnect_wallet": "Disconnect ({{address}})...",
+      "browse": {
+        "main": "Browse",
+        "jobs": "Jobs",
+        "vacancies": "Vacancies",
+        "freelancers": "Freelancers"
+      },
+      "customer": {
+        "main": "Customer",
+        "my_jobs": "My Jobs",
+        "my_contracts": "My Contracts",
+        "my_vacancies": "My Vacancies",
+        "add_new_job": "Add New Job",
+        "add_new_vacancy": "Add New Vacancy",
+        "my_profile": "My Profile"
+      },
+      "freelancer": {
+        "main": "Freelancer",
+        "my_applications": "My Applications",
+        "my_contracts": "My Contracts",
+        "my_resumes": "My Resumes",
+        "my_profile": "My Profile"
+      },
+      "node_owner": {
+        "main": "Node Owner",
+        "my_frontend_nodes": "My Frontend Nodes"
+      },
+      "balance": "Balance: {{balance}} {{symbol}}"
+    },
+    "just_one_second": {
+      "header": "Just one second",
+      "default_description": "We are fetching that content for you"
+    },
+    "just_one_second_blockchain": {
+      "header": "Please wait...",
+      "default_description": "We are waiting for the blockchain response",
+      "suggestion": "If this message will not disappear in 15-20 seconds, please refresh the page"
+    },
+    "insufficient_balance": {
+      "header": "Insufficient Balance",
+      "line1": "Unfortunately you do not have enough money in your account to perform a transaction on blockchain.",
+      "line2": "Please deposit some money to your wallet and try again."
+    },
+    "markdown_is_supported": {
+      "header": "Do you know?",
+      "line1": "<0>You can use <1>Markdown</1> formatting elements in a description.</0>",
+      "line2": "Headings (h1-h6) and blockquote are not supported."
+    },
+    "unsaved_changes_dialog": {
+      "header": "Unsaved changes were found!",
+      "description": "Do you want to recover this information?",
+      "negative_button": "No, remove it",
+      "positive_button": "Yes, please recover"
+    },
+    "confirm_transaction_message": {
+      "header": "Action required",
+      "line1": "We are ready to save data on blockchain.",
+      "line2": "Please confirm transaction in your wallet."
+    },
+    "jobs_sidebar": {
+      "filters": "Filters",
+      "category": "Category",
+      "applications": "Applications",
+      "budget": "Budget",
+      "all": "All"
+    },
+    "contracts_sidebar": {
+      "filters": "Filters",
+      "status": "Status:",
+      "job": "Job:",
+      "customer": "Customer:",
+      "contractor": "Contractor:",
+      "action_required": "Action Required",
+      "all": "All"
+    },
+    "sidebar": {
+      "header": "Our Core Features",
+      "no_paperwork": "No paperwork",
+      "no_middlemen": "No middlemen",
+      "no_managers": "No managers",
+      "no_third_parties": "No third parties",
+      "fast_and_secure_payments": "Fast & secure payments",
+      "no_platform_fees": "No platform fees",
+      "powered_by_smart_contracts": "Powered by smart contracts",
+      "all_code_is_open_source": "All of our code is open source",
+      "all_payments_in_crypto": "All payments in crypto",
+      "born_to_work_globally": "Born to work globally"
+    },
+    "what_is_next_message": {
+      "header": "What is next?"
+    },
+    "confirmation_message": {
+      "header": "Warning",
+      "close_button": "Close"
+    },
+    "wrong_blockchain_network": {
+      "header": "You are connected to the wrong blockchain network",
+      "our_platform_uses": "Our platform uses {{ blockchainNetworkName }}.",
+      "connect_to_valid_network": "Please connect your wallet to the valid network and reload the page.",
+      "switch_network": "Switch Network to {{ blockchainNetworkName }}"
+    },
+    "error_fetching_contract_version": {
+      "header": "Invalid Settings Detected!",
+      "line1": "It looks like current application is connected to an invalid smart contract address.",
+      "line2": "Please contact our team to get actual smart contract address and update your application settings.",
+      "error_description": "Error description:"
+    },
+    "suggest_minimize_gas_fees": {
+      "header": "How to minimize gas fees?",
+      "line1": "If you are working on a project that involves sharing and collaborating on documents or code, you may want to consider using a cloud-based platform such as Google Docs or GitHub. The more detailed is your description here, the more you will pay in gas fees to submit this job.",
+      "line2": "Providing detailed explanations of the tasks in a separate document or repository can help reduce the amount of data you need to store on the blockchain. These platforms allow you to collaborate with others without incurring high gas fees, as the data is not stored on the blockchain.",
+      "line3": "Additionally, you can use Telegram or Discord to share and discuss ideas with the freelancer."
+    }
+  }
+}

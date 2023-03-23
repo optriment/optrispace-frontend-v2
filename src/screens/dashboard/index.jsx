@@ -17,11 +17,14 @@ import JustOneSecond, {
 } from '../../components/JustOneSecond'
 import ErrorWrapper from '../../components/ErrorWrapper'
 import { errorHandler } from '../../lib/errorHandler'
+import useTranslation from 'next-translate/useTranslation'
 
 const { publicRuntimeConfig } = getConfig()
 const { optriSpaceContractAddress, frontendNodeAddress } = publicRuntimeConfig
 
 export const DashboardScreen = ({ currentAccount }) => {
+  const { t } = useTranslation('common')
+
   const [stats, setStats] = useState()
   const [events, setEvents] = useState()
   const [gigsStats, setGigsStats] = useState()
@@ -95,117 +98,207 @@ export const DashboardScreen = ({ currentAccount }) => {
   }, [rawGigsStats])
 
   if (statsLoading) {
-    return <JustOneSecondBlockchain message="Loading stats..." />
+    return (
+      <JustOneSecondBlockchain message={t('labels.loading_from_blockchain')} />
+    )
   }
 
   if (statsError) {
     return (
       <ErrorWrapper
-        header="Error fetching stats"
+        header={t('errors.transactions.load')}
         error={errorHandler(statsError)}
       />
     )
   }
 
   if (!stats) {
-    return <JustOneSecond title="Initializing stats..." />
+    return <JustOneSecond title={t('labels.initializing')} />
   }
 
   if (eventsLoading) {
-    return <JustOneSecondBlockchain message="Loading events..." />
+    return (
+      <JustOneSecondBlockchain message={t('labels.loading_from_blockchain')} />
+    )
   }
 
   if (eventsError) {
     return (
       <ErrorWrapper
-        header="Error fetching events"
+        header={t('errors.transactions.load')}
         error={errorHandler(eventsError)}
       />
     )
   }
 
   if (!events) {
-    return <JustOneSecond title="Initializing events..." />
+    return <JustOneSecond title={t('labels.initializing')} />
   }
 
   if (gigsStatsLoading) {
-    return <JustOneSecondBlockchain message="Loading gigs stats..." />
+    return (
+      <JustOneSecondBlockchain message={t('labels.loading_from_blockchain')} />
+    )
   }
 
   if (gigsStatsError) {
     return (
       <ErrorWrapper
-        header="Error fetching gigs stats"
+        header={t('errors.transactions.load')}
         error={errorHandler(gigsStatsError)}
       />
     )
   }
 
   if (!gigsStats) {
-    return <JustOneSecond title="Initializing gigs stats..." />
+    return <JustOneSecond title={t('labels.initializing')} />
   }
 
   return (
     <Container textAlign="center">
-      <Header as="h1" content="Dashboard" />
+      <Header as="h1" content={t('pages.dashboard.header.title')} />
 
       <Divider hidden />
 
       <Segment placeholder>
         <Grid columns={3} relaxed="very" stackable>
           <Grid.Column>
-            <Header as="h3">Your Stats</Header>
+            <Header as="h3" content={t('pages.dashboard.your_stats.header')} />
 
             <Segment textAlign="left">
               <List size="large">
-                <List.Item>Total jobs created: (unknown)</List.Item>
-                <List.Item>Available jobs: (unknown)</List.Item>
-                <List.Item>Created applications: (unknown)</List.Item>
-                <List.Item>Total contracts: (unknown)</List.Item>
-                <List.Item>Active contracts: (unknown)</List.Item>
-                <List.Item>Total transactions volume: (unknown)</List.Item>
-                <List.Item>Income as a freelancer: (unknown)</List.Item>
+                <List.Item
+                  content={t('pages.dashboard.your_stats.total_jobs_created', {
+                    value: '',
+                  })}
+                />
+                <List.Item
+                  content={t('pages.dashboard.your_stats.available_jobs', {
+                    value: '',
+                  })}
+                />
+                <List.Item
+                  content={t(
+                    'pages.dashboard.your_stats.created_applications',
+                    {
+                      value: '',
+                    }
+                  )}
+                />
+                <List.Item
+                  content={t('pages.dashboard.your_stats.total_contracts', {
+                    value: '',
+                  })}
+                />
+                <List.Item
+                  content={t('pages.dashboard.your_stats.active_contracts', {
+                    value: '',
+                  })}
+                />
+                <List.Item
+                  content={t(
+                    'pages.dashboard.your_stats.total_transactions_volume',
+                    { value: '' }
+                  )}
+                />
+                <List.Item
+                  content={t(
+                    'pages.dashboard.your_stats.income_as_a_freelancer',
+                    { value: '' }
+                  )}
+                />
               </List>
             </Segment>
           </Grid.Column>
 
           <Grid.Column>
-            <Header as="h3">Current Node Stats</Header>
+            <Header
+              as="h3"
+              content={t('pages.dashboard.current_node_stats.header')}
+            />
 
             <Segment textAlign="left">
               <List size="large">
-                <List.Item>Clients: {events.CLIENT_CREATED}</List.Item>
-                <List.Item>Processed jobs: {events.JOB_CREATED}</List.Item>
-                <List.Item>
-                  Processed applications: {events.APPLICATION_CREATED}
-                </List.Item>
-                <List.Item>
-                  Processed contracts: {events.CONTRACT_CREATED}
-                </List.Item>
+                <List.Item
+                  content={t('pages.dashboard.current_node_stats.clients', {
+                    value: events.CLIENT_CREATED,
+                  })}
+                />
+                <List.Item
+                  content={t(
+                    'pages.dashboard.current_node_stats.processed_jobs',
+                    { value: events.JOB_CREATED }
+                  )}
+                />
+                <List.Item
+                  content={t(
+                    'pages.dashboard.current_node_stats.processed_applications',
+                    { value: events.APPLICATION_CREATED }
+                  )}
+                />
+                <List.Item
+                  content={t(
+                    'pages.dashboard.current_node_stats.processed_contracts',
+                    { value: events.CONTRACT_CREATED }
+                  )}
+                />
               </List>
             </Segment>
           </Grid.Column>
 
           <Grid.Column>
-            <Header as="h3">OptriSpace Stats</Header>
+            <Header
+              as="h3"
+              content={t('pages.dashboard.platform_stats.header')}
+            />
 
             <Segment textAlign="left">
               <List size="large">
-                <List.Item>Node owners: {stats.nodeOwnersCount}</List.Item>
-                <List.Item>
-                  Frontend nodes: {stats.frontendNodesCount}
-                </List.Item>
-                <List.Item>Members: {stats.peopleCount}</List.Item>
-                <List.Item>Freelancers: {gigsStats.freelancersCount}</List.Item>
-                <List.Item>Customers: {gigsStats.customersCount}</List.Item>
-                <List.Item>Jobs: {gigsStats.jobsCount}</List.Item>
-                <List.Item>
-                  Applications: {gigsStats.applicationsCount}
-                </List.Item>
-                <List.Item>Contracts: {gigsStats.contractsCount}</List.Item>
-                <List.Item>
-                  Jobs categories: {gigsStats.jobsCategoriesCount}
-                </List.Item>
+                <List.Item
+                  content={t('pages.dashboard.platform_stats.node_owners', {
+                    value: stats.nodeOwnersCount,
+                  })}
+                />
+                <List.Item
+                  content={t('pages.dashboard.platform_stats.frontend_nodes', {
+                    value: stats.frontendNodesCount,
+                  })}
+                />
+                <List.Item
+                  content={t('pages.dashboard.platform_stats.members', {
+                    value: stats.peopleCount,
+                  })}
+                />
+                <List.Item
+                  content={t('pages.dashboard.platform_stats.freelancers', {
+                    value: gigsStats.freelancersCount,
+                  })}
+                />
+                <List.Item
+                  content={t('pages.dashboard.platform_stats.customers', {
+                    value: gigsStats.customersCount,
+                  })}
+                />
+                <List.Item
+                  content={t('pages.dashboard.platform_stats.jobs', {
+                    value: gigsStats.jobsCount,
+                  })}
+                />
+                <List.Item
+                  content={t('pages.dashboard.platform_stats.applications', {
+                    value: gigsStats.applicationsCount,
+                  })}
+                />
+                <List.Item
+                  content={t('pages.dashboard.platform_stats.contracts', {
+                    value: gigsStats.contractsCount,
+                  })}
+                />
+                <List.Item
+                  content={t('pages.dashboard.platform_stats.jobs_categories', {
+                    value: gigsStats.jobsCategoriesCount,
+                  })}
+                />
               </List>
             </Segment>
           </Grid.Column>

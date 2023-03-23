@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import getConfig from 'next/config'
 import { useRouter } from 'next/router'
 import { useContract } from '../../hooks/useContract'
-
 import {
   Header,
   Tab,
@@ -24,6 +23,7 @@ import { formatDateTime, toDaysMinutesSeconds } from '../../lib/formatDate'
 import { ContractLifeCycle } from './ContractLifeCycle'
 import { ContractMeta } from './ContractMeta'
 import { ConfirmationMessage } from '../ConfirmationMessage'
+import useTranslation from 'next-translate/useTranslation'
 
 const { publicRuntimeConfig } = getConfig()
 const {
@@ -39,6 +39,8 @@ export const ContractCardForContractor = ({
   currentAccount,
   accountBalance,
 }) => {
+  const { t } = useTranslation('common')
+
   const router = useRouter()
   const [displayModal, setDisplayModal] = useState(false)
   const {
@@ -114,7 +116,10 @@ export const ContractCardForContractor = ({
 
   const panes = [
     {
-      menuItem: { key: 'history', content: 'Contract History' },
+      menuItem: {
+        key: 'history',
+        content: t('pages.contracts.show.detailed_view.contract_history.title'),
+      },
       render: () => (
         <Tab.Pane>
           <ContractLifeCycle contract={contract} />
@@ -122,7 +127,12 @@ export const ContractCardForContractor = ({
       ),
     },
     {
-      menuItem: { key: 'meta', content: 'Technical Details' },
+      menuItem: {
+        key: 'meta',
+        content: t(
+          'pages.contracts.show.detailed_view.technical_details.title'
+        ),
+      },
       render: () => (
         <Tab.Pane>
           <ContractMeta contract={contract} symbol={accountBalance.symbol} />
@@ -146,9 +156,7 @@ export const ContractCardForContractor = ({
     contractDelivered ||
     contractWithdrew
   ) {
-    return (
-      <JustOneSecondBlockchain message="Waiting for the contract status..." />
-    )
+    return <JustOneSecondBlockchain />
   }
 
   return (
@@ -156,7 +164,7 @@ export const ContractCardForContractor = ({
       {acceptPrepareError && (
         <Grid.Column>
           <ErrorWrapper
-            header="Unable to prepare accept"
+            header={t('errors.transactions.prepare')}
             error={errorHandler(acceptPrepareError, 'acceptPrepareError')}
           />
         </Grid.Column>
@@ -165,7 +173,7 @@ export const ContractCardForContractor = ({
       {acceptError && (
         <Grid.Column>
           <ErrorWrapper
-            header="Unable to accept"
+            header={t('errors.transactions.execute')}
             error={errorHandler(acceptError, 'acceptError')}
           />
         </Grid.Column>
@@ -174,7 +182,7 @@ export const ContractCardForContractor = ({
       {startPrepareError && (
         <Grid.Column>
           <ErrorWrapper
-            header="Unable to prepare start"
+            header={t('errors.transactions.prepare')}
             error={errorHandler(startPrepareError, 'startPrepareError')}
           />
         </Grid.Column>
@@ -183,7 +191,7 @@ export const ContractCardForContractor = ({
       {startError && (
         <Grid.Column>
           <ErrorWrapper
-            header="Unable to start"
+            header={t('errors.transactions.execute')}
             error={errorHandler(startError, 'startError')}
           />
         </Grid.Column>
@@ -192,7 +200,7 @@ export const ContractCardForContractor = ({
       {deliverPrepareError && (
         <Grid.Column>
           <ErrorWrapper
-            header="Unable to prepare deliver"
+            header={t('errors.transactions.prepare')}
             error={errorHandler(deliverPrepareError, 'deliverPrepareError')}
           />
         </Grid.Column>
@@ -201,7 +209,7 @@ export const ContractCardForContractor = ({
       {deliverError && (
         <Grid.Column>
           <ErrorWrapper
-            header="Unable to deliver"
+            header={t('errors.transactions.execute')}
             error={errorHandler(deliverError, 'deliverError')}
           />
         </Grid.Column>
@@ -210,7 +218,7 @@ export const ContractCardForContractor = ({
       {withdrawPrepareError && (
         <Grid.Column>
           <ErrorWrapper
-            header="Unable to prepare withdraw"
+            header={t('errors.transactions.prepare')}
             error={errorHandler(withdrawPrepareError, 'withdrawPrepareError')}
           />
         </Grid.Column>
@@ -219,61 +227,37 @@ export const ContractCardForContractor = ({
       {withdrawError && (
         <Grid.Column>
           <ErrorWrapper
-            header="Unable to withdraw"
+            header={t('errors.transactions.execute')}
             error={errorHandler(withdrawError, 'withdrawError')}
           />
         </Grid.Column>
-      )}
-
-      {displayModal && (
-        <ConfirmationMessage
-          onClose={() => setDisplayModal(false)}
-          onConfirm={() => {
-            writeDeliver?.()
-            setDisplayModal(false)
-          }}
-          confirmationButtonContent="Deliver result"
-          confirmationButtonPositive
-        >
-          At this stage we notice that you will not be able to change contract
-          status after delivering result. If customer decides to decline your
-          contract, you will not be paid.
-          <Divider />
-          <b>Please check twice all requirements in terms of contract.</b>
-        </ConfirmationMessage>
       )}
 
       {currentStatus === 'created' && (
         <Grid.Column>
           <DoNotStartWorking />
 
-          <Message icon>
-            <Icon name="file text" />
-
-            <Message.Content>
-              <Message.Header>
-                Please check all requirements, terms and conditions of the
-                contract
-              </Message.Header>
-
-              <Divider />
-
-              <p>
-                Please ask your customer whatever you need to make this job
-                done.
-                <br />
-                If you agree with the contract and everything is good for you,
-                please click &quot;Accept Terms & Conditions &quot; to continue.
-                <br />
-                After this step the customer will be able to fund smart contract
-                on blockchain.
-              </p>
-            </Message.Content>
-          </Message>
+          <WhatIsNextMessage>
+            <p>
+              {t(
+                'pages.contracts.show.contractor_screen.contract_created.what_is_next.line1'
+              )}
+              <br />
+              {t(
+                'pages.contracts.show.contractor_screen.contract_created.what_is_next.line2'
+              )}
+              <br />
+              {t(
+                'pages.contracts.show.contractor_screen.contract_created.what_is_next.line3'
+              )}
+            </p>
+          </WhatIsNextMessage>
 
           <ExecuteBlockchainTransactionButton
             icon="file text"
-            content="Accept Terms & Conditions"
+            content={t(
+              'pages.contracts.show.contractor_screen.contract_created.accept_contract'
+            )}
             onClick={acceptContract}
             floated="right"
           />
@@ -286,10 +270,13 @@ export const ContractCardForContractor = ({
 
           <WhatIsNextMessage>
             <p>
-              At this moment we are waiting for the smart contract to be funded
-              on the blockchain by the customer.
+              {t(
+                'pages.contracts.show.contractor_screen.contract_accepted.what_is_next.line1'
+              )}
               <br />
-              After this you will be able to start your work.
+              {t(
+                'pages.contracts.show.contractor_screen.contract_accepted.what_is_next.line2'
+              )}
             </p>
           </WhatIsNextMessage>
         </Grid.Column>
@@ -299,36 +286,43 @@ export const ContractCardForContractor = ({
         <Grid.Column>
           {contract.remainingTimeToStartWork > 0 ? (
             <>
-              <Message icon>
-                <Icon name="play" />
+              <WhatIsNextMessage>
+                <p>
+                  <b>
+                    {t(
+                      'pages.contracts.show.contractor_screen.contract_funded.what_is_next.header'
+                    )}
+                  </b>
+                </p>
 
-                <Message.Content>
-                  <Message.Header>Be ready!</Message.Header>
+                <p>
+                  {t(
+                    'pages.contracts.show.contractor_screen.contract_funded.what_is_next.line1',
+                    {
+                      remainingTimeToStartWork: toDaysMinutesSeconds(
+                        contract.remainingTimeToStartWork
+                      ),
+                      expectedDate: formatDateTime(
+                        contract.workShouldBeStartedBefore,
+                        t('date.locale')
+                      ),
+                    }
+                  )}
+                </p>
 
-                  <Divider />
-
-                  <p>
-                    At this moment customer is waiting for you to start work.
-                  </p>
-
-                  <p>
-                    You have about{' '}
-                    {toDaysMinutesSeconds(contract.remainingTimeToStartWork)} to
-                    update contract status. Expected date:{' '}
-                    {formatDateTime(contract.workShouldBeStartedBefore)}.
-                  </p>
-
-                  <p>
-                    <b>
-                      If work will not be started on time, customer will be able
-                      to refund money!
-                    </b>
-                  </p>
-                </Message.Content>
-              </Message>
+                <p>
+                  <b>
+                    {t(
+                      'pages.contracts.show.contractor_screen.contract_funded.what_is_next.line2'
+                    )}
+                  </b>
+                </p>
+              </WhatIsNextMessage>
 
               <ExecuteBlockchainTransactionButton
-                content="Start Work"
+                content={t(
+                  'pages.contracts.show.contractor_screen.contract_funded.start_work'
+                )}
                 onClick={startContract}
                 floated="right"
               />
@@ -338,15 +332,22 @@ export const ContractCardForContractor = ({
               <Icon name="ban" />
 
               <Message.Content>
-                <Message.Header>Too late to start work</Message.Header>
+                <Message.Header
+                  content={t(
+                    'pages.contracts.show.contractor_screen.contract_funded.out_of_time.header'
+                  )}
+                />
 
                 <Divider />
 
                 <p>
-                  Unfortunately you are out of time to start work within this
-                  contract.
+                  {t(
+                    'pages.contracts.show.contractor_screen.contract_funded.out_of_time.line1'
+                  )}
                   <br />
-                  Customer will request money back.
+                  {t(
+                    'pages.contracts.show.contractor_screen.contract_funded.out_of_time.line2'
+                  )}
                 </p>
               </Message.Content>
             </Message>
@@ -358,38 +359,78 @@ export const ContractCardForContractor = ({
         <Grid.Column>
           {contract.remainingTimeToDeliverResult > 0 ? (
             <>
-              <Message icon>
-                <Icon name="stop" />
-
-                <Message.Content>
-                  <Message.Header>
-                    Please do not forget to deliver result on time!
-                  </Message.Header>
+              {displayModal && (
+                <ConfirmationMessage
+                  onClose={() => setDisplayModal(false)}
+                  onConfirm={() => {
+                    writeDeliver?.()
+                    setDisplayModal(false)
+                  }}
+                  confirmationButtonContent={t(
+                    'pages.contracts.show.contractor_screen.contract_started.confirmation_message.confirm_button'
+                  )}
+                  confirmationButtonPositive
+                >
+                  <p>
+                    {t(
+                      'pages.contracts.show.contractor_screen.contract_started.confirmation_message.line1'
+                    )}
+                  </p>
 
                   <Divider />
 
                   <p>
-                    At this moment customer is waiting for you to deliver
-                    result.
+                    <b>
+                      {t(
+                        'pages.contracts.show.contractor_screen.contract_started.confirmation_message.line2'
+                      )}
+                    </b>
                   </p>
+                </ConfirmationMessage>
+              )}
 
-                  <p>
-                    You have about{' '}
-                    {toDaysMinutesSeconds(
-                      contract.remainingTimeToDeliverResult
-                    )}{' '}
-                    to update contract status. Expected date:{' '}
-                    {formatDateTime(contract.resultShouldBeDeliveredBefore)}.
-                    <br />
-                    If work will not be delivered on time, customer will be able
-                    to refund money.
-                  </p>
-                </Message.Content>
-              </Message>
+              <WhatIsNextMessage>
+                <p>
+                  <b>
+                    {t(
+                      'pages.contracts.show.contractor_screen.contract_started.what_is_next.header'
+                    )}
+                  </b>
+                </p>
+
+                <p>
+                  {t(
+                    'pages.contracts.show.contractor_screen.contract_started.what_is_next.line1'
+                  )}
+                  <br />
+                  {t(
+                    'pages.contracts.show.contractor_screen.contract_started.what_is_next.line2',
+                    {
+                      remainingTimeToDeliverResult: toDaysMinutesSeconds(
+                        contract.remainingTimeToDeliverResult
+                      ),
+                      expectedDate: formatDateTime(
+                        contract.resultShouldBeDeliveredBefore,
+                        t('date.locale')
+                      ),
+                    }
+                  )}
+                </p>
+
+                <p>
+                  <b>
+                    {t(
+                      'pages.contracts.show.contractor_screen.contract_started.what_is_next.line3'
+                    )}
+                  </b>
+                </p>
+              </WhatIsNextMessage>
 
               <ExecuteBlockchainTransactionButton
                 icon="stop"
-                content="Deliver Result"
+                content={t(
+                  'pages.contracts.show.contractor_screen.contract_started.deliver_result'
+                )}
                 onClick={deliverContract}
                 floated="right"
               />
@@ -399,15 +440,22 @@ export const ContractCardForContractor = ({
               <Icon name="ban" />
 
               <Message.Content>
-                <Message.Header>Too late to deliver result</Message.Header>
+                <Message.Header
+                  content={t(
+                    'pages.contracts.show.contractor_screen.contract_started.out_of_time.header'
+                  )}
+                />
 
                 <Divider />
 
                 <p>
-                  Unfortunately you are out of time to deliver work result
-                  within this contract.
+                  {t(
+                    'pages.contracts.show.contractor_screen.contract_started.out_of_time.line1'
+                  )}
                   <br />
-                  Customer will request money back.
+                  {t(
+                    'pages.contracts.show.contractor_screen.contract_started.out_of_time.line2'
+                  )}
                 </p>
               </Message.Content>
             </Message>
@@ -419,11 +467,13 @@ export const ContractCardForContractor = ({
         <Grid.Column>
           <WhatIsNextMessage>
             <p>
-              At this moment we are waiting for the smart contract to be
-              confirmed (or even declined) by the customer.
+              {t(
+                'pages.contracts.show.contractor_screen.contract_delivered.what_is_next.line1'
+              )}
               <br />
-              Please do your best to help your customer to confirm your work
-              result.
+              {t(
+                'pages.contracts.show.contractor_screen.contract_delivered.what_is_next.line2'
+              )}
             </p>
           </WhatIsNextMessage>
         </Grid.Column>
@@ -435,59 +485,85 @@ export const ContractCardForContractor = ({
             <Icon name="fire" />
 
             <Message.Content>
-              <Message.Header>You contract has been approved!</Message.Header>
+              <Message.Header
+                content={t(
+                  'pages.contracts.show.contractor_screen.contract_approved.header'
+                )}
+              />
 
               <Divider />
 
-              <p>Now you can request your money.</p>
+              <p>
+                {t(
+                  'pages.contracts.show.contractor_screen.contract_approved.line1'
+                )}
+              </p>
             </Message.Content>
           </Message>
 
           <ExecuteBlockchainTransactionButton
             icon="money"
             positive
-            content="Withdraw"
+            content={t(
+              'pages.contracts.show.contractor_screen.contract_approved.withdraw_contract'
+            )}
             onClick={withdrawContract}
             floated="right"
           />
         </Grid.Column>
       )}
 
-      {currentStatus === 'declined' && (
+      {(currentStatus === 'declined' ||
+        (currentStatus === 'closed' && contract.declinedAt > 0)) && (
         <Grid.Column>
           <Message negative icon>
             <Icon name="ban" />
 
             <Message.Content>
-              <Message.Header>Your contract has been declined!</Message.Header>
+              <Message.Header
+                content={t(
+                  'pages.contracts.show.contractor_screen.contract_declined.header'
+                )}
+              />
 
               <Divider />
 
               <p>
-                Customer has rejected your work result.
+                {t(
+                  'pages.contracts.show.contractor_screen.contract_declined.line1'
+                )}
                 <br />
-                Please do your best next time and wish you good luck!
+                {t(
+                  'pages.contracts.show.contractor_screen.contract_declined.line2'
+                )}
               </p>
             </Message.Content>
           </Message>
         </Grid.Column>
       )}
 
-      {currentStatus === 'closed' && (
+      {currentStatus === 'closed' && contract.withdrewAt > 0 && (
         <Grid.Column>
           <Message positive icon>
             <Icon name="fire" />
 
             <Message.Content>
-              <Message.Header>Congratulations!</Message.Header>
+              <Message.Header
+                content={t(
+                  'pages.contracts.show.contractor_screen.contract_withdrew.header'
+                )}
+              />
 
               <Divider />
 
-              <p>We hope you have enjoyed working with this customer!</p>
-
               <p>
-                If you have any ideas on how to improve OptriSpace – feel free
-                to contact us.
+                {t(
+                  'pages.contracts.show.contractor_screen.contract_withdrew.line1'
+                )}
+                <br />
+                {t(
+                  'pages.contracts.show.contractor_screen.contract_withdrew.line2'
+                )}
               </p>
             </Message.Content>
           </Message>
@@ -496,7 +572,10 @@ export const ContractCardForContractor = ({
 
       <Grid.Column mobile={16} computer={10}>
         <Segment>
-          <Header as="h3">Contract Description, Terms & Conditions</Header>
+          <Header
+            as="h3"
+            content={t('pages.contracts.show.contract_description.title')}
+          />
 
           <div style={{ wordWrap: 'break-word' }}>
             <FormattedDescription description={contract.description} />
@@ -504,20 +583,13 @@ export const ContractCardForContractor = ({
         </Segment>
 
         <Segment>
-          <Header as="h3">Detailed View</Header>
+          <Header
+            as="h3"
+            content={t('pages.contracts.show.detailed_view.title')}
+          />
 
-          <p>
-            We provide some additional information (it is usually bored for
-            non-technical people) to let you know what is happening with your
-            smart contract on blockchain. If you don&apos;t need it - ignore
-            this section below :-)
-          </p>
-
-          <p>
-            But! These tables will be necessary if you will have any issues with
-            our platform. Please provide this details to our support team with
-            any problems or unexpected behaviours while using this contract.
-          </p>
+          <p>{t('pages.contracts.show.detailed_view.line1')}</p>
+          <p>{t('pages.contracts.show.detailed_view.line2')}</p>
 
           <Tab panes={panes} />
         </Segment>
@@ -538,20 +610,29 @@ export const ContractCardForContractor = ({
 }
 
 const DoNotStartWorking = () => {
+  const { t } = useTranslation('common')
+
   return (
     <Message icon>
       <Icon name="bell" />
 
       <Message.Content>
-        <Message.Header>Friendly reminder from OptriSpace Team:</Message.Header>
+        <Message.Header
+          content={t(
+            'pages.contracts.show.contractor_screen.do_not_start_working.header'
+          )}
+        />
 
         <Divider />
 
         <p>
-          This contract has not been funded yet!
+          {t(
+            'pages.contracts.show.contractor_screen.do_not_start_working.line1'
+          )}
           <br />
-          Please don&apos;t start working on this job before getting funded
-          contract!
+          {t(
+            'pages.contracts.show.contractor_screen.do_not_start_working.line2'
+          )}
         </p>
       </Message.Content>
     </Message>

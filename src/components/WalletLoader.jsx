@@ -6,8 +6,11 @@ import { ErrorFetchingContractVersionMessage } from './ErrorFetchingContractVers
 import ErrorWrapper from './ErrorWrapper'
 import { JustOneSecondBlockchain } from './JustOneSecond'
 import { WrongBlockchainNetwork } from './WrongBlockchainNetwork'
+import useTranslation from 'next-translate/useTranslation'
 
 export const WalletLoader = ({ onDisconnected, onConnected }) => {
+  const { t } = useTranslation('common')
+
   const wallet = useWeb3()
 
   const {
@@ -46,7 +49,9 @@ export const WalletLoader = ({ onDisconnected, onConnected }) => {
   if (isConnecting) {
     return (
       <LandingLayout {...layoutProps}>
-        <JustOneSecondBlockchain message="Connecting to account..." />
+        <JustOneSecondBlockchain
+          message={t('components.wallet_loader.connecting_to_account')}
+        />
       </LandingLayout>
     )
   }
@@ -54,7 +59,9 @@ export const WalletLoader = ({ onDisconnected, onConnected }) => {
   if (isReconnecting) {
     return (
       <LandingLayout {...layoutProps}>
-        <JustOneSecondBlockchain message="Reconnecting to account..." />
+        <JustOneSecondBlockchain
+          message={t('components.wallet_loader.reconnecting_to_account')}
+        />
       </LandingLayout>
     )
   }
@@ -63,7 +70,7 @@ export const WalletLoader = ({ onDisconnected, onConnected }) => {
     return (
       <LandingLayout {...layoutProps}>
         <ErrorWrapper
-          header="Error loading account"
+          header={t('components.wallet_loader.error_loading_account')}
           error={errorHandler(accountError)}
         />
       </LandingLayout>
@@ -73,7 +80,9 @@ export const WalletLoader = ({ onDisconnected, onConnected }) => {
   if (switchingNetwork && pendingChainId == blockchainNetworkId) {
     return (
       <LandingLayout {...layoutProps}>
-        <JustOneSecondBlockchain message="Switching network..." />
+        <JustOneSecondBlockchain
+          message={t('components.wallet_loader.switching_network')}
+        />
       </LandingLayout>
     )
   }
@@ -82,7 +91,7 @@ export const WalletLoader = ({ onDisconnected, onConnected }) => {
     return (
       <LandingLayout {...layoutProps}>
         <ErrorWrapper
-          header="Error switching network"
+          header={t('components.wallet_loader.error_switching_network')}
           error={errorHandler(switchNetworkError)}
         />
       </LandingLayout>
@@ -107,7 +116,9 @@ export const WalletLoader = ({ onDisconnected, onConnected }) => {
   if (balanceLoading) {
     return (
       <UsersLayout {...layoutProps}>
-        <JustOneSecondBlockchain message="Loading balance..." />
+        <JustOneSecondBlockchain
+          message={t('components.wallet_loader.loading_balance')}
+        />
       </UsersLayout>
     )
   }
@@ -116,7 +127,7 @@ export const WalletLoader = ({ onDisconnected, onConnected }) => {
     return (
       <UsersLayout {...layoutProps}>
         <ErrorWrapper
-          header="Error loading balance"
+          header={t('components.wallet_loader.error_loading_balance')}
           error={errorHandler(balanceError)}
         />
       </UsersLayout>
@@ -128,7 +139,9 @@ export const WalletLoader = ({ onDisconnected, onConnected }) => {
   if (versionLoading) {
     return (
       <UsersLayout {...layoutProps}>
-        <JustOneSecondBlockchain message="Loading contract version..." />
+        <JustOneSecondBlockchain
+          message={t('components.wallet_loader.loading_contract_version')}
+        />
       </UsersLayout>
     )
   }

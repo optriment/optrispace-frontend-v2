@@ -1,32 +1,39 @@
 import { Message } from 'semantic-ui-react'
+import useTranslation from 'next-translate/useTranslation'
 
 export const ApplicationCreatedMessage = ({ comment, serviceFee, symbol }) => {
+  const { t } = useTranslation('common')
+
   return (
     <Message>
-      <Message.Header>
-        You&apos;ve applied with the service rate of
-        {` ${serviceFee} ${symbol}`} (application price).
-      </Message.Header>
+      <Message.Header
+        content={t('pages.jobs.show.application_created_message.header', {
+          serviceRate: serviceFee,
+          symbol: symbol,
+        })}
+      />
 
-      <p>Your comment: {comment}</p>
+      <p>
+        {t('pages.jobs.show.application_created_message.comment', {
+          comment: comment,
+        })}
+      </p>
 
       <Message.List>
         <Message.Item>
-          The next step is to get a contract from the customer to do this task
-          and get paid.
+          {t('pages.jobs.show.application_created_message.line1')}
         </Message.Item>
 
         <Message.Item>
-          You have to discuss terms and conditions and then prove, that you are
-          ready to work.
+          {t('pages.jobs.show.application_created_message.line2')}
         </Message.Item>
 
         <Message.Item>
-          Pay attention and ask anything you need to complete this task.
+          {t('pages.jobs.show.application_created_message.line3')}
         </Message.Item>
 
         <Message.Item>
-          <b>Please do not start working before getting funded contract!</b>
+          <b>{t('pages.jobs.show.application_created_message.line4')}</b>
         </Message.Item>
       </Message.List>
     </Message>

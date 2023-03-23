@@ -1,18 +1,20 @@
 // NOTE: https://dockyard.com/blog/2020/02/14/you-probably-don-t-need-moment-js-anymore
 
-export const formatDate = (date) => {
-  return new Date(+date * 1000).toLocaleDateString('en-GB')
+export const formatDate = (date, locale = 'en-GB') => {
+  return new Date(+date * 1000).toLocaleDateString(locale)
 }
 
-export const formatDateTime = (date) => {
+export const formatDateTime = (date, locale = 'en-GB') => {
   const options = {
     year: 'numeric',
-    month: 'numeric',
+    month: 'short',
     day: 'numeric',
     hour: 'numeric',
     minute: 'numeric',
+    timeZone: 'UTC',
+    timeZoneName: 'short',
   }
-  return new Date(+date * 1000).toLocaleDateString('en-GB', options)
+  return new Date(+date * 1000).toLocaleDateString(locale, options)
 }
 
 export const toDaysMinutesSeconds = (totalSeconds) => {

@@ -8,8 +8,10 @@ import { ContractScreen } from '../../../screens/contracts/show'
 import { WalletLoader } from '../../../components/WalletLoader'
 import JustOneSecond from '../../../components/JustOneSecond'
 import ErrorWrapper from '../../../components/ErrorWrapper'
+import useTranslation from 'next-translate/useTranslation'
 
 const Page = () => {
+  const { t } = useTranslation('common')
   const hasMounted = useHasMounted()
   const { query, isReady: routerReady } = useRouter()
 
@@ -26,7 +28,7 @@ const Page = () => {
       onDisconnected={() => <UnauthorizedScreen />}
       onConnected={(wallet) => {
         if (!routerReady) {
-          return <JustOneSecond title="Initializing..." />
+          return <JustOneSecond />
         }
 
         const contractAddress = query.id
@@ -34,8 +36,9 @@ const Page = () => {
         if (!isAddress(contractAddress)) {
           return (
             <ErrorWrapper
-              header="Invalid Contract Address"
-              error="Contract address must be a hexadecimal"
+              header={t('errors.messages.not_a_blockchain_address', {
+                field: `Contract ID ${contractAddress}`,
+              })}
             />
           )
         }

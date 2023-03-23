@@ -1,10 +1,11 @@
 import React from 'react'
 import Head from 'next/head'
 import getConfig from 'next/config'
-import { Divider, Grid } from 'semantic-ui-react'
+import { Segment, Divider, Grid } from 'semantic-ui-react'
 import { Header } from '../../components/Header'
 import { Footer } from '../../components/Footer'
 import { Favicon } from '../../components/Favicon'
+import { LanguageSwitcher } from '../../components/LanguageSwitcher'
 
 const { publicRuntimeConfig } = getConfig()
 const { frontendNodeAddress, discordLink, gitHubLink } = publicRuntimeConfig
@@ -48,6 +49,19 @@ export const UsersLayout = ({
           />
 
           <Divider />
+        </Grid.Column>
+
+        <Grid.Column>
+          <Segment textAlign="center">
+            <p>
+              <b>Hey guys! Feel free to use this language switcher</b>
+            </p>
+            <p>
+              This section will be removed from header to footer when we
+              translate our application to Spanish and Portuguese.
+            </p>
+            <LanguageSwitcher />
+          </Segment>
         </Grid.Column>
 
         <Grid.Column>{children}</Grid.Column>

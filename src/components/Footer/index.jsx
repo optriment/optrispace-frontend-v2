@@ -1,5 +1,8 @@
 import React from 'react'
 import { Divider, Container } from 'semantic-ui-react'
+import useTranslation from 'next-translate/useTranslation'
+import Trans from 'next-translate/Trans'
+import { LanguageSwitcher } from '../LanguageSwitcher'
 
 export const Footer = ({
   contractVersion,
@@ -7,43 +10,51 @@ export const Footer = ({
   discordLink,
   gitHubLink,
 }) => {
+  const { t } = useTranslation('common')
+
   return (
     <Container textAlign="center">
       <Divider hidden />
-      <p>
-        The platform is in testing stage. If you find any issues, errors or
-        unexpected behaviour while using our platform, please contact us via{' '}
-        <a
-          href={discordLink}
-          target="_blank"
-          rel="nofollow noopener noreferrer"
-        >
-          Discord
-        </a>{' '}
-        or{' '}
-        <a
-          href={`${gitHubLink}/optrispace-frontend-v2/issues/new`}
-          target="_blank"
-          rel="nofollow noopener noreferrer"
-        >
-          GitHub
-        </a>
-        . We would appreciate your help!
-      </p>
-      &copy; 2023 OPTRIMENT LLC
-      {contractVersion && (
-        <>
-          {' | Version: '}
+
+      <Trans
+        i18nKey="common:footer.platform_is_in_testing_stage"
+        components={[
+          <p key={0} />,
           <a
-            href={`${gitHubLink}/optrispace-contract-v2/tree/master/releases/history/${contractVersion}/README.md`}
+            key={1}
+            href={discordLink}
             target="_blank"
             rel="nofollow noopener noreferrer"
-          >
-            {contractVersion}
-          </a>
-        </>
-      )}
-      {frontendNodeAddress && <>{` | Node: ${frontendNodeAddress}`}</>}
+          />,
+          <a
+            key={2}
+            href={`${gitHubLink}/optrispace-frontend-v2/issues/new`}
+            target="_blank"
+            rel="nofollow noopener noreferrer"
+          />,
+        ]}
+      />
+
+      <p>
+        &copy; 2023 OPTRIMENT LLC
+        {contractVersion && (
+          <>
+            {` | ${t('footer.version')}: `}
+            <a
+              href={`${gitHubLink}/optrispace-contract-v2/tree/master/releases/history/${contractVersion}/README.md`}
+              target="_blank"
+              rel="nofollow noopener noreferrer"
+            >
+              {contractVersion}
+            </a>
+          </>
+        )}
+        {frontendNodeAddress && (
+          <>{` | ${t('footer.node')}: ${frontendNodeAddress}`}</>
+        )}
+      </p>
+
+      <LanguageSwitcher />
     </Container>
   )
 }

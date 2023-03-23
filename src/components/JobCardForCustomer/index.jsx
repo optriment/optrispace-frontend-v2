@@ -4,16 +4,20 @@ import getConfig from 'next/config'
 import { Header, Segment, Grid } from 'semantic-ui-react'
 import { JobCardHeader } from '../JobCardHeader'
 import Applications from './Applications'
-import JustOneSecond from '../JustOneSecond'
+import JustOneSecond, { JustOneSecondBlockchain } from '../JustOneSecond'
 import ErrorWrapper from '../ErrorWrapper'
 import { useContractRead } from 'wagmi'
 import gigsCustomerServiceABI from '../../../contracts/GigsCustomerService.json'
+import useTranslation from 'next-translate/useTranslation'
+import { errorHandler } from '../../lib/errorHandler'
 
 const { publicRuntimeConfig } = getConfig()
 const { optriSpaceContractAddress, blockchainViewAddressURL } =
   publicRuntimeConfig
 
 export const JobCardForCustomer = ({ job, currentAccount }) => {
+  const { t } = useTranslation('common')
+
   const {
     data: rawApplications,
     error: applicationsError,
@@ -54,24 +58,26 @@ export const JobCardForCustomer = ({ job, currentAccount }) => {
   }, [rawApplications])
 
   if (job.customerAddress !== currentAccount) {
-    return <ErrorWrapper header="You do not have access to this job" />
+    return <ErrorWrapper header={t('labels.access_denied')} />
   }
 
   if (applicationsLoading) {
-    return <JustOneSecond title="Loading applications..." />
+    return (
+      <JustOneSecondBlockchain message={t('labels.loading_from_blockchain')} />
+    )
   }
 
   if (applicationsError) {
     return (
       <ErrorWrapper
-        header="Unable to load applications"
-        error={applicationsError.message}
+        header={t('errors.transactions.load')}
+        error={errorHandler(applicationsError)}
       />
     )
   }
 
   if (!applications) {
-    return <JustOneSecond title="Initializing applications..." />
+    return <JustOneSecond title={t('labels.initializing')} />
   }
 
   return (
@@ -85,18 +91,25 @@ export const JobCardForCustomer = ({ job, currentAccount }) => {
         </Segment>
       </Grid.Column>
 
-      {job.applicationsCount > 0 && (
-        <Grid.Column>
-          <Segment>
-            <Header as="h3">{`Applications (${job.applicationsCount})`}</Header>
+      <Grid.Column>
+        <Segment>
+          <Header
+            as="h3"
+            content={t('pages.jobs.show.applications.header', {
+              count: job.applicationsCount,
+            })}
+          />
 
+          {job.applicationsCount > 0 ? (
             <Applications
               applications={applications}
               blockchainViewAddressURL={blockchainViewAddressURL}
             />
-          </Segment>
-        </Grid.Column>
-      )}
+          ) : (
+            <p>{t('pages.jobs.show.applications.no_records')}</p>
+          )}
+        </Segment>
+      </Grid.Column>
     </Grid>
   )
 }

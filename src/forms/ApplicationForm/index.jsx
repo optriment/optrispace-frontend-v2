@@ -17,6 +17,7 @@ import { FriendlyReminderMessage } from './FriendlyReminderMessage'
 import gigsAddApplicationCommandABI from '../../../contracts/GigsAddApplicationCommand.json'
 import { ValidationErrors } from '../../components/ValidationErrors'
 import { useConversionRate } from '../../hooks/useConversionRate'
+import useTranslation from 'next-translate/useTranslation'
 
 const { publicRuntimeConfig } = getConfig()
 const { optriSpaceContractAddress, frontendNodeAddress, gitHubLink } =
@@ -28,6 +29,8 @@ export const ApplicationForm = ({
   symbol,
   onApplicationCreated,
 }) => {
+  const { t } = useTranslation('common')
+
   const [comment, setComment] = useState('')
   const [serviceFee, setServiceFee] = useState('')
 
@@ -104,50 +107,55 @@ export const ApplicationForm = ({
     let error
 
     if (isEmptyString(debouncedComment)) {
-      error = 'Comment must be filled'
+      error = t('errors.messages.empty', {
+        field: t('applications:model.comment'),
+      })
       setCommentError(error)
       errors.push(error)
     }
 
     if (!isEmptyString(debouncedServiceFee) && isNumber(debouncedServiceFee)) {
       if (+debouncedServiceFee <= 0 || +debouncedServiceFee > 100) {
-        error =
-          'Service rate must be greater than zero and less or equal to 100'
+        error = t('errors.messages.between', {
+          field: t('applications:model.service_rate'),
+          from: '0.001',
+          to: '100.0',
+        })
         setServiceFeeError(error)
         errors.push(error)
       }
     } else {
-      error = 'Service rate must be a number'
+      error = t('errors.messages.not_a_number', {
+        field: t('applications:model.service_rate'),
+      })
       setServiceFeeError(error)
       errors.push(error)
     }
 
     setIsValidForm(errors.length === 0)
     setValidationErrors(errors)
-  }, [debouncedComment, debouncedServiceFee])
+  }, [t, debouncedComment, debouncedServiceFee])
 
   if (applicationCreating) {
     return <ConfirmTransactionMessage />
   }
 
   if (applicationCreated) {
-    return (
-      <JustOneSecondBlockchain message="Waiting for the application address..." />
-    )
+    return <JustOneSecondBlockchain />
   }
 
   return (
     <>
       {createError && (
         <ErrorWrapper
-          header="Unable to create an application"
+          header={t('errors.transactions.execute')}
           error={errorHandler(createError)}
         />
       )}
 
       {prepareError && (
         <ErrorWrapper
-          header="Application prepare error"
+          header={t('errors.transactions.prepare')}
           error={errorHandler(prepareError)}
         />
       )}
@@ -166,7 +174,10 @@ export const ApplicationForm = ({
           >
             <Grid stackable columns={1}>
               <Grid.Column>
-                <Header as="h4">Comment:</Header>
+                <Header
+                  as="h4"
+                  content={t('forms.application_form.comment.label')}
+                />
 
                 <Form.TextArea
                   id="comment"
@@ -179,7 +190,12 @@ export const ApplicationForm = ({
               </Grid.Column>
 
               <Grid.Column mobile={16} tablet={8} computer={8}>
-                <Header as="h4">Expected service rate ({symbol}):</Header>
+                <Header
+                  as="h4"
+                  content={t('forms.application_form.service_rate.label', {
+                    symbol: symbol,
+                  })}
+                />
 
                 <Form.Input
                   id="serviceFee"
@@ -202,7 +218,11 @@ export const ApplicationForm = ({
               </Grid.Column>
 
               <Grid.Column>
-                <Button content="Apply" primary disabled={!isValidForm} />
+                <Button
+                  content={t('buttons.apply')}
+                  primary
+                  disabled={!isValidForm}
+                />
               </Grid.Column>
             </Grid>
           </Form>
