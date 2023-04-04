@@ -5,7 +5,7 @@
   "footer": {
     "version": "Version",
     "node": "Node",
-    "platform_is_in_testing_stage": "<0>The platform is in testing stage. If you find any issues, errors or unexpected behaviour while using our platform, please contact us via <1>Discord</1> or <2>GitHub</2>. We would appreciate your help!</0>"
+    "platform_is_in_testing_stage": "<0>The platform is in a testing stage. If you find any issues, errors, or unexpected behavior while using our platform, please contact us via <1>Discord</1> or <2>GitHub</2>. We would appreciate your help!</0>"
   },
   "buttons": {
     "add_new": "Add New",
@@ -26,17 +26,17 @@
   "errors": {
     "transactions": {
       "load": "Unable to load data from the blockchain",
-      "execute": "Unable to execute transaction",
-      "prepare": "Unable to prepare transaction"
+      "execute": "Unable to execute the transaction",
+      "prepare": "Unable to prepare the transaction"
     },
     "messages": {
-      "not_found": "{{ entity }} does not exist",
+      "not_found": "{{ entity }} doesn't exist",
       "empty": "{{ field }} can't be empty",
       "greater_than": "{{ field }} must be greater than {{ count }}",
       "between": "{{ field }} must be between {{ from }} and {{ to }}",
       "less_than": "{{ field }} must be less than {{ count }}",
-      "not_a_number": "{{ field }} is not a number",
-      "not_a_blockchain_address": "{{ field }} is not a valid blockchain address"
+      "not_a_number": "{{ field }} isn't a number",
+      "not_a_blockchain_address": "{{ field }} isn't a valid blockchain address"
     },
     "template": {
       "body": "There were problems with the following fields:"
@@ -45,17 +45,17 @@
   "pages": {
     "unauthorized": {
       "header": {
-        "title": "Please connect wallet to get access to the platform"
+        "title": "Please connect the wallet to get access to the platform"
       },
-      "line1": "We store all data on blockchain, because of this we require connected wallet to request all required information."
+      "line1": "We store all data on the blockchain, and because of this, we require a connected wallet to request all required information."
     },
     "landing": {
       "what_is_optrispace": {
         "header": {
           "title": "What is OptriSpace"
         },
-        "line1": "We are OptriSpace - an international team who got together to face a challenge and build a brand-new platform for people like us: freelancers, managers and entrepreneurs. We provide a platform for people looking for jobs or for professionals for their projects.",
-        "line2": "Our platform is based on the blockchain technology and uses cryptocurrency as a payment method. That makes OptriSpace secure and fast. Smart contracts protect customers and freelancers from third parties and middlemen. Smart contracts handle all logic depends on terms and conditions which have to be signed by both participants."
+        "line1": "We are OptriSpace - an international team who got together to face a challenge and build a brand-new platform for people like us: freelancers, recruiters, and entrepreneurs. We provide a platform for people looking for jobs or professionals for their projects.",
+        "line2": "Our platform is based on blockchain technology and uses cryptocurrency as a payment method. That makes OptriSpace secure and fast. Smart contracts protect customers and freelancers from third parties and middlemen. Smart contracts handle all logic depending on terms and conditions that must be signed by both participants."
       },
       "how_optrispace_works": {
         "header": {
@@ -63,20 +63,20 @@
         },
         "section1": {
           "header": "1. Customer posts a job on the platform",
-          "line1": "A customer lists a particular task on the platform and picks a person who wants to work with upon this task. Both of them use external messaging system to discuss terms and conditions (price, acceptance criteria, etc.) of a future contract."
+          "line1": "The customer lists a particular task on the platform and picks a person who wants to work with on this task. Both of them use an external messaging system to discuss the terms and conditions (price, acceptance criteria, etc.) of a future contract."
         },
         "section2": {
-          "header": "2. Freelancer agrees to terms, accepts and signs the contract",
-          "line1": "At this stage the freelancer has to accept the contract on our platform.",
-          "line2": "After that the customer will be able to fund a smart contract on blockchain."
+          "header": "2. Freelancer agrees to the terms, accepts and signs the contract",
+          "line1": "At this stage, the freelancer has to accept the contract on our platform.",
+          "line2": "After that, the customer can fund the smart contract on the blockchain."
         },
         "section3": {
           "header": "3. Customer funds the smart contract",
-          "line1": "The customer initiates transaction on blockchain to send money from own wallet to smart contract address. The funds are held on the smart contract address until all conditions have been met."
+          "line1": "The customer initiates a transaction on the blockchain to send money from their own wallet to the smart contract address. The funds are held on the smart contract address until all conditions have been met."
         },
         "section4": {
           "header": "4. Freelancer starts working on the task and delivers a result",
-          "line1": "The freelancer can't request money before the customer approves the job result. The freelancer has to do best to finish the task to get paid."
+          "line1": "The freelancer can't request money before the customer approves the job result. The freelancer has to do his best to finish the task to get paid."
         },
         "section5": {
           "header": "5. Customer approves money withdrawal",
@@ -84,7 +84,7 @@
         },
         "section6": {
           "header": "6. Freelancer withdraws money",
-          "line1": "Freelancer requests money from the smart contract to it's own crypto wallet."
+          "line1": "The freelancer requests money from the smart contract to its own crypto wallet."
         }
       },
       "what_is_inside": {
@@ -147,9 +147,6 @@
           "title": "OptriSpace",
           "subtitle": "No Middlemen. No Paperwork. Fast & Secure Payments."
         },
-        "buttons": {
-          "add_new": "Add New Job"
-        },
         "no_records": "No jobs yet"
       },
       "new": {
@@ -169,7 +166,7 @@
           "line1": "The next step is to get a contract from the customer to do this task and get paid.",
           "line2": "You have to discuss terms and conditions and then prove, that you are ready to work.",
           "line3": "Pay attention and ask anything you need to complete this task.",
-          "line4": "Please do not start working before getting funded contract!"
+          "line4": "Please don't start working before getting the contract funded!"
         },
         "applications": {
           "header": "Applications ({{ count }})",
@@ -199,8 +196,8 @@
         },
         "detailed_view": {
           "title": "Detailed View",
-          "line1": "We provide some additional information (it is usually bored for non-technical people) to let you know what is happening with your smart contract on blockchain. If you don't need it - ignore this section below :-)",
-          "line2": "But! These tables will be necessary if you will have any issues with our platform. Please provide this details to our support team with any problems or unexpected behaviour while using our platform.",
+          "line1": "We provide some additional information (it is usually boring for non-technical people) to let you know what is happening with your smart contract on the blockchain. If you don't need it - ignore this section below :-)",
+          "line2": "But! These tables will be necessary if you have any issues with our platform. Please provide these details to our support team with any problems or unexpected behavior you experienced while using our platform.",
           "contract_history": {
             "title": "Contract History"
           },
@@ -237,11 +234,11 @@
           "days_to_deliver_result": "Days to Deliver Result (after funding)",
           "work_should_be_started_before": "Work Should be Started Before",
           "result_should_be_delivered_before": "Result Should be Delivered Before",
-          "remaining_time_to_start_work": "Remaining Time to Start Work",
-          "remaining_time_to_deliver_result": "Remaining Time to Deliver Result",
+          "remaining_time_to_start_work": "Remaining Time to Start the Work",
+          "remaining_time_to_deliver_result": "Remaining Time to Deliver the Result",
           "you_are_great": "Awesome! You are great!",
           "work_started_on_time": "Work started on time!",
-          "result_delivered_on_time": "Result delivered on time!"
+          "result_delivered_on_time": "The result was delivered on time!"
         },
         "sidebar": {
           "your_contract": {
@@ -249,87 +246,87 @@
             "current_status": "Current Status: {{ value }}",
             "contract_value": "Contract Value: {{ value }} {{ symbol }}",
             "contract_balance": "Contract Balance: {{ value }} {{ symbol }}",
-            "open_contractor_profile": "Open contractor's profile",
-            "open_customer_profile": "Open customer's profile",
-            "description": "These values below are automatically calculated and depend on current contract status. For example, you will know expected dates of your contract when contract will be funded.",
-            "work_should_be_started_before": "Work Should be Started Before: {{ value }}",
-            "result_should_be_delivered_before": "Result Should be Delivered Before: {{ value }}"
+            "open_contractor_profile": "Open the contractor's profile",
+            "open_customer_profile": "Open the customer's profile",
+            "description": "These values below are automatically calculated and depend on the current contract status. For example, you will know the expected dates of your contract, once the contract is funded.",
+            "work_should_be_started_before": "The Work Should be Started Before: {{ value }}",
+            "result_should_be_delivered_before": "The Result Should be Delivered Before: {{ value }}"
           },
           "wallets_and_transactions": {
             "header": "Wallets & Transactions",
-            "description_for_contractor": "If you want to check all transactions of your customer or smart contract on blockchain, feel free to use buttons below.",
-            "description_for_customer": "If you want to check all transactions of your contractor or smart contract on blockchain, feel free to use buttons below.",
+            "description_for_contractor": "If you want to check all transactions of your customer or the smart contract on the blockchain, feel free to use the buttons below.",
+            "description_for_customer": "If you want to check all transactions of your contractor or the smart contract on the blockchain, feel free to use the buttons below.",
             "contractor": "Contractor",
             "customer": "Customer",
             "contract": "Contract"
           },
           "do_you_need_any_help": {
             "header": "Do you need any help?",
-            "description": "Please join our social media community and ask anything what you want about our platform."
+            "description": "Please join our social media community and ask anything you want about our platform."
           }
         },
         "customer_screen": {
           "approve_confirmation_message": {
-            "line1": "At this stage we notice that you will not be able to change contract status after approving result. If you decide to approve the result, it will not be possible to request a refund if you find any issues later.",
-            "line2": "Please check twice all requirements in terms of contract.",
+            "line1": "At this stage, we notice that you won't be able to change the contract status after approving the result. If you decide to approve the result, it won't be possible to request a refund if you find any issues later.",
+            "line2": "Please check twice all requirements in the contract terms.",
             "confirm_button": "Approve result"
           },
           "decline_confirmation_message": {
-            "line1": "At this stage we notice that you will not be able to change contract status after declining result. If you decide to decline the result, contractor will not be paid and you will be able to request a refund.",
-            "line2": "Please check twice all requirements in terms of contract.",
+            "line1": "At this stage, we notice that you won't be able to change the contract status after declining the result. If you decide to decline the result, the contractor won't be paid, and you will be able to request a refund.",
+            "line2": "Please check twice all the requirements in the contract terms.",
             "confirm_button": "Decline result"
           },
           "contract_created": {
             "what_is_next": {
-              "line1": "At this moment we are waiting for the contract to be accepted by the contractor.",
-              "line2": "After this you will be able to fund the contract."
+              "line1": "At this moment, we are waiting for the contract to be accepted by the contractor.",
+              "line2": "After this, you will be able to fund the contract."
             }
           },
           "contract_accepted": {
             "what_is_next": {
-              "header": "Smart contract is ready to be funded by {{ value }} {{ symbol }}",
-              "line1": "Please click \"Fund smart contract\" to open MetaMask to confirm transaction.",
-              "line2": "You have to pay gas fee for this transaction.",
-              "line3": "After this step the contractor will be able to start working."
+              "header": "The smart contract is ready to be funded by {{ value }} {{ symbol }}",
+              "line1": "Please click \"Fund the smart contract\" to open MetaMask to confirm the transaction.",
+              "line2": "You have to pay gas fees for this transaction.",
+              "line3": "After this step, the contractor will be able to start working."
             },
-            "fund_contract": "Fund smart contract ({{ value }} {{ symbol }})"
+            "fund_contract": "Fund the smart contract ({{ value }} {{ symbol }})"
           },
           "contract_funded": {
             "what_is_next": {
-              "header": "At this moment we are waiting for the contractor starts work.",
-              "line1": "Contractor has about {{ remainingTimeToStartWork }} to update contract status. Expected date: {{ expectedDate }}.",
-              "line2": "If work will not be started on time, you will be able to refund your money."
+              "header": "At this moment, we are waiting for the contractor to start working.",
+              "line1": "The contractor has about {{ remainingTimeToStartWork }} to update the contract status. Expected date: {{ expectedDate }}.",
+              "line2": "If the work isn't started on time, you will be able to refund your money."
             },
             "out_of_time": {
-              "header": "Contractor did not start work on time!",
+              "header": "The contractor didn't start working on time!",
               "line1": "Please click \"Refund\" below to get your money back.",
-              "line2": "All money ({{ value}} {{ symbol }}) will be sent to your wallet immediately.",
+              "line2": "All the money ({{ value}} {{ symbol }}) will be sent to your wallet immediately.",
               "refund_contract": "Refund"
             }
           },
           "contract_started": {
             "what_is_next": {
-              "header": "At this moment we are waiting for the contractor to deliver result.",
-              "line1": "Contractor has about {{ remainingTimeToDeliverResult }} to update contract status. Expected date: {{ expectedDate }}.",
-              "line2": "If work result will not be delivered on time, you will be able to refund your money.",
-              "line3": "Also you are able to approve contract before getting delivered result.",
-              "line4": "Right after this contractor will be able to withdraw money.",
-              "line5": "You will not be able to refund money if you approve this contract at this step! Think twice please."
+              "header": "At this moment, we are waiting for the contractor to deliver the result.",
+              "line1": "The contractor has about {{ remainingTimeToDeliverResult }} to update the contract status. Expected date: {{ expectedDate }}.",
+              "line2": "If the work result isn't delivered on time, you will be able to refund your money.",
+              "line3": "Also, you are able to approve the contract before getting the delivered result.",
+              "line4": "Right after this, the contractor will be able to withdraw the money.",
+              "line5": "You won't be able to refund the money if you approve this contract at this step! Think twice, please."
             },
             "out_of_time": {
-              "header": "Contractor did not deliver result on time!",
+              "header": "The contractor didn't deliver the result on time!",
               "line1": "Please click \"Refund\" below to get your money back.",
-              "line2": "All money ({{ value}} {{ symbol }}) will be sent to your wallet immediately.",
+              "line2": "All the money ({{ value}} {{ symbol }}) will be sent to your wallet immediately.",
               "refund_contract": "Refund"
             },
             "approve_contract": "I understand and I want to approve the contract"
           },
           "contract_delivered": {
-            "header": "Wow! It looks like your contractor has delivered result on time!",
-            "line1": "Right now you have two options. Let us explain.",
-            "line2": "You are able to approve delivered result and right after this contractor will be able to withdraw money. Please check: were all terms, conditions and requirements of the contract met? Do you have any questions, additional information or improvements have to be done in terms of this contract?",
+            "header": "Wow! It looks like your contractor has delivered the result on time!",
+            "line1": "Right now, you have two options. Let us explain.",
+            "line2": "You are able to approve the delivered result and, right after this, the contractor can withdraw the money. Please, check: were all the terms, conditions, and requirements of the contract met? Do you have any questions, additional information, or improvements that have to be done in terms of this contract?",
             "line3": "You will not be able to refund money if you approve this contract!",
-            "line4": "If you decide to decline contract, you will be able to refund your money and contractor will not get paid. Contract will be closed instantly.",
+            "line4": "If you decide to decline the contract, you will be able to refund your money and the contractor won't get paid. The contract will be closed instantly.",
             "approve_contract": "Approve",
             "decline_contract": "Decline"
           },
@@ -352,71 +349,71 @@
         },
         "contractor_screen": {
           "do_not_start_working": {
-            "header": "Friendly reminder from OptriSpace Team:",
-            "line1": "This contract has not been funded yet!",
-            "line2": "Please don't start working on this job before getting funded contract!"
+            "header": "This is a friendly reminder from the OptriSpace Team:",
+            "line1": "This contract hasn't been funded yet!",
+            "line2": "Please don't start working on this job before getting the contract funded!"
           },
           "contract_created": {
             "what_is_next": {
               "line1": "Please ask your customer whatever you need to make this job done.",
               "line2": "If you agree with the contract and everything is good for you, please click \"Accept Terms & Conditions\" to continue.",
-              "line3": "After this step the customer will be able to fund the smart contract."
+              "line3": "After this step, the customer will be able to fund the smart contract."
             },
             "accept_contract": "Accept Terms & Conditions"
           },
           "contract_accepted": {
             "what_is_next": {
               "line1": "At this moment we are waiting for the smart contract to be funded by the customer.",
-              "line2": "After this you will be able to start your work."
+              "line2": "After this, you will be able to start your work."
             }
           },
           "contract_funded": {
             "what_is_next": {
-              "header": "At this moment customer is waiting for you to start work.",
-              "line1": "You have about {{ remainingTimeToStartWork }} to update contract status. Expected date: {{ expectedDate }}.",
-              "line2": "If work will not be started on time, customer will be able to refund money!"
+              "header": "At this moment, the customer is waiting for you to start working.",
+              "line1": "You have about {{ remainingTimeToStartWork }} to update the contract status. Expected date: {{ expectedDate }}.",
+              "line2": "If the work isn't started on time, the customer will be able to refund the money!"
             },
             "out_of_time": {
-              "header": "Too late to start work",
-              "line1": "Unfortunately you are out of time to start work within this contract.",
-              "line2": "Customer will request money back."
+              "header": "Too late to start working",
+              "line1": "Unfortunately, you are out of time to start working on this contract.",
+              "line2": "The customer will request the money back."
             },
             "start_work": "Start Work"
           },
           "contract_started": {
             "what_is_next": {
-              "header": "Please do not forget to deliver result on time!",
-              "line1": "At this moment customer is waiting for you to deliver result.",
-              "line2": "You have about {{ remainingTimeToDeliverResult }} to update contract status. Expected date: {{ expectedDate }}.",
-              "line3": "If work will not be delivered on time, customer will be able to refund money."
+              "header": "Please don't forget to deliver the result on time!",
+              "line1": "At this moment, the customer is waiting for you to deliver the result.",
+              "line2": "You have about {{ remainingTimeToDeliverResult }} to update the contract status. Expected date: {{ expectedDate }}.",
+              "line3": "If the work isn't delivered on time, the customer will be able to refund the money."
             },
             "confirmation_message": {
               "confirm_button": "Deliver Result",
-              "line1": "At this stage we notice that you will not be able to change contract status after delivering result. If customer decides to decline your contract, you will not be paid.",
-              "line2": "Please check twice all requirements in terms of contract."
+              "line1": "At this stage, we notice that you won't be able to change the contract status after delivering results. If the customer decides to decline your contract, you won't be paid.",
+              "line2": "Please check twice all the requirements in the contract terms."
             },
             "out_of_time": {
-              "header": "Too late to deliver result",
-              "line1": "Unfortunately you are out of time to deliver work result within this contract.",
-              "line2": "Customer will request money back."
+              "header": "Too late to deliver the result",
+              "line1": "Unfortunately, you are out of time to deliver work results within this contract.",
+              "line2": "Customer will request the money back."
             },
             "deliver_result": "Deliver Result"
           },
           "contract_delivered": {
             "what_is_next": {
-              "line1": "At this moment we are waiting for the smart contract to be approved (or even declined) by the customer.",
-              "line2": "Please do your best to help your customer to confirm your work result."
+              "line1": "At this moment, we are waiting for the smart contract to be approved (or even declined) by the customer.",
+              "line2": "Please do your best to help your customer to confirm your work results."
             }
           },
           "contract_approved": {
-            "header": "You contract has been approved!",
+            "header": "Your contract has been approved!",
             "line1": "Now you can request your money.",
             "withdraw_contract": "Withdraw"
           },
           "contract_declined": {
             "header": "Your contract has been declined!",
-            "line1": "Customer has rejected your work result.",
-            "line2": "Please do your best next time and wish you good luck!"
+            "line1": "The customer has rejected your work results.",
+            "line2": "Please do your best next time, and we wish you good luck!"
           },
           "contract_withdrew": {
             "header": "Congratulations!",
@@ -438,7 +435,7 @@
       "contracts": {
         "index": {
           "header": {
-            "title": "My Contracts as Customer"
+            "title": "My Contracts as a Customer"
           },
           "no_records": "No contracts yet"
         }
@@ -513,7 +510,7 @@
       "contracts": {
         "index": {
           "header": {
-            "title": "My Contracts as Freelancer"
+            "title": "My Contracts as a Freelancer"
           },
           "no_records": "No contracts yet"
         }
@@ -547,51 +544,51 @@
         "label": "Expected service rate ({{symbol}}):"
       },
       "friendly_reminder_message": {
-        "header": "Friendly reminder from OptriSpace Team",
-        "line1": "<0>Please note that we will do our best to review all applications (for our tasks) and answer everyone ASAP. If you really like the project, and you&apos;d like your application to be reviewed sooner, please consider creating some meaningful Pull Requests to any of our <1>open-source projects</1> and include the link to a PR to your application.</0>",
-        "line2": "Pay attention! When applying for jobs, you should never have to pay to apply (except gas fees for processing transactions on the blockchain). You should also never have to pay a customer for something (to speed up your application processing, etc.)"
+        "header": "This is a friendly reminder from the OptriSpace Team",
+        "line1": "<0>Please note that we will do our best to review all the applications (for our tasks) and answer everyone ASAP. If you really like the project, and you'd like your application to be reviewed sooner, please consider creating some meaningful Pull Requests to any of our <1>open-source projects</1> and include the link to a PR to your application.</0>",
+        "line2": "Pay attention! When applying for jobs, you should never have to pay to apply (except for gas fees for processing transactions on the blockchain). You should also never have to pay a customer for something (to speed up your application processing, etc.)"
       }
     },
     "contract_form": {
       "buttons": {
-        "fill_form": "Fill form from job and application"
+        "fill_form": "Fill out the form from the job and application"
       },
       "title": {
         "label": "Title:"
       },
       "description": {
-        "label": "Please describe everything you need to be done by your contractor in terms of contract",
+        "label": "Please describe everything you need to be done by your contractor in terms of the contract",
         "line1": "Put here whatever you want: acceptance criteria, links to required documents, assets, or references.",
-        "line2": "Pay attention: you will pay extra gas fee if you would like to make changes in this contract later.",
-        "line3": "So, we recommend you to put all information right now just to save your money."
+        "line2": "Pay attention: you will pay extra gas fees if you would like to make changes to this contract later.",
+        "line3": "So, we recommend you put all information right now, just to save your money."
       },
       "contract_lifecycle": {
         "label": "Contract Lifecycle:",
-        "description": "This is a short explanation of future steps of a contract between you and your contractor.",
+        "description": "This is a short explanation of the future steps of a contract between you and your contractor.",
         "steps": {
           "create": {
             "title": "1. Create",
-            "description": "Customer creates a contract"
+            "description": "The customer creates a contract"
           },
           "accept": {
             "title": "2. Accept",
-            "description": "Contractor accepts the terms"
+            "description": "The contractor accepts the terms"
           },
           "fund": {
             "title": "3. Fund",
-            "description": "Customer funds the contract"
+            "description": "The customer funds the contract"
           },
           "start": {
             "title": "4. Start",
-            "description": "Contractor starts working"
+            "description": "The contractor starts working"
           },
           "deliver": {
             "title": "5. Deliver",
-            "description": "Contractor delivers result"
+            "description": "The contractor delivers the result"
           },
           "confirm_decline": {
             "title": "6. Confirm/Decline",
-            "description": "Customer checks the result"
+            "description": "The customer checks the result"
           }
         }
       },
@@ -600,29 +597,29 @@
       },
       "days_to_start_work": {
         "label": "Days to Start Work:",
-        "line1": "How many days contractor will have to start working on your contract, starting from the date when the contract was funded.",
-        "line2": "If the contractor does not change the contract status from \"Funded\" to \"Started\" within these number of days, you will be able to refund your money."
+        "line1": "How many days will the contractor have to start working on your contract, starting from the date when the contract was funded?",
+        "line2": "If the contractor doesn't change the contract status from \"Funded\" to \"Started\" within these number of days, you will be able to refund your money."
       },
       "days_to_deliver_result": {
         "label": "Days to Deliver Result:",
         "line1": "This is a contract lifetime after fund.",
         "line2": "It must be greater than \"Days to Start Work\".",
-        "line3": "If the contractor does not send the final results in accordance with the terms of this contract within the deadline, you will be able to request a refund.",
+        "line3": "If the contractor doesn't send the final results under the terms of this contract within the deadline, you will be able to request a refund.",
         "line4": "This value will be used after you fund the contract."
       },
       "meta": {
         "label": "Meta:",
         "open_original_job": "Open original job",
-        "open_contractor_profile": "Open contractor's profile",
+        "open_contractor_profile": "Open the contractor's profile",
         "check_contractor_transactions": "Check contractor's transactions",
         "job_budget": "Job budget: {{ budget }} ({{ symbol }})",
         "contractor_service_rate": "Contractor's service rate: {{ serviceRate }} ({{ symbol }})"
       },
       "auto_fill_form_dialog": {
-        "header": "Do you want to fill all fields in this form automatically?",
-        "line1": "We can collect all required information from your job card and applicant's application and fill this form.",
-        "line2": "Title and description will be loaded from a job",
-        "line3": "Contract value will be loaded from an application.",
+        "header": "Do you want to fill in all the fields in this form automatically?",
+        "line1": "We can collect all the required information from your job card and applicant's application and fill out this form.",
+        "line2": "The title and description will be loaded from a job",
+        "line3": "The contract value will be loaded from an application.",
         "line4": "Do you want to proceed?",
         "negative_button": "No, I'll do it manually",
         "positive_button": "Yes, please fill"
@@ -678,17 +675,17 @@
     "just_one_second_blockchain": {
       "header": "Please wait...",
       "default_description": "We are waiting for the blockchain response",
-      "suggestion": "If this message will not disappear in 15-20 seconds, please refresh the page"
+      "suggestion": "If this message doesn't disappear in 15-20 seconds, please refresh the page"
     },
     "insufficient_balance": {
       "header": "Insufficient Balance",
-      "line1": "Unfortunately you do not have enough money in your account to perform a transaction on blockchain.",
-      "line2": "Please deposit some money to your wallet and try again."
+      "line1": "Unfortunately, you don't have enough money in your account to perform a transaction on the blockchain.",
+      "line2": "Please deposit some money into your wallet and try again."
     },
     "markdown_is_supported": {
-      "header": "Do you know?",
+      "header": "Did you know?",
       "line1": "<0>You can use <1>Markdown</1> formatting elements in a description.</0>",
-      "line2": "Headings (h1-h6) and blockquote are not supported."
+      "line2": "Headings (h1-h6) and blockquote aren't supported."
     },
     "unsaved_changes_dialog": {
       "header": "Unsaved changes were found!",
@@ -698,8 +695,8 @@
     },
     "confirm_transaction_message": {
       "header": "Action required",
-      "line1": "We are ready to save data on blockchain.",
-      "line2": "Please confirm transaction in your wallet."
+      "line1": "We are ready to save the data on the blockchain.",
+      "line2": "Please confirm the transaction in your wallet."
     },
     "jobs_sidebar": {
       "filters": "Filters",
@@ -745,14 +742,14 @@
     },
     "error_fetching_contract_version": {
       "header": "Invalid Settings Detected!",
-      "line1": "It looks like current application is connected to an invalid smart contract address.",
-      "line2": "Please contact our team to get actual smart contract address and update your application settings.",
+      "line1": "It looks like the current application is connected to an invalid smart contract address.",
+      "line2": "Please contact our team to get the actual smart contract address and update your application settings.",
       "error_description": "Error description:"
     },
     "suggest_minimize_gas_fees": {
       "header": "How to minimize gas fees?",
-      "line1": "If you are working on a project that involves sharing and collaborating on documents or code, you may want to consider using a cloud-based platform such as Google Docs or GitHub. The more detailed is your description here, the more you will pay in gas fees to submit this job.",
-      "line2": "Providing detailed explanations of the tasks in a separate document or repository can help reduce the amount of data you need to store on the blockchain. These platforms allow you to collaborate with others without incurring high gas fees, as the data is not stored on the blockchain.",
+      "line1": "If you are working on a project that involves sharing and collaborating on documents or code, you may want to consider using a cloud-based platform such as Google Docs or GitHub. The more detailed your description here, the more you will pay in gas fees to submit this job.",
+      "line2": "Providing detailed explanations of the tasks in a separate document or repository can help reduce the amount of data you need to store on the blockchain. These platforms allow you to collaborate with others without incurring high gas fees, as the data isn't stored on the blockchain.",
       "line3": "Additionally, you can use Telegram or Discord to share and discuss ideas with the freelancer."
     }
   }
