@@ -33,14 +33,14 @@
 ## Why OptriSpace?
 
 We are OptriSpace - an international team who got together to face a challenge
-and build a brand-new platform for people like us: freelancers, recruiters and
-entrepreneurs. We provide a platform for people looking for jobs or for
+and build a brand-new platform for people like us: freelancers, recruiters, and
+entrepreneurs. We provide a platform for people looking for jobs or
 professionals for their projects.
 
-Our platform is based on the blockchain technology and uses cryptocurrency as a
+Our platform is based on blockchain technology and uses cryptocurrency as a
 payment method. That makes OptriSpace secure and fast. Smart contracts protect
 customers and freelancers from third parties and middlemen. Smart contracts
-handle all logic depends on terms and conditions which have to be signed by both
+handle all logic depending on terms and conditions that must be signed by both
 participants.
 
 ## Features
