@@ -14,6 +14,8 @@ import useTranslation from 'next-translate/useTranslation'
 const { publicRuntimeConfig } = getConfig()
 const { optriSpaceContractAddress } = publicRuntimeConfig
 
+const SHOW_JOBS_FOR_THE_LAST_X_DAYS = 30
+
 export const JobsScreen = ({ currentAccount }) => {
   const { t } = useTranslation('common')
 
@@ -34,19 +36,25 @@ export const JobsScreen = ({ currentAccount }) => {
   useEffect(() => {
     if (!rawData) return
 
-    const j = rawData.map((job) => {
-      return {
-        address: job.id,
-        title: job.title,
-        description: job.description,
-        budget: ethers.utils.formatEther(job.budget.toString()),
-        applicationsCount: +job.applicationsCount.toString(),
-        categoryCode: job.category.code,
-        categoryLabel: job.category.label,
-        owner: job.owner,
-        createdAt: +job.createdAt.toString(),
-      }
-    })
+    // NOTE: We should divide by 1000, because blockchain returns timestamps without milliseconds
+    const today = Date.now() / 1000
+    const daysInSeconds = SHOW_JOBS_FOR_THE_LAST_X_DAYS * 24 * 60 * 60
+
+    const j = rawData
+      .filter((job) => today - job.createdAt < daysInSeconds)
+      .map((job) => {
+        return {
+          address: job.id,
+          title: job.title,
+          description: job.description,
+          budget: ethers.utils.formatEther(job.budget.toString()),
+          applicationsCount: +job.applicationsCount.toString(),
+          categoryCode: job.category.code,
+          categoryLabel: job.category.label,
+          owner: job.owner,
+          createdAt: +job.createdAt.toString(),
+        }
+      })
 
     const orderedJobs = j.slice().sort((a, b) => {
       return +b.createdAt - +a.createdAt
