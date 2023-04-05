@@ -44,6 +44,16 @@
 
 - Thank you for your help!
 
+## Requirements
+
+- [Node.js](https://nodejs.org/en/download/releases) v16 or 17
+- One of the supported browsers (Chrome, Opera, Firefox, Brave)
+- Installed and configured [MetaMask Extension](https://metamask.io/)
+  in your browser
+- Some amount of [test tokens](https://testnet.binance.org/faucet-smart) in
+  your wallet to execute transactions on blockchain
+- Text editor or IDE with installed EditorConfig extension
+
 ## For Windows users
 
 We highly recommend to install EditorConfig extension to your editor to have
@@ -61,7 +71,7 @@ If the result is `true`, you need to change it to `false`:
 git config --global core.autocrlf false
 ```
 
-## Developing locally with remote backend
+## Developing locally with a remote blockchain network
 
 Please follow instructions below to install frontend locally.
 
