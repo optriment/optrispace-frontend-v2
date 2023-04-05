@@ -60,7 +60,7 @@ export const Sidebar = ({
           />
 
           <List.Item>
-            <Link href={`/freelancers/${contract.contractorAddress}`}>
+            <Link href={`/jobs/${contract.jobAddress}`}>
               {t(
                 'pages.contracts.show.sidebar.your_contract.open_contractor_profile'
               )}
