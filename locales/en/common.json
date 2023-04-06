@@ -700,7 +700,10 @@
     },
     "jobs_sidebar": {
       "filters": "Filters",
+      "posted": "Posting date",
       "category": "Category",
+      "last_week": "Last week",
+      "last_month": "Last month",
       "applications": "Applications",
       "budget": "Budget",
       "all": "All"
