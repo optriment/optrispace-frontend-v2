@@ -10,6 +10,7 @@ import { JustOneSecondBlockchain } from '../../../../components/JustOneSecond'
 import { errorHandler } from '../../../../lib/errorHandler'
 import ErrorWrapper from '../../../../components/ErrorWrapper'
 import useTranslation from 'next-translate/useTranslation'
+import { useJobsFilter } from '../../../../hooks/useJobsFilter'
 
 const { publicRuntimeConfig } = getConfig()
 const { optriSpaceContractAddress } = publicRuntimeConfig
@@ -29,6 +30,12 @@ export const JobsScreen = ({ currentAccount }) => {
   })
 
   const [data, setData] = useState(undefined)
+  const [filters, setFilters] = useState({})
+  const filteredJobs = useJobsFilter({ data, filters })
+
+  const onFilterChanged = (f) => {
+    setFilters(f)
+  }
 
   // FIXME: It should be replaced with: https://wagmi.sh/react/hooks/useContractRead#select-optional
   useEffect(() => {
@@ -43,7 +50,7 @@ export const JobsScreen = ({ currentAccount }) => {
         applicationsCount: +job.applicationsCount.toString(),
         categoryCode: job.category.code,
         categoryLabel: job.category.label,
-        owner: job.owner,
+        owner: job.customerAddress,
         createdAt: +job.createdAt.toString(),
       }
     })
@@ -87,21 +94,17 @@ export const JobsScreen = ({ currentAccount }) => {
               />
             )}
 
-            {data && (
-              <>
-                {data.length > 0 ? (
-                  <JobsList jobs={data} />
-                ) : (
-                  <Segment>
-                    <p>{t('pages.customer.jobs.index.no_records')}</p>
-                  </Segment>
-                )}
-              </>
+            {filteredJobs.length > 0 ? (
+              <JobsList jobs={filteredJobs} />
+            ) : (
+              <Segment>
+                <p>{t('pages.customer.jobs.index.no_records')}</p>
+              </Segment>
             )}
           </Grid.Column>
 
           <Grid.Column computer={5} only="computer">
-            <JobsSidebar />
+            <JobsSidebar onFilterChanged={onFilterChanged} />
           </Grid.Column>
         </Grid>
       </Grid.Column>
