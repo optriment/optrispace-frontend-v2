@@ -10,11 +10,10 @@ import { JustOneSecondBlockchain } from '../../../components/JustOneSecond'
 import { errorHandler } from '../../../lib/errorHandler'
 import ErrorWrapper from '../../../components/ErrorWrapper'
 import useTranslation from 'next-translate/useTranslation'
+import { useJobsFilter } from '../../../hooks/useJobsFilter'
 
 const { publicRuntimeConfig } = getConfig()
 const { optriSpaceContractAddress } = publicRuntimeConfig
-
-const SHOW_JOBS_FOR_THE_LAST_X_DAYS = 30
 
 export const JobsScreen = ({ currentAccount }) => {
   const { t } = useTranslation('common')
@@ -31,30 +30,30 @@ export const JobsScreen = ({ currentAccount }) => {
   })
 
   const [data, setData] = useState(undefined)
+  const [filters, setFilters] = useState({})
+  const filteredJobs = useJobsFilter({ data, filters })
+
+  const onFilterChanged = (f) => {
+    setFilters(f)
+  }
 
   // FIXME: It should be replaced with: https://wagmi.sh/react/hooks/useContractRead#select-optional
   useEffect(() => {
     if (!rawData) return
 
-    // NOTE: We should divide by 1000, because blockchain returns timestamps without milliseconds
-    const today = Date.now() / 1000
-    const daysInSeconds = SHOW_JOBS_FOR_THE_LAST_X_DAYS * 24 * 60 * 60
-
-    const j = rawData
-      .filter((job) => today - job.createdAt < daysInSeconds)
-      .map((job) => {
-        return {
-          address: job.id,
-          title: job.title,
-          description: job.description,
-          budget: ethers.utils.formatEther(job.budget.toString()),
-          applicationsCount: +job.applicationsCount.toString(),
-          categoryCode: job.category.code,
-          categoryLabel: job.category.label,
-          owner: job.owner,
-          createdAt: +job.createdAt.toString(),
-        }
-      })
+    const j = rawData.map((job) => {
+      return {
+        address: job.id,
+        title: job.title,
+        description: job.description,
+        budget: ethers.utils.formatEther(job.budget.toString()),
+        applicationsCount: +job.applicationsCount.toString(),
+        categoryCode: job.category.code,
+        categoryLabel: job.category.label,
+        owner: job.customerAddress,
+        createdAt: +job.createdAt.toString(),
+      }
+    })
 
     const orderedJobs = j.slice().sort((a, b) => {
       return +b.createdAt - +a.createdAt
@@ -96,21 +95,17 @@ export const JobsScreen = ({ currentAccount }) => {
               />
             )}
 
-            {data && (
-              <>
-                {data.length > 0 ? (
-                  <JobsList jobs={data} />
-                ) : (
-                  <Segment>
-                    <p>{t('pages.jobs.index.no_records')}</p>
-                  </Segment>
-                )}
-              </>
+            {filteredJobs.length > 0 ? (
+              <JobsList jobs={filteredJobs} />
+            ) : (
+              <Segment>
+                <p>{t('pages.jobs.index.no_records')}</p>
+              </Segment>
             )}
           </Grid.Column>
 
           <Grid.Column computer={5} only="computer">
-            <JobsSidebar />
+            <JobsSidebar onFilterChanged={onFilterChanged} />
           </Grid.Column>
         </Grid>
       </Grid.Column>
