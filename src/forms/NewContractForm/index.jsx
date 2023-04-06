@@ -16,6 +16,7 @@ import {
   Button,
   Form,
   TextArea,
+  Divider,
 } from 'semantic-ui-react'
 import { useDebounce } from '../../hooks/useDebounce'
 import {
@@ -26,6 +27,7 @@ import {
 import { errorHandler } from '../../lib/errorHandler'
 import ErrorWrapper from '../../components/ErrorWrapper'
 import { ConfirmTransactionMessage } from '../../components/ConfirmTransactionMessage'
+import { ConfirmationMessage } from '../../components/ConfirmationMessage'
 import { JustOneSecondBlockchain } from '../../components/JustOneSecond'
 import { AutoFillFormDialog } from './AutoFillFormDialog'
 
@@ -71,6 +73,9 @@ export const NewContractForm = ({
 
   const [isValidForm, setIsValidForm] = useState(false)
   const [validationErrors, setValidationErrors] = useState([])
+
+  const [displayContractConfirmation, setDisplayContractConfirmation] =
+    useState(false)
 
   const hookIsEnabled =
     !isEmptyString(debouncedTitle) &&
@@ -278,10 +283,40 @@ export const NewContractForm = ({
         />
       )}
 
+      {displayContractConfirmation && (
+        <ConfirmationMessage
+          onClose={() => setDisplayContractConfirmation(false)}
+          onConfirm={() => {
+            write?.()
+            setDisplayContractConfirmation(false)
+          }}
+          confirmationButtonContent={t(
+            'pages.contracts.show.customer_screen.confirm_contract_creation_message.confirm_button'
+          )}
+          confirmationButtonPositive
+        >
+          <p>
+            {t(
+              'pages.contracts.show.customer_screen.confirm_contract_creation_message.line1'
+            )}
+          </p>
+
+          <Divider />
+
+          <p>
+            <b>
+              {t(
+                'pages.contracts.show.customer_screen.confirm_contract_creation_message.line2'
+              )}
+            </b>
+          </p>
+        </ConfirmationMessage>
+      )}
+
       <Form
         onSubmit={(e) => {
           e.preventDefault()
-          write?.()
+          setDisplayContractConfirmation(true)
         }}
       >
         <Grid stackable columns={1}>

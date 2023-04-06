@@ -277,6 +277,11 @@
             "line2": "Please check twice all the requirements in the contract terms.",
             "confirm_button": "Decline result"
           },
+          "confirm_contract_creation_message": {
+            "line1": "You will not be able to change the cost of the contract after it has been created. Are you sure you want to create this contract?",
+            "line2": "Please review all the contract details carefully before creating the contract.",
+            "confirm_button": "Create contract"
+          },
           "contract_created": {
             "what_is_next": {
               "line1": "At this moment, we are waiting for the contract to be accepted by the contractor.",
