@@ -66,6 +66,14 @@ export const Sidebar = ({
               )}
             </Link>
           </List.Item>
+
+          <List.Item>
+            <Link href={`/jobs/${contract.jobAddress}`}>
+              {t(
+                'pages.contracts.show.sidebar.your_contract.open_original_job'
+              )}
+            </Link>
+          </List.Item>
         </List>
 
         <Divider />
