@@ -248,6 +248,7 @@
             "contract_balance": "Contract Balance: {{ value }} {{ symbol }}",
             "open_contractor_profile": "Open the contractor's profile",
             "open_customer_profile": "Open the customer's profile",
+            "open_original_job": "Open original job",
             "description": "These values below are automatically calculated and depend on the current contract status. For example, you will know the expected dates of your contract, once the contract is funded.",
             "work_should_be_started_before": "The Work Should be Started Before: {{ value }}",
             "result_should_be_delivered_before": "The Result Should be Delivered Before: {{ value }}"
