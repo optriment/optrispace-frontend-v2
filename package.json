@@ -42,7 +42,8 @@
     "build-production": "next build && next export",
     "lint": "next lint --no-cache && npx eslint . --ext .js,.jsx && npx prettier --check .",
     "lint-fix": "next lint --fix",
-    "analyze": "cross-env ANALYZE=true npm run-script build"
+    "analyze": "cross-env ANALYZE=true npm run-script build",
+    "i18n:convert-csv-to-json": "node ./scripts/i18n/csv-to-json.js"
   },
   "browserslist": {
     "production": [
@@ -61,6 +62,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^12.1.5",
     "@testing-library/user-event": "^14.4.3",
+    "csvtojson": "^2.0.10",
     "eslint": "^8.32.0",
     "eslint-config-next": "12.3.1",
     "eslint-config-prettier": "^8.5.0",
