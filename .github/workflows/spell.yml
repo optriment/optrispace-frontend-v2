@@ -26,7 +26,7 @@ jobs:
           pip install codespell==2.1.0
 
       - name: Check spelling with codespell
-        run: codespell --ignore-words=codespell.txt --skip "./node_modules,./package-lock.json" || exit 1
+        run: codespell --ignore-words=codespell.txt --skip "./node_modules,./package-lock.json,./locales/es,./locales/pt" || exit 1
 
   # misspell:
   #   name: Check spelling all files in commit with misspell

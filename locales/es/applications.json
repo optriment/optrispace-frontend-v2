@@ -1,0 +1,9 @@
+{
+  "model": {
+    "comment": "Comentario",
+    "job_budget": "Presupuesto del trabajo",
+    "job_category": "Categoría del trabajo",
+    "service_rate": "Tarifa de servicio",
+    "created_at": "Creado"
+  }
+}

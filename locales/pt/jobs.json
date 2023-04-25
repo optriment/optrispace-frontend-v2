@@ -1,0 +1,28 @@
+{
+  "model": {
+    "title": "Título",
+    "description": "Descrição",
+    "budget": "Orçamento",
+    "category": "Categoria",
+    "created_at": "Criado",
+    "applications_count": "Número de aplicações"
+  },
+  "categories": {
+    "other": "Outros",
+    "programming": "Programação e desenvolvimento de software",
+    "marketing": "Marketing",
+    "seo": "SEO",
+    "system_administration": "Administração do sistema",
+    "design_and_illustrations": "Design e ilustrações",
+    "writing": "Escrita",
+    "translations": "Traduções",
+    "multimedia": "Multimídia",
+    "administration_support": "Suporte administrativo",
+    "customer_service": "Atendimento ao cliente",
+    "data_science_and_analytics": "Ciência de dados e análise",
+    "legal": "Jurídico",
+    "engineering_and_architecture": "Engenharia e arquitetura",
+    "human_resources": "Recursos humanos",
+    "testing": "QA e Testes"
+  }
+}
