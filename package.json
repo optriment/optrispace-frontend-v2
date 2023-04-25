@@ -43,7 +43,8 @@
     "lint": "next lint --no-cache && npx eslint . --ext .js,.jsx && npx prettier --check .",
     "lint-fix": "next lint --fix",
     "analyze": "cross-env ANALYZE=true npm run-script build",
-    "i18n:convert-csv-to-json": "node ./scripts/i18n/csv-to-json.js"
+    "i18n:convert-csv-to-json": "node ./scripts/i18n/csv-to-json.js",
+    "i18n:compare-locales": "node ./scripts/i18n/compare-locales.js"
   },
   "browserslist": {
     "production": [

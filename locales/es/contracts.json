@@ -1,0 +1,25 @@
+{
+  "model": {
+    "title": "Título",
+    "description": "Descripción",
+    "value": "Valor",
+    "days_to_deliver_result": "Días para enviar el trabajo terminado",
+    "days_to_start_work": "Días para comenzar el trabajo",
+    "status": "Estado",
+    "created_at": "Creado",
+    "customer_address": "Dirección del Cliente",
+    "contractor_address": "Dirección del Contratista",
+    "statuses": {
+      "created": "Creado",
+      "accepted": "Aceptado",
+      "funded": "Financiado",
+      "started": "Trabajo Comenzado",
+      "delivered": "Trabajo Terminado Enviado",
+      "approved": "Aprobado",
+      "declined": "Rechazado",
+      "withdrew": "Retirado",
+      "refunded": "Reembolsado",
+      "closed": "Cerrado"
+    }
+  }
+}

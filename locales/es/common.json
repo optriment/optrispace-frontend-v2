@@ -1,5 +1,765 @@
 {
   "date": {
     "locale": "es-ES"
+  },
+  "footer": {
+    "version": "Versión",
+    "node": "Nodo",
+    "platform_is_in_testing_stage": "<0>La plataforma se encuentra en una etapa de prueba. Si encuentras algún problema, error o comportamiento inesperado al usar nuestra plataforma, contáctanos por <1>Discord</1> o <2>GitHub</2>. ¡Gracias por tu ayuda!</0>"
+  },
+  "buttons": {
+    "add_new": "Añadir Nuevo",
+    "reset": "Restablecer",
+    "agree": "Aceptar",
+    "apply": "Postularte",
+    "publish": "Publicar"
+  },
+  "labels": {
+    "loading_from_blockchain": "Cargando datos desde la cadena de bloques…",
+    "please_select": "Selecciona",
+    "view_transactions_history": "Ver historial de transacciones",
+    "initializing": "Inicializando…",
+    "access_denied": "El acceso a esta página está restringido",
+    "our_recommendation": "Nuestra recomendación: {{ value }}",
+    "not_available": "N/D"
+  },
+  "errors": {
+    "transactions": {
+      "load": "No se pudieron cargar los datos desde la cadena de bloques",
+      "execute": "No se pudo ejecutar la transacción",
+      "prepare": "No se pudo preparar la transacción"
+    },
+    "messages": {
+      "not_found": "{{ entity }} no existe",
+      "empty": "{{ field }} no puede quedar vacío",
+      "greater_than": "{{ field }} debe ser mayor que {{ count }}",
+      "between": "{{ field }} debe ser entre {{ from }} y {{ to }}",
+      "less_than": "{{ field }} debe ser menor que {{ count }}",
+      "not_a_number": "{{ field }} no es un número",
+      "not_a_blockchain_address": "{{ field }} no es una dirección válida de la cadena de bloques"
+    },
+    "template": {
+      "body": "Hubo problemas con los siguientes campos:"
+    }
+  },
+  "pages": {
+    "unauthorized": {
+      "header": {
+        "title": "Conecte la billetera para poder acceder a la plataforma"
+      },
+      "line1": "Almacenamos todos los datos en la cadena de bloques, por lo que pedimos que conectes una billetera para solicitar toda la información necesaria."
+    },
+    "landing": {
+      "what_is_optrispace": {
+        "header": {
+          "title": "Qué es OptriSpace"
+        },
+        "line1": "Somos OptriSpace, un equipo internacional que se formó para enfrentar un desafío y construir una plataforma completamente nueva para personas como nosotros: freelancers, administradores y emprendedores. Les damos una plataforma a las personas que buscan trabajo o a los profesionales para sus proyectos.",
+        "line2": "Nuestra plataforma funciona con la tecnología de la cadena de bloques (blockchain) y utiliza criptomonedas como forma de pago. Eso hace que OptriSpace sea seguro y rápido. Los contratos inteligentes protegen a los clientes y freelancers de los terceros y los intermediarios. Los contratos inteligentes llevan toda la lógica en función de los términos y las condiciones que ambos participantes deben firmar."
+      },
+      "how_optrispace_works": {
+        "header": {
+          "title": "Cómo funciona OptriSpace"
+        },
+        "section1": {
+          "header": "1. El cliente publica un trabajo en la plataforma",
+          "line1": "El cliente publica una tarea en la plataforma y elige una persona con la que quiera trabajar para que la lleve a cabo. Ambos utilizan un sistema externo de envío de mensajes para conversar sobre los términos y las condiciones (precio, criterios de aceptación, etc.) del contrato posterior."
+        },
+        "section2": {
+          "header": "2. El freelancer acepta los términos y firma el contrato",
+          "line1": "En esta etapa, el freelancer debe aceptar el contrato en nuestra plataforma.",
+          "line2": "Después de eso, el cliente puede financiar el contrato inteligente en la cadena de bloques."
+        },
+        "section3": {
+          "header": "3. El cliente financia el contrato inteligente",
+          "line1": "El cliente inicia una transacción en la cadena de bloques para enviar dinero de su propia billetera a la dirección del contrato inteligente. Los fondos se retienen en la dirección del contrato inteligente hasta que se cumplan todas las condiciones."
+        },
+        "section4": {
+          "header": "4. El freelancer comienza a trabajar en la tarea y envía el trabajo terminado",
+          "line1": "El freelancer no puede solicitar dinero antes de que el cliente apruebe el trabajo terminado. Para poder recibir su pago, el freelancer debe hacer todo lo que esté en sus manos para terminar la tarea."
+        },
+        "section5": {
+          "header": "5. El cliente aprueba el retiro de dinero",
+          "line1": "El cliente obtiene el trabajo terminado y aprueba que el freelancer retire el dinero del contrato inteligente."
+        },
+        "section6": {
+          "header": "6. El freelancer retira dinero",
+          "line1": "El freelancer solicita que se transfiera el dinero del contrato inteligente a su propia billetera de criptomonedas."
+        }
+      },
+      "what_is_inside": {
+        "header": {
+          "title": "¿Qué hay dentro?"
+        },
+        "powered_by": "Desarrollado por",
+        "smart_contracts": "Contratos inteligentes",
+        "all_of_our_code": "Todo nuestro código es de",
+        "open_source": "código abierto",
+        "all_payments_in_crypto": "Todos los pagos son en criptomoneda",
+        "no_middlemen": "Sin intermediarios",
+        "no_paperwork": "Sin papeleo"
+      },
+      "what_network_do_we_use": {
+        "header": {
+          "title": "¿Qué red utilizamos?"
+        },
+        "line1": "Binance Smart Chain.",
+        "line2": "Nuestra moneda principal es la moneda nativa de esta red: BNB."
+      }
+    },
+    "dashboard": {
+      "header": {
+        "title": "Tablero"
+      },
+      "your_stats": {
+        "header": "Tus estadísticas",
+        "total_jobs_created": "Total de trabajos creados: {{ value }}",
+        "available_jobs": "Trabajos disponibles: {{ value }}",
+        "created_applications": "Postulaciones creadas: {{ value }}",
+        "total_contracts": "Total de contratos: {{ value }}",
+        "active_contracts": "Contratos activos: {{ value }}",
+        "total_transactions_volume": "Volumen total de transacciones: {{ value }}",
+        "income_as_a_freelancer": "Ingresos como freelancer: {{ value }}"
+      },
+      "current_node_stats": {
+        "header": "Estadísticas del nodo actual",
+        "clients": "Clientes: {{ value }}",
+        "processed_jobs": "Trabajos procesados: {{ value }}",
+        "processed_applications": "Solicitudes procesadas: {{ value }}",
+        "processed_contracts": "Contratos procesados: {{ value }}"
+      },
+      "platform_stats": {
+        "header": "Estadísticas de la plataforma",
+        "node_owners": "Propietarios del nodo: {{ value }}",
+        "frontend_nodes": "Nodos del frontend: {{ value }}",
+        "members": "Miembros: {{ value }}",
+        "freelancers": "Freelancers: {{ value }}",
+        "customers": "Clientes: {{ value }}",
+        "jobs": "Trabajos: {{ value }}",
+        "applications": "Postulaciones: {{ value }}",
+        "contracts": "Contratos: {{ value }}",
+        "jobs_categories": "Categorías de trabajos: {{ value }}"
+      }
+    },
+    "jobs": {
+      "index": {
+        "header": {
+          "title": "OptriSpace",
+          "subtitle": "Sin intermediarios. Sin papeleo. Pagos rápidos y seguros."
+        },
+        "no_records": "Aún no hay trabajos"
+      },
+      "new": {
+        "header": {
+          "title": "Añadir nuevo trabajo"
+        },
+        "no_jobs_categories": {
+          "header": "No hay categorías de trabajos",
+          "description": "Póngase en contacto con nuestro equipo de soporte"
+        }
+      },
+      "show": {
+        "apply_for_this_job": "Postúlate a este trabajo",
+        "application_created_message": {
+          "header": "Te postulaste con una tarifa de servicio de {{ serviceRate }} {{ symbol }} (precio de la postulación).",
+          "comment": "Tu comentario: {{ comment }}",
+          "line1": "Lo siguiente es recibir un contrato del cliente para que puedas hacer esta tarea y recibir tu pago.",
+          "line2": "Tienes que conversar con el cliente para acordar los términos y las condiciones, y luego demostrar que estás listo para trabajar.",
+          "line3": "Presta atención y pregunta todo lo que necesites para cumplir con esta tarea.",
+          "line4": "¡No empieces a trabajar antes de que el contrato quede financiado!"
+        },
+        "applications": {
+          "header": "Postulaciones ({{ count }})",
+          "no_records": "Aún no hay postulaciones",
+          "buttons": {
+            "create_contract": "Crear contrato",
+            "open_contract": "Contrato abierto"
+          }
+        },
+        "application": {
+          "you_have_a_contract": "Tienes un contrato",
+          "click_here_to_open_contract": "Haz clic aquí para abrir el contrato"
+        },
+        "contracts": {
+          "new": {
+            "header": {
+              "title": "Añadir un nuevo contrato"
+            }
+          }
+        }
+      }
+    },
+    "contracts": {
+      "show": {
+        "contract_description": {
+          "title": "Descripción, términos y condiciones del contrato"
+        },
+        "detailed_view": {
+          "title": "Vista pormenorizada",
+          "line1": "Ofrecemos información adicional (que suele ser aburrida para personas poco técnicas) para informarte lo que sucede con tu contrato inteligente en la cadena de bloques. Si no la necesitas, ignora la sección siguiente :-)",
+          "line2": "¡Pero…! Vas a necesitar estas tablas si tienes algún problema con nuestra plataforma. Dale estos datos a nuestro equipo de soporte si tienes cualquier problema o ves algún comportamiento inesperado al usar nuestra plataforma.",
+          "contract_history": {
+            "title": "Historial de contratos"
+          },
+          "technical_details": {
+            "title": "Detalles técnicos"
+          }
+        },
+        "contract_lifecycle": {
+          "headers": {
+            "status": "Estado",
+            "responsible": "Responsable",
+            "time": "Tiempo"
+          },
+          "you": "Tú",
+          "customer": "Cliente",
+          "contractor": "Contratista",
+          "accept": "Aceptar",
+          "fund": "Financiar",
+          "start": "Comenzar a trabajar",
+          "deliver": "Enviar Trabajo Terminado",
+          "approve_or_decline": "Aprobar o Rechazar",
+          "withdraw": "Retirar",
+          "refund": "Reembolsar"
+        },
+        "contract_meta": {
+          "headers": {
+            "key": "Clave",
+            "value": "Valor"
+          },
+          "current_status": "Estado actual",
+          "contract_value": "Valor del contrato",
+          "contract_balance": "Saldo del contrato",
+          "days_to_start_work": "Días para comenzar el trabajo (después de la financiación)",
+          "days_to_deliver_result": "Días para Enviar el Trabajo Terminado (después de la financiación)",
+          "work_should_be_started_before": "El trabajo se debe comenzar antes del",
+          "result_should_be_delivered_before": "El Trabajo Terminado se Debe Enviar Antes del",
+          "remaining_time_to_start_work": "Tiempo restante para comenzar el trabajo",
+          "remaining_time_to_deliver_result": "Tiempo Restante para Enviar el Trabajo Terminado",
+          "you_are_great": "¡Vaya! ¡Eres genial!",
+          "work_started_on_time": "¡Comenzaste a trabajar a tiempo!",
+          "result_delivered_on_time": "¡Enviaste el trabajo terminado a tiempo!"
+        },
+        "sidebar": {
+          "your_contract": {
+            "header": "Tu contrato",
+            "current_status": "Estado actual: {{ value }}",
+            "contract_value": "Valor del contrato: {{ value }} {{ symbol }}",
+            "contract_balance": "Saldo del contrato: {{ value }} {{ symbol }}",
+            "open_contractor_profile": "Abrir el perfil del contratista",
+            "open_customer_profile": "Abrir el perfil del cliente",
+            "open_original_job": "Abrir trabajo original",
+            "description": "Los valores siguientes se calculan en automático y dependen del estado actual del contrato. Por ejemplo, sabrás las fechas pertinentes del contrato una vez que quede financiado.",
+            "work_should_be_started_before": "El trabajo se debe comenzar antes del {{ value }}",
+            "result_should_be_delivered_before": "El trabajo terminado se debe enviar antes del {{ value }}"
+          },
+          "wallets_and_transactions": {
+            "header": "Billeteras y transacciones",
+            "description_for_contractor": "Si deseas revisar todas las transacciones de tu cliente o el contrato inteligente en la cadena de bloques, no dudes en usar los siguientes botones.",
+            "description_for_customer": "Si deseas revisar todas las transacciones de tu contratista o el contrato inteligente en la cadena de bloques, no dudes en usar los siguientes botones.",
+            "contractor": "Contratista",
+            "customer": "Cliente",
+            "contract": "Contrato"
+          },
+          "do_you_need_any_help": {
+            "header": "¿Necesitas ayuda?",
+            "description": "Únete a nuestra comunidad en redes sociales y pregunta lo que quieras saber sobre nuestra plataforma."
+          }
+        },
+        "customer_screen": {
+          "approve_confirmation_message": {
+            "line1": "Ten en cuenta que no podrás cambiar el estado del contrato después de aprobar el trabajo terminado. Si decides aprobar el trabajo terminado, no será posible solicitar un reembolso si encuentras algún problema más adelante.",
+            "line2": "Te sugerimos que vuelvas a revisar todos los requisitos en los términos del contrato.",
+            "confirm_button": "Aprobar el trabajo terminado"
+          },
+          "decline_confirmation_message": {
+            "line1": "Ten en cuenta que no podrás cambiar el estado del contrato después de rechazar el trabajo terminado. Si decides rechazar el trabajo terminado, no se le pagará al contratista y podrás solicitar un reembolso.",
+            "line2": "Verifica dos veces todos los requisitos en los términos del contrato.",
+            "confirm_button": "Rechazar el trabajo terminado"
+          },
+          "confirm_contract_creation_message": {
+            "line1": "No vas a poder cambiar el costo del contrato una vez creado. Estás seguro de crear este contrato?",
+            "line2": "Por favor, revise atentamente todos los detalles antes de crear el contrato.",
+            "confirm_button": "Crear contrato"
+          },
+          "contract_created": {
+            "what_is_next": {
+              "line1": "Estamos a la espera de que el contratista acepte el contrato.",
+              "line2": "Después de que lo haga, podrás financiarlo."
+            }
+          },
+          "contract_accepted": {
+            "what_is_next": {
+              "header": "El contrato inteligente está listo para quedar financiado por {{ value }} {{ symbol }}",
+              "line1": "Haz clic en “Financiar el contrato inteligente” para abrir MetaMask y confirmar la transacción.",
+              "line2": "Tienes que pagar costos de gasolina para hacer esta transacción.",
+              "line3": "Después de este paso, el contratista podrá comenzar a trabajar."
+            },
+            "fund_contract": "Financiar el contrato inteligente ({{ value }} {{ symbol }})"
+          },
+          "contract_funded": {
+            "what_is_next": {
+              "header": "Estamos a la espera de que el contratista comience a trabajar.",
+              "line1": "El contratista tiene aproximadamente {{ remainingTimeToStartWork }} para actualizar el estado del contrato. Fecha prevista: {{ expectedDate }}.",
+              "line2": "Si el trabajo no se comienza a tiempo, puedes pedir que se reembolse tu dinero."
+            },
+            "out_of_time": {
+              "header": "¡El contratista no comenzó a trabajar a tiempo!",
+              "line1": "Haz clic en “Reembolso” a continuación para recuperar tu dinero.",
+              "line2": "Todo el dinero ({{ value }} {{ symbol }}) se enviará a tu billetera de inmediato.",
+              "refund_contract": "Reembolso"
+            }
+          },
+          "contract_started": {
+            "what_is_next": {
+              "header": "Estamos a la espera de que el contratista envíe el trabajo terminado.",
+              "line1": "El contratista tiene aproximadamente {{ remainingTimeToDeliverResult }} para actualizar el estado del contrato. Fecha prevista: {{ expectedDate }}.",
+              "line2": "Si el trabajo terminado no se envía a tiempo, puedes pedir que se reembolse tu dinero.",
+              "line3": "Además, puedes aprobar el contrato antes de que se te entregue el resultado.",
+              "line4": "Inmediatamente después, el contratista podrá retirar el dinero.",
+              "line5": "¡No podrás pedir que se te reembolse el dinero si apruebas este contrato en este paso! Te sugerimos pensarlo detenidamente."
+            },
+            "out_of_time": {
+              "header": "¡El contratista no envió el trabajo terminado a tiempo!",
+              "line1": "Haz clic en “Reembolso” a continuación para recuperar tu dinero.",
+              "line2": "Todo el dinero ({{ value }} {{ symbol }}) se enviará a tu billetera de inmediato.",
+              "refund_contract": "Reembolso"
+            },
+            "approve_contract": "Entiendo y quiero aprobar el contrato"
+          },
+          "contract_delivered": {
+            "header": "¡Vaya! ¡Parece que el contratista envió el trabajo terminado a tiempo!",
+            "line1": "En este punto, tienes dos opciones. Te las vamos a explicar.",
+            "line2": "Puedes aprobar el trabajo terminado que fue enviado e, inmediatamente después, el contratista podrá retirar el dinero. Asegúrate de que se hayan cumplido todos los términos, condiciones y requisitos del contrato. ¿Hay alguna duda, información adicional o mejora que deba resolverse para que se cumplan los términos de este contrato?",
+            "line3": "¡No podrás pedir que se te reembolse el dinero si apruebas este contrato!",
+            "line4": "Si decides rechazar el contrato, podrás pedir el reembolso de tu dinero y no se le pagará al contratista. El contrato se cerrará al instante.",
+            "approve_contract": "Aprobar",
+            "decline_contract": "Rechazar"
+          },
+          "contract_approved": {
+            "header": "¡Felicidades!",
+            "line1": "¡Esperamos que hayas disfrutado trabajar con este freelancer!",
+            "line2": "Si tienes ideas de cómo mejorar OptriSpace, no dudes en contactarnos."
+          },
+          "contract_declined": {
+            "header": "¡Rechazaste el contrato!",
+            "line1": "Haz clic en “Reembolso” a continuación para recuperar tu dinero.",
+            "line2": "Todo el dinero ({{ value }} {{ symbol }}) se enviará a tu billetera de inmediato.",
+            "refund_contract": "Reembolso"
+          },
+          "contract_refunded": {
+            "header": "¡Se procesó el reembolso!",
+            "line1": "¡Esperamos que disfrutes trabajar con este freelancer la próxima vez!",
+            "line2": "Si tienes ideas de cómo mejorar OptriSpace, no dudes en contactarnos."
+          }
+        },
+        "contractor_screen": {
+          "do_not_start_working": {
+            "header": "Este es un amigable recordatorio del equipo de OptriSpace:",
+            "line1": "¡Este contrato aún no queda financiado!",
+            "line2": "¡No comiences a trabajar antes de que el contrato quede financiado!"
+          },
+          "contract_created": {
+            "what_is_next": {
+              "line1": "Te sugerimos pedirle al cliente lo que necesites para cumplir con este trabajo.",
+              "line2": "Si estás de acuerdo con el contrato y todo te parece bien, haz clic en “Aceptar términos y condiciones” para continuar.",
+              "line3": "Después de este paso, el cliente podrá financiar el contrato inteligente."
+            },
+            "accept_contract": "Aceptar términos y condiciones"
+          },
+          "contract_accepted": {
+            "what_is_next": {
+              "line1": "Estamos a la espera de que el cliente financie el contrato inteligente.",
+              "line2": "Después de esto, podrás comenzar con el trabajo."
+            }
+          },
+          "contract_funded": {
+            "what_is_next": {
+              "header": "El cliente está a la espera de que comiences a trabajar.",
+              "line1": "Tienes aproximadamente {{ remainingTimeToStartWork }} para actualizar el estado del contrato. Fecha prevista: {{ expectedDate }}.",
+              "line2": "Si el trabajo no se comienza a tiempo, el cliente podrá pedir que se le reembolse el dinero."
+            },
+            "out_of_time": {
+              "header": "Ya es demasiado tarde para comenzar a trabajar",
+              "line1": "Lamentablemente, se te acabó el tiempo para comenzar a trabajar según este contrato.",
+              "line2": "El cliente solicitará la devolución de su dinero."
+            },
+            "start_work": "Comenzar a trabajar"
+          },
+          "contract_started": {
+            "what_is_next": {
+              "header": "¡No olvides enviar el trabajo terminado a tiempo!",
+              "line1": "El cliente está a la espera de que envíes el trabajo terminado.",
+              "line2": "Tienes aproximadamente {{ remainingTimeToDeliverResult }} para actualizar el estado del contrato. Fecha prevista: {{ expectedDate }}.",
+              "line3": "Si el trabajo terminado no se envía a tiempo, el cliente podrá pedir que se le reembolse el dinero."
+            },
+            "confirmation_message": {
+              "confirm_button": "Enviar Trabajo Terminado",
+              "line1": "Ten en cuenta que no podrás cambiar el estado del contrato después de enviar el trabajo terminado. Si el cliente decide rechazar tu contrato, no se te pagará.",
+              "line2": "Verifica dos veces todos los requisitos en los términos del contrato."
+            },
+            "out_of_time": {
+              "header": "Ya es demasiado tarde para enviar el trabajo terminado",
+              "line1": "Lamentablemente, se te acabó el tiempo para enviar el trabajo terminado según este contrato.",
+              "line2": "El cliente solicitará la devolución del dinero."
+            },
+            "deliver_result": "Enviar Trabajo Terminado"
+          },
+          "contract_delivered": {
+            "what_is_next": {
+              "line1": "Estamos a la espera de que el cliente apruebe (o rechace) el contrato inteligente.",
+              "line2": "Haz todo lo posible para ayudar a que tu cliente pueda confirmar el resultado de tu trabajo."
+            }
+          },
+          "contract_approved": {
+            "header": "¡Se aprobó tu contrato!",
+            "line1": "Ahora puedes solicitar tu dinero.",
+            "withdraw_contract": "Retirar"
+          },
+          "contract_declined": {
+            "header": "¡Se rechazó tu contrato!",
+            "line1": "El cliente rechazó el resultado de tu trabajo.",
+            "line2": "Procura dar lo mejor de ti la próxima vez. ¡Te deseamos buena suerte!"
+          },
+          "contract_withdrew": {
+            "header": "¡Felicidades!",
+            "line1": "¡Esperamos que hayas disfrutado trabajar con este cliente!",
+            "line2": "Si tienes ideas de cómo mejorar OptriSpace, no dudes en contactarnos."
+          }
+        }
+      }
+    },
+    "customer": {
+      "jobs": {
+        "index": {
+          "header": {
+            "title": "Mis trabajos"
+          },
+          "no_records": "Todavía no tienes trabajos"
+        }
+      },
+      "contracts": {
+        "index": {
+          "header": {
+            "title": "Mis contratos como cliente"
+          },
+          "no_records": "Aún no hay contratos"
+        }
+      }
+    },
+    "customers": {
+      "show": {
+        "header": {
+          "title": "¡Te damos la bienvenida al perfil de {{ name }}!"
+        },
+        "blockchain_address": {
+          "header": "Dirección en la cadena de bloques:"
+        },
+        "stats": {
+          "header": "Estadísticas:",
+          "total_contracts": "Total de contratos: {{ count }}"
+        },
+        "last_transaction_was": {
+          "header": "La última transacción fue:"
+        },
+        "profile_picture": "Foto de perfil"
+      }
+    },
+    "freelancers": {
+      "index": {
+        "header": {
+          "title": "Freelancers"
+        },
+        "no_records": "Aún no hay freelancers",
+        "last_activity": "Última actividad: {{ date }}",
+        "skill_tags": "Etiquetas de capacidades:",
+        "total_contracts": "Total de contratos: {{ count }}",
+        "succeeded_contracts": "Contratos exitosos: {{ count }}",
+        "failed_contracts": "Contratos fallidos: {{ count }}"
+      },
+      "show": {
+        "header": {
+          "title": "¡Te damos la bienvenida al perfil de {{ name }}!"
+        },
+        "about": {
+          "header": "Algunas cosas sobre el freelancer:",
+          "no_information_given": "No ha proporcionado información"
+        },
+        "blockchain_address": {
+          "header": "Dirección en la cadena de bloques:"
+        },
+        "stats": {
+          "header": "Estadísticas:",
+          "total_contracts": "Total de contratos: {{ count }}",
+          "succeeded_contracts": "Contratos exitosos: {{ count }}",
+          "failed_contracts": "Contratos fallidos: {{ count }}"
+        },
+        "last_transaction_was": {
+          "header": "La última transacción fue:"
+        },
+        "profile_picture": "Foto de perfil"
+      }
+    },
+    "freelancer": {
+      "applications": {
+        "index": {
+          "header": {
+            "title": "Mis postulaciones"
+          },
+          "job_description_preview": "Vista previa de la descripción del trabajo:",
+          "comment": "Comentario:",
+          "has_contract": "Tiene contrato",
+          "open_contract": "Contrato abierto",
+          "no_records": "Aún no hay postulaciones"
+        }
+      },
+      "contracts": {
+        "index": {
+          "header": {
+            "title": "Mis contratos como freelancer"
+          },
+          "no_records": "Aún no hay contratos"
+        }
+      }
+    }
+  },
+  "forms": {
+    "job_form": {
+      "title": {
+        "label": "Título:"
+      },
+      "description": {
+        "label": "Describe todo lo que tendrán que hacer los freelancers:",
+        "tab_edit": "Editar",
+        "tab_preview": "Previsualizar",
+        "nothing_to_preview": "No hay nada que previsualizar"
+      },
+      "budget": {
+        "label": "Presupuesto ({{ symbol }}):",
+        "range": "Presupuesto mínimo: {{ min }}; máximo: {{ max }} {{symbol}}"
+      },
+      "category": {
+        "label": "Categoría:"
+      }
+    },
+    "application_form": {
+      "comment": {
+        "label": "Comentario:"
+      },
+      "service_rate": {
+        "label": "Tarifa esperada por el servicio ({{ symbol }}):"
+      },
+      "friendly_reminder_message": {
+        "header": "Este es un amigable recordatorio del equipo de OptriSpace:",
+        "line1": "<0>Ten en cuenta que haremos todo lo posible para revisar todas las postulaciones (a nuestras tareas) y para responderles a todos lo antes posible. Si te gusta mucho el proyecto y quieres que su postulación se revise antes, considera crear algunas solicitudes de extracción significativas en cualquiera de nuestros <1>proyectos de código abierto</1> e incluye el enlace de una de esas solicitudes en tu postulación.</0>",
+        "line2": "¡Presta atención! Nunca tendrías que pagar para postularte a un trabajo (a excepción de los costos de gasolina que se cobran para procesar las transacciones en la cadena de bloques). Tampoco tendrías que pagarle nada a un cliente (para acelerar el procesamiento de tu postulación, etc.)"
+      }
+    },
+    "contract_form": {
+      "buttons": {
+        "fill_form": "Contesta el formulario del trabajo y la postulación"
+      },
+      "title": {
+        "label": "Título:"
+      },
+      "description": {
+        "label": "Describe todo lo que el contratista debe hacer para cumplir los términos del contrato",
+        "line1": "Escribe aquí lo que quieras, como los criterios de aceptación o enlaces a documentos, recursos o referencias que sean obligatorios.",
+        "line2": "Presta atención: tendrás que pagar más costos de gasolina si quieres hacer cambios en este contrato más adelante.",
+        "line3": "Por lo tanto, para que te ahorres dinero, te recomendamos que pongas toda la información ahora mismo."
+      },
+      "contract_lifecycle": {
+        "label": "Ciclo de vida del contrato:",
+        "description": "Esta es una breve explicación de los pasos que tendría un contrato que celebren tú y el contratista.",
+        "steps": {
+          "create": {
+            "title": "1. Crear",
+            "description": "El cliente crea un contrato"
+          },
+          "accept": {
+            "title": "2. Aceptar",
+            "description": "El contratista acepta los términos"
+          },
+          "fund": {
+            "title": "3. Financiar",
+            "description": "El cliente financia el contrato"
+          },
+          "start": {
+            "title": "4. Comenzar",
+            "description": "El contratista comienza a trabajar"
+          },
+          "deliver": {
+            "title": "5. Enviar",
+            "description": "El contratista envía el trabajo terminado"
+          },
+          "confirm_decline": {
+            "title": "6. Confirmar o rechazar",
+            "description": "El cliente revisa el trabajo terminado"
+          }
+        }
+      },
+      "value": {
+        "label": "Valor del contrato ({{ symbol }}):"
+      },
+      "days_to_start_work": {
+        "label": "Días para comenzar a trabajar:",
+        "line1": "¿Cuántos días tendrá el contratista para comenzar a trabajar a partir de la fecha en que se financió el contrato?",
+        "line2": "Si el contratista no cambia el estado del contrato de “Financiado” a “Comenzado\" antes de que pase esta cantidad de días, podrás pedir el reembolso de tu dinero."
+      },
+      "days_to_deliver_result": {
+        "label": "Días para Enviar el Trabajo Terminado:",
+        "line1": "Este es el tiempo de validez del contrato luego de que queda financiado.",
+        "line2": "Debe ser una cantidad mayor que la de los días para comenzar a trabajar.",
+        "line3": "Si el contratista no envía los resultados finales conforme a los términos de este contrato antes de la fecha límite, podrás solicitar un reembolso.",
+        "line4": "Este valor se utilizará después de que financies el contrato."
+      },
+      "meta": {
+        "label": "Meta:",
+        "open_original_job": "Abrir trabajo original",
+        "open_contractor_profile": "Abrir el perfil del contratista",
+        "check_contractor_transactions": "Revisar las transacciones del contratista",
+        "job_budget": "Presupuesto del trabajo: {{ budget }} ({{ symbol }})",
+        "contractor_service_rate": "Tarifa de servicio del contratista: {{ serviceRate }} ({{ symbol }})"
+      },
+      "auto_fill_form_dialog": {
+        "header": "¿Quieres que todos los campos de este formulario se llenen de forma automática?",
+        "line1": "Podemos extraer de la descripción del trabajo y de la solicitud del solicitante toda la información que se pide en este formulario.",
+        "line2": "El título y la descripción provendrán de un trabajo.",
+        "line3": "El valor del contrato provendrá de una postulación.",
+        "line4": "¿Quieres continuar?",
+        "negative_button": "No, lo haré manualmente",
+        "positive_button": "Sí, llénalo"
+      }
+    }
+  },
+  "components": {
+    "wallet_loader": {
+      "connecting_to_account": "Conectándose a la cuenta…",
+      "reconnecting_to_account": "Reconectándose a la cuenta…",
+      "error_loading_account": "Error al cargar la cuenta",
+      "switching_network": "Cambiando de red…",
+      "error_switching_network": "Error al cambiar de red",
+      "loading_balance": "Cargando el saldo…",
+      "error_loading_balance": "Error al cargar el saldo",
+      "loading_contract_version": "Cargando la versión del contrato…"
+    },
+    "menu": {
+      "connect_wallet": "Conectar billetera",
+      "disconnect_wallet": "Desconectar ({{ address }})…",
+      "browse": {
+        "main": "Navegar",
+        "jobs": "Trabajos",
+        "vacancies": "Vacantes",
+        "freelancers": "Freelancers"
+      },
+      "customer": {
+        "main": "Cliente",
+        "my_jobs": "Mis trabajos",
+        "my_contracts": "Mis contratos",
+        "my_vacancies": "Mis vacantes",
+        "add_new_job": "Añadir nuevo trabajo",
+        "add_new_vacancy": "Añadir nueva vacante",
+        "my_profile": "Mi perfil"
+      },
+      "freelancer": {
+        "main": "Freelancer",
+        "my_applications": "Mis postulaciones",
+        "my_contracts": "Mis contratos",
+        "my_resumes": "Mis currículos",
+        "my_profile": "Mi perfil"
+      },
+      "node_owner": {
+        "main": "Propietario del nodo",
+        "my_frontend_nodes": "Mis nodos del frontend"
+      },
+      "balance": "Saldo: {{ balance }} {{ symbol }}"
+    },
+    "just_one_second": {
+      "header": "Un segundo, por favor",
+      "default_description": "Te estamos buscando este contenido."
+    },
+    "just_one_second_blockchain": {
+      "header": "Espera un momento…",
+      "default_description": "Estamos esperando la respuesta de la cadena de bloques",
+      "suggestion": "Si este mensaje no desaparece dentro de 15 a 20 segundos, actualiza la página"
+    },
+    "insufficient_balance": {
+      "header": "Saldo insuficiente",
+      "line1": "Lamentablemente, no tienes suficiente dinero en tu cuenta para hacer una transacción en la cadena de bloques.",
+      "line2": "Deposita algo de dinero en tu billetera y vuelve a intentarlo."
+    },
+    "markdown_is_supported": {
+      "header": "¿Lo sabías?",
+      "line1": "<0> Puedes usar elementos de formato de <1> Markdown</1> en las descripciones.</0>",
+      "line2": "No se admiten los encabezados (h1-h6) ni los bloques de citación."
+    },
+    "unsaved_changes_dialog": {
+      "header": "¡Se encontraron cambios que no se guardaron!",
+      "description": "¿Quieres recuperar esta información?",
+      "negative_button": "No, quítala",
+      "positive_button": "Sí, recupérala"
+    },
+    "confirm_transaction_message": {
+      "header": "Tienes que hacer algo",
+      "line1": "Estamos listos para guardar los datos en la cadena de bloques.",
+      "line2": "Confirma la transacción en tu billetera."
+    },
+    "jobs_sidebar": {
+      "filters": "Filtros",
+      "posted": "Fecha de publicación",
+      "category": "Categoría",
+      "last_week": "Última semana",
+      "last_month": "Último mes",
+      "applications": "Postulaciones",
+      "budget": "Presupuesto",
+      "all": "Todo"
+    },
+    "contracts_sidebar": {
+      "filters": "Filtros",
+      "status": "Estado:",
+      "job": "Trabajo:",
+      "customer": "Cliente:",
+      "contractor": "Contratista:",
+      "action_required": "Tienes que hacer algo",
+      "all": "Todo"
+    },
+    "sidebar": {
+      "header": "Nuestras características principales",
+      "no_paperwork": "Sin papeleo",
+      "no_middlemen": "Sin intermediarios",
+      "no_managers": "Sin administradores",
+      "no_third_parties": "Sin terceros",
+      "fast_and_secure_payments": "Pagos rápidos y seguros",
+      "no_platform_fees": "Sin costos de plataforma",
+      "powered_by_smart_contracts": "Impulsado por contratos inteligentes",
+      "all_code_is_open_source": "Todo nuestro código es de código abierto",
+      "all_payments_in_crypto": "Todos los pagos son en criptomoneda",
+      "born_to_work_globally": "Nacido para funcionar en todo el mundo"
+    },
+    "what_is_next_message": {
+      "header": "¿Qué sigue?"
+    },
+    "confirmation_message": {
+      "header": "Advertencia",
+      "close_button": "Cerrar"
+    },
+    "wrong_blockchain_network": {
+      "header": "Estás conectado a la red de la cadena de bloques incorrecta",
+      "our_platform_uses": "Nuestra plataforma utiliza {{ blockchainNetworkName }}.",
+      "connect_to_valid_network": "Conecta tu billetera a la red válida y vuelve a cargar la página.",
+      "switch_network": "Cambiar de red a {{ blockchainNetworkName }}"
+    },
+    "error_fetching_contract_version": {
+      "header": "¡Se detectó una configuración inválida!",
+      "line1": "Parece que la postulación actual está conectada a una dirección inválida para el contrato inteligente.",
+      "line2": "Comunícate con nuestro equipo para obtener la dirección real del contrato inteligente y actualizar la configuración de tu postulación.",
+      "error_description": "Descripción del error:"
+    },
+    "suggest_minimize_gas_fees": {
+      "header": "¿Cómo minimizar los costos de gasolina?",
+      "line1": "Si trabajas en un proyecto en el que hay que compartir y colaborar en documentos o código, tal vez quieras considerar usar una plataforma alojada en la nube, como Google Docs o GitHub. Mientras más pormenorizada sea tu descripción, más pagarás en costos de gasolina para enviar este trabajo.",
+      "line2": "Una manera de reducir la cantidad de datos que se tienen que almacenar en la cadena de bloques es incluir las explicaciones pormenorizadas de las tareas en un documento o repositorio aparte. Estas plataformas te permiten colaborar con otros sin incurrir en altos costos de gasolina, ya que los datos no se almacenan en la cadena de bloques.",
+      "line3": "Además, puedes usar Telegram o Discord para conversar con el freelancer y decirle tus ideas."
+    }
   }
 }

@@ -18,6 +18,12 @@ export const LanguageSwitcher = () => {
         onClick={async () => await setLanguage('es')}
         content="Español"
       />
+
+      <Button
+        active={lang === 'pt'}
+        onClick={async () => await setLanguage('pt')}
+        content="Português"
+      />
     </Button.Group>
   )
 }
