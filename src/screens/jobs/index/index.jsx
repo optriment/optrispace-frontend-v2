@@ -11,6 +11,7 @@ import { errorHandler } from '../../../lib/errorHandler'
 import ErrorWrapper from '../../../components/ErrorWrapper'
 import useTranslation from 'next-translate/useTranslation'
 import { useJobsFilter } from '../../../hooks/useJobsFilter'
+import { Pagination } from '../../../components/Pagination'
 
 const { publicRuntimeConfig } = getConfig()
 const { optriSpaceContractAddress } = publicRuntimeConfig
@@ -33,8 +34,17 @@ export const JobsScreen = ({ currentAccount }) => {
   const [filters, setFilters] = useState({})
   const filteredJobs = useJobsFilter({ data, filters })
 
+  const [recordsPerPage, setRecordsPerPage] = useState(10)
+  const [currentPage, setCurrentPage] = useState(1)
+  const [totalPages, setTotalPages] = useState(null)
+  const [showPagination, setShowPagination] = useState(null)
+
   const onFilterChanged = (f) => {
     setFilters(f)
+  }
+
+  const changePage = (_e, { activePage }) => {
+    setCurrentPage(activePage)
   }
 
   // FIXME: It should be replaced with: https://wagmi.sh/react/hooks/useContractRead#select-optional
@@ -60,7 +70,20 @@ export const JobsScreen = ({ currentAccount }) => {
     })
 
     setData(orderedJobs)
-  }, [rawData])
+
+    const recordsCount = orderedJobs.length
+    const pagesCount = Math.ceil(recordsCount / recordsPerPage)
+
+    if (currentPage > pagesCount) {
+      setCurrentPage(1)
+    }
+
+    const startFrom = (currentPage - 1) * recordsPerPage
+
+    setTotalPages(pagesCount)
+    setShowPagination(pagesCount > 1)
+    setData(orderedJobs.slice(startFrom, startFrom + recordsPerPage))
+  }, [currentPage, rawData, recordsPerPage])
 
   return (
     <Grid stackable columns={1}>
@@ -102,6 +125,14 @@ export const JobsScreen = ({ currentAccount }) => {
                 <p>{t('pages.jobs.index.no_records')}</p>
               </Segment>
             )}
+
+            <Grid>
+              {showPagination && (
+                <Grid.Column textAlign="center">
+                  <Pagination totalPages={totalPages} changePage={changePage} />
+                </Grid.Column>
+              )}
+            </Grid>
           </Grid.Column>
 
           <Grid.Column computer={5} only="computer">
