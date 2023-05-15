@@ -34,7 +34,7 @@ export const JobsScreen = ({ currentAccount }) => {
   const [filters, setFilters] = useState({})
   const filteredJobs = useJobsFilter({ data, filters })
 
-  const [recordsPerPage, setRecordsPerPage] = useState(10)
+  const [recordsPerPage] = useState(10)
   const [currentPage, setCurrentPage] = useState(1)
   const [totalPages, setTotalPages] = useState(null)
   const [showPagination, setShowPagination] = useState(null)
