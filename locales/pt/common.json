@@ -354,6 +354,7 @@
           }
         },
         "contractor_screen": {
+          "comment":"Seu comentário",
           "do_not_start_working": {
             "header": "Eis aqui um lembrete amigável do time da OptriSpace:",
             "line1": "O contrato não foi financiado ainda!",

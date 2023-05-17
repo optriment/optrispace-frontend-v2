@@ -37,7 +37,6 @@ const {
 } = publicRuntimeConfig
 
 export const ContractCardForContractor = ({
-  jobAddress,
   contract,
   currentAccount,
   accountBalance,
@@ -96,7 +95,7 @@ export const ContractCardForContractor = ({
     address: optriSpaceContractAddress,
     abi: gigsFreelancerServiceABI,
     functionName: 'gigsGetMyApplication',
-    args: [jobAddress],
+    args: [contract.jobAddress],
     overrides: { from: currentAccount },
   })
 
@@ -131,12 +130,7 @@ export const ContractCardForContractor = ({
   useEffect(() => {
     if (!response) return
 
-    const { dto: rawApplication } = response
-
-    const a = {
-      comment: rawApplication.comment,
-    }
-    setComment(a.comment)
+    setComment(response.dto.comment)
   }, [response])
 
   const panes = [
