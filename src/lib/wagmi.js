@@ -35,7 +35,10 @@ const binanceSmartChainTestnet = {
     symbol: 'BNB',
   },
   rpcUrls: {
-    default: 'https://data-seed-prebsc-1-s3.binance.org:8545',
+    default: 'https://data-seed-prebsc-1-s1.binance.org:8545',
+    prebsc1s2: 'https://data-seed-prebsc-1-s2.binance.org:8545',
+    prebsc2s1: 'https://data-seed-prebsc-2-s1.binance.org:8545',
+    prebsc2s2: 'https://data-seed-prebsc-2-s2.binance.org:8545',
   },
   blockExplorers: {
     default: { name: 'Bscscan', url: 'https://testnet.bscscan.com' },
