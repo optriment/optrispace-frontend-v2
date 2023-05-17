@@ -42,6 +42,13 @@ export const errorHandler = (error, context = '') => {
           }
         }
 
+        // This error was caught first time in Eva's Chrome MetaMask extension.
+        if (error?.error?.code === 'SERVER_ERROR') {
+          if (error?.error?.reason === 'missing response') {
+            return 'It looks like your MetaMask does not work correctly. Please try another browser or reinstall MetaMask.'
+          }
+        }
+
         break
 
       case 'NUMERIC_FAULT':
