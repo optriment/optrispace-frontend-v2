@@ -13,9 +13,10 @@ const binanceSmartChainMainnet = {
     decimals: 18,
   },
   rpcUrls: {
-    default: 'https://bsc-dataseed1.binance.org',
-    dataseed2: 'https://bsc-dataseed4.binance.org',
-    dataseed3: 'https://bsc-dataseed4.binance.org',
+    default: 'https://bsc-dataseed.binance.org',
+    dataseed1: 'https://bsc-dataseed1.binance.org',
+    dataseed2: 'https://bsc-dataseed2.binance.org',
+    dataseed3: 'https://bsc-dataseed3.binance.org',
     dataseed4: 'https://bsc-dataseed4.binance.org',
   },
   blockExplorers: {
