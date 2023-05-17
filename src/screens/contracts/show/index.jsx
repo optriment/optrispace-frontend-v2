@@ -139,6 +139,7 @@ export const ContractScreen = ({
           />
         ) : (
           <ContractCardForContractor
+            jobAddress={contract.jobAddress}
             contract={contract}
             currentAccount={currentAccount}
             accountBalance={accountBalance}
