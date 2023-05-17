@@ -9,9 +9,7 @@ export const errorHandler = (error, context = '') => {
 
   // FIXME: Remove it before deploy to production
   console.log('--- errorHandler ---')
-  console.log(error.code)
-  console.log(error?.reason)
-  console.log(error?.message)
+  console.log({ error })
   console.log({ context })
 
   if (error?.code) {
@@ -69,12 +67,12 @@ export const errorHandler = (error, context = '') => {
         return `Invalid argument: ${error.argument}`
     }
 
-    if (error.message.match(/NotAvailableNow/)) {
+    if (error?.message.match(/NotAvailableNow/)) {
       return 'Requested function is not available now'
     }
 
     console.log('--- Unhandled Error Code ---')
-    console.log(error)
+    console.log({ error })
   }
 
   return error.message
