@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { Card, List, Image, Divider } from 'semantic-ui-react'
 import { formatDateTime } from '../../lib/formatDate'
 import useTranslation from 'next-translate/useTranslation'
+import { ROUTES } from '../../lib/routes'
 
 export const FreelancerCard = ({ freelancer }) => {
   const { t } = useTranslation('common')
@@ -28,7 +29,9 @@ export const FreelancerCard = ({ freelancer }) => {
         />
 
         <Card.Header>
-          <Link href={`/freelancers/${freelancer.address}`}>{displayName}</Link>
+          <Link href={ROUTES.FREELANCERS + freelancer.address}>
+            {displayName}
+          </Link>
         </Card.Header>
 
         <Card.Meta style={{ marginTop: '1em' }}>
