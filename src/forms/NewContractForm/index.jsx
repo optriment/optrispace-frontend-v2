@@ -34,6 +34,7 @@ import { AutoFillFormDialog } from './AutoFillFormDialog'
 import gigsAddContractCommandABI from '../../../contracts/GigsAddContractCommand.json'
 import { ValidationErrors } from '../../components/ValidationErrors'
 import useTranslation from 'next-translate/useTranslation'
+import { ROUTES } from '../../lib/routes'
 
 const { publicRuntimeConfig } = getConfig()
 const {
@@ -535,13 +536,16 @@ export const NewContractForm = ({
 
               <List bulleted>
                 <List.Item>
-                  <Link href={`/jobs/${dto.jobAddress}`} target="_blank">
+                  <Link
+                    href={ROUTES.JOBS_LIST + dto.jobAddress}
+                    target="_blank"
+                  >
                     {t('forms.contract_form.meta.open_original_job')}
                   </Link>
                 </List.Item>
 
                 <List.Item>
-                  <Link href={`/freelancers/${dto.applicantAddress}`}>
+                  <Link href={ROUTES.FREELANCERS_LIST + dto.applicantAddress}>
                     {t('forms.contract_form.meta.open_contractor_profile')}
                   </Link>
                 </List.Item>

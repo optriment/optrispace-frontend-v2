@@ -11,6 +11,7 @@ import { errorHandler } from '../../../../lib/errorHandler'
 import ErrorWrapper from '../../../../components/ErrorWrapper'
 import useTranslation from 'next-translate/useTranslation'
 import { useJobsFilter } from '../../../../hooks/useJobsFilter'
+import { ROUTES } from '../../../../lib/routes'
 
 const { publicRuntimeConfig } = getConfig()
 const { optriSpaceContractAddress } = publicRuntimeConfig
@@ -72,7 +73,7 @@ export const JobsScreen = ({ currentAccount }) => {
         <Button
           as="a"
           primary
-          href="/jobs/new"
+          href={ROUTES.ADD_JOB}
           floated="right"
           content={t('buttons.add_new')}
         />

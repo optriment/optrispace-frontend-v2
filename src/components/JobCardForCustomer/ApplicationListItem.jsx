@@ -4,6 +4,7 @@ import { Button, Label, Divider, Header, Icon } from 'semantic-ui-react'
 import { FormattedDescription } from '../FormattedDescription'
 import { formatDateTime } from '../../lib/formatDate'
 import useTranslation from 'next-translate/useTranslation'
+import { ROUTES } from '../../lib/routes'
 
 export default function ApplicationListItem({
   application,
@@ -16,7 +17,7 @@ export default function ApplicationListItem({
   return (
     <>
       <Header as="h4">
-        <Link href={`/freelancers/${application.applicantAddress}`}>
+        <Link href={ROUTES.FREELANCERS_LIST + application.applicantAddress}>
           {application.applicantAddress}
         </Link>
       </Header>
@@ -63,7 +64,7 @@ export default function ApplicationListItem({
         <Button
           size="tiny"
           primary
-          href={`/jobs/${application.jobAddress}/contracts/new?application_address=${application.address}`}
+          href={`${ROUTES.JOBS_LIST}${application.jobAddress}/contracts/new?application_address=${application.address}`}
           content={t('pages.jobs.show.applications.buttons.create_contract')}
         />
       )}

@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { List, Icon, Divider, Button, Segment, Header } from 'semantic-ui-react'
 import { formatDateTime } from '../../lib/formatDate'
 import useTranslation from 'next-translate/useTranslation'
+import { ROUTES } from '../../lib/routes'
 
 const formatTimestamp = (timestamp, locale) => {
   if (timestamp === 0) return ''
@@ -60,7 +61,7 @@ export const Sidebar = ({
           />
 
           <List.Item>
-            <Link href={`/freelancers/${contract.contractorAddress}`}>
+            <Link href={ROUTES.FREELANCERS_LIST + contract.contractorAddress}>
               {t(
                 'pages.contracts.show.sidebar.your_contract.open_contractor_profile'
               )}
@@ -68,7 +69,7 @@ export const Sidebar = ({
           </List.Item>
 
           <List.Item>
-            <Link href={`/jobs/${contract.jobAddress}`}>
+            <Link href={ROUTES.JOBS_LIST + contract.jobAddress}>
               {t(
                 'pages.contracts.show.sidebar.your_contract.open_original_job'
               )}

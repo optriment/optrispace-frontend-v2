@@ -1,0 +1,17 @@
+export const ROUTES = {
+  HOME: '/',
+  JOBS_LIST: '/jobs/',
+  VACANCIES_LIST: '/vacancies/',
+  FREELANCERS_LIST: '/freelancers/',
+  CUSTOMER_JOBS_LIST: '/customer/jobs/',
+  CUSTOMER_CONTRACTS_LIST: '/customer/contracts/',
+  CUSTOMER_VACANCIES_LIST: '/customer/vacancies/',
+  ADD_JOB: '/jobs/new/',
+  ADD_VACANCIES: '/vacancies/new/',
+  CUSTOMER_DASHBOARD: '/customer/',
+  FREELANCER_APPLICATIONS_LIST: '/freelancer/applications/',
+  FREELANCER_CONTRACTS_LIST: '/freelancer/contracts/',
+  FREELANCER_RESUMES_LIST: '/freelancer/resumes/',
+  FREELANCER_DASHBOARD: '/freelancer/',
+  FRONTEND_NODES_LIST: '/frontend_nodes/',
+}

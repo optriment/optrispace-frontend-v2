@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { Dropdown, Loader, Button, Menu } from 'semantic-ui-react'
 import Logo from '../../public/optrispace.svg'
 import useTranslation from 'next-translate/useTranslation'
+import { ROUTES } from '../lib/routes'
 
 const MenuComponent = ({
   isConnected,
@@ -18,7 +19,7 @@ const MenuComponent = ({
   return (
     <Menu stackable secondary style={{ marginTop: '1em' }}>
       <Menu.Item>
-        <Link href="/" passHref>
+        <Link href={ROUTES.HOME} passHref>
           <a>
             <Image src={Logo} alt="OptriSpace" width="100" height="42" />
           </a>
@@ -29,16 +30,16 @@ const MenuComponent = ({
         <>
           <Dropdown item text={t('components.menu.browse.main')}>
             <Dropdown.Menu>
-              <Link href="/jobs" passHref>
+              <Link href={ROUTES.JOBS_LIST} passHref>
                 <Dropdown.Item text={t('components.menu.browse.jobs')} />
               </Link>
-              <Link href="/vacancies" passHref>
+              <Link href={ROUTES.VACANCIES_LIST} passHref>
                 <Dropdown.Item
                   text={t('components.menu.browse.vacancies')}
                   disabled
                 />
               </Link>
-              <Link href="/freelancers" passHref>
+              <Link href={ROUTES.FREELANCERS_LIST} passHref>
                 <Dropdown.Item text={t('components.menu.browse.freelancers')} />
               </Link>
             </Dropdown.Menu>
@@ -46,34 +47,34 @@ const MenuComponent = ({
 
           <Dropdown item text={t('components.menu.customer.main')}>
             <Dropdown.Menu>
-              <Link href="/customer/jobs" passHref>
+              <Link href={ROUTES.CUSTOMER_JOBS_LIST} passHref>
                 <Dropdown.Item text={t('components.menu.customer.my_jobs')} />
               </Link>
-              <Link href="/customer/contracts" passHref>
+              <Link href={ROUTES.CUSTOMER_CONTRACTS_LIST} passHref>
                 <Dropdown.Item
                   text={t('components.menu.customer.my_contracts')}
                 />
               </Link>
-              <Link href="/customer/vacancies" passHref>
+              <Link href={ROUTES.CUSTOMER_VACANCIES_LIST} passHref>
                 <Dropdown.Item
                   text={t('components.menu.customer.my_vacancies')}
                   disabled
                 />
               </Link>
               <Dropdown.Divider />
-              <Link href="/jobs/new" passHref>
+              <Link href={ROUTES.ADD_JOB} passHref>
                 <Dropdown.Item
                   text={t('components.menu.customer.add_new_job')}
                 />
               </Link>
-              <Link href="/vacancies/new" passHref>
+              <Link href={ROUTES.ADD_VACANCIES} passHref>
                 <Dropdown.Item
                   text={t('components.menu.customer.add_new_vacancy')}
                   disabled
                 />
               </Link>
               <Dropdown.Divider />
-              <Link href="/customer" passHref>
+              <Link href={ROUTES.CUSTOMER_DASHBOARD} passHref>
                 <Dropdown.Item
                   text={t('components.menu.customer.my_profile')}
                   disabled
@@ -84,24 +85,24 @@ const MenuComponent = ({
 
           <Dropdown item text={t('components.menu.freelancer.main')}>
             <Dropdown.Menu>
-              <Link href="/freelancer/applications" passHref>
+              <Link href={ROUTES.FREELANCER_APPLICATIONS_LIST} passHref>
                 <Dropdown.Item
                   text={t('components.menu.freelancer.my_applications')}
                 />
               </Link>
-              <Link href="/freelancer/contracts" passHref>
+              <Link href={ROUTES.FREELANCER_CONTRACTS_LIST} passHref>
                 <Dropdown.Item
                   text={t('components.menu.freelancer.my_contracts')}
                 />
               </Link>
-              <Link href="/freelancer/resumes" passHref>
+              <Link href={ROUTES.FREELANCER_RESUMES_LIST} passHref>
                 <Dropdown.Item
                   text={t('components.menu.freelancer.my_resumes')}
                   disabled
                 />
               </Link>
               <Dropdown.Divider />
-              <Link href="/freelancer" passHref>
+              <Link href={ROUTES.FREELANCER_DASHBOARD} passHref>
                 <Dropdown.Item
                   text={t('components.menu.freelancer.my_profile')}
                   disabled
@@ -112,7 +113,7 @@ const MenuComponent = ({
 
           <Dropdown item text={t('components.menu.node_owner.main')}>
             <Dropdown.Menu>
-              <Link href="/frontend_nodes" passHref>
+              <Link href={ROUTES.FRONTEND_NODES_LIST} passHref>
                 <Dropdown.Item
                   text={t('components.menu.node_owner.my_frontend_nodes')}
                   disabled

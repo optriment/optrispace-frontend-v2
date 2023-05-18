@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { Header, Divider, Label, Icon } from 'semantic-ui-react'
 import { formatDateTime } from '../../lib/formatDate'
 import useTranslation from 'next-translate/useTranslation'
+import { ROUTES } from '../../lib/routes'
 
 export const JobListItem = ({ job }) => {
   const { t } = useTranslation('jobs')
@@ -12,7 +13,7 @@ export const JobListItem = ({ job }) => {
   return (
     <>
       <Header as="h3" style={{ wordWrap: 'break-word' }}>
-        <Link href={`/jobs/${job.address}`}>{job.title}</Link>
+        <Link href={ROUTES.JOBS_LIST + job.address}>{job.title}</Link>
       </Header>
 
       <div style={{ wordWrap: 'break-word' }}>
