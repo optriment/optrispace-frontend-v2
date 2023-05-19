@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import getConfig from 'next/config'
 import { useRouter } from 'next/router'
 import { useContract } from '../../hooks/useContract'
@@ -24,6 +24,8 @@ import { ContractLifeCycle } from './ContractLifeCycle'
 import { ContractMeta } from './ContractMeta'
 import { ConfirmationMessage } from '../ConfirmationMessage'
 import useTranslation from 'next-translate/useTranslation'
+import { useContractRead } from 'wagmi'
+import gigsFreelancerServiceABI from '../../../contracts/GigsFreelancerService.json'
 
 const { publicRuntimeConfig } = getConfig()
 const {
@@ -43,6 +45,9 @@ export const ContractCardForContractor = ({
 
   const router = useRouter()
   const [displayModal, setDisplayModal] = useState(false)
+
+  const [comment, setComment] = useState('')
+
   const {
     isAcceptAllowed,
     isStartAllowed,
@@ -86,6 +91,14 @@ export const ContractCardForContractor = ({
     onContractWithdrew: () => reloadPage(),
   })
 
+  const { data: response } = useContractRead({
+    address: optriSpaceContractAddress,
+    abi: gigsFreelancerServiceABI,
+    functionName: 'gigsGetMyApplication',
+    args: [contract.jobAddress],
+    overrides: { from: currentAccount },
+  })
+
   const reloadPage = () => router.reload()
 
   const currentStatus = contract.status
@@ -113,6 +126,12 @@ export const ContractCardForContractor = ({
 
     writeWithdraw?.()
   }
+
+  useEffect(() => {
+    if (!response) return
+
+    setComment(response.dto.comment)
+  }, [response])
 
   const panes = [
     {
@@ -579,6 +598,17 @@ export const ContractCardForContractor = ({
 
           <div style={{ wordWrap: 'break-word' }}>
             <FormattedDescription description={contract.description} />
+          </div>
+        </Segment>
+
+        <Segment>
+          <Header
+            as="h3"
+            content={t('pages.contracts.show.contractor_screen.comment')}
+          />
+
+          <div style={{ wordWrap: 'break-word' }}>
+            <FormattedDescription description={comment} />
           </div>
         </Segment>
 

@@ -354,6 +354,7 @@
           }
         },
         "contractor_screen": {
+          "comment": "Your Comment",
           "do_not_start_working": {
             "header": "This is a friendly reminder from the OptriSpace Team:",
             "line1": "This contract hasn't been funded yet!",
