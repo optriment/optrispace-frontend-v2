@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { Header, Divider, Label, Icon } from 'semantic-ui-react'
 import { formatDateTime } from '../../lib/formatDate'
 import useTranslation from 'next-translate/useTranslation'
+import { ROUTES } from '../../lib/routes'
 
 export const ApplicationListItem = ({ application }) => {
   const {
@@ -22,7 +23,7 @@ export const ApplicationListItem = ({ application }) => {
   return (
     <>
       <Header as="h3" style={{ wordWrap: 'break-word' }}>
-        <Link href={`/jobs/${application.jobAddress}`}>
+        <Link href={ROUTES.JOBS_LIST + application.jobAddress}>
           {application.jobTitle}
         </Link>
       </Header>
