@@ -10,6 +10,7 @@ import { JustOneSecondBlockchain } from '../../../../components/JustOneSecond'
 import { errorHandler } from '../../../../lib/errorHandler'
 import ErrorWrapper from '../../../../components/ErrorWrapper'
 import useTranslation from 'next-translate/useTranslation'
+import { useContractsFilter } from '../../../../hooks/useContractsFilter'
 
 const { publicRuntimeConfig } = getConfig()
 const { optriSpaceContractAddress } = publicRuntimeConfig
@@ -29,6 +30,12 @@ export const ContractsScreen = ({ currentAccount }) => {
   })
 
   const [data, setData] = useState(undefined)
+  const [filters, setFilters] = useState({})
+  const filteredContracts = useContractsFilter({ data, filters })
+
+  const onFilterChanged = (f) => {
+    setFilters(f)
+  }
 
   // FIXME: It should be replaced with: https://wagmi.sh/react/hooks/useContractRead#select-optional
   useEffect(() => {
@@ -83,8 +90,8 @@ export const ContractsScreen = ({ currentAccount }) => {
 
             {data && (
               <>
-                {data.length > 0 ? (
-                  <ContractsList contracts={data} as="customer" />
+                {filteredContracts.length > 0 ? (
+                  <ContractsList contracts={filteredContracts} as="customer" />
                 ) : (
                   <Segment>
                     <p>{t('pages.customer.contracts.index.no_records')}</p>
@@ -95,7 +102,7 @@ export const ContractsScreen = ({ currentAccount }) => {
           </Grid.Column>
 
           <Grid.Column computer={5} only="computer">
-            <ContractsSidebar as="customer" />
+            <ContractsSidebar as="customer" onFilterChanged={onFilterChanged} />
           </Grid.Column>
         </Grid>
       </Grid.Column>
