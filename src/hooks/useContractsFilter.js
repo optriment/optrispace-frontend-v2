@@ -1,16 +1,16 @@
 import { useState, useEffect } from 'react'
 
 export const useContractsFilter = ({ data, filters }) => {
-  const [filteredJobs, setFilteredJobs] = useState([])
+  const [filteredContracts, setFilteredContracts] = useState([])
 
   const filterByStatus = (status = 'active', filtered) => {
     if (status === 'all') return filtered
 
     if (status === 'active') {
-      return filtered.filter((job) => job.status !== 'closed')
+      return filtered.filter((contract) => contract.status !== 'closed')
     }
 
-    return filtered.filter((job) => job.status === status)
+    return filtered.filter((contract) => contract.status === status)
   }
 
   useEffect(() => {
@@ -20,8 +20,8 @@ export const useContractsFilter = ({ data, filters }) => {
 
     filtered = filterByStatus(filters.status, filtered)
 
-    setFilteredJobs(filtered)
+    setFilteredContracts(filtered)
   }, [data, filters])
 
-  return filteredJobs
+  return filteredContracts
 }

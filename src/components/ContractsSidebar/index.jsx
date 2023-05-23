@@ -20,10 +20,7 @@ const statuses = [
   'closed',
 ]
 
-export const ContractsSidebar = ({
-  // as,
-  onFilterChanged,
-}) => {
+export const ContractsSidebar = ({ onFilterChanged }) => {
   const { t } = useTranslation('common')
 
   const [filters, setFilters] = useState(defaultFilters)
@@ -78,29 +75,6 @@ export const ContractsSidebar = ({
             value={filters.status}
             onChange={handleStatusChange}
           />
-
-          {/* <Form.Select
-            fluid
-            label={`${t('components.contracts_sidebar.job')}:`}
-            placeholder={t('components.contracts_sidebar.all')}
-            disabled
-          />
-
-          <Form.Select
-            fluid
-            label={
-              as === 'customer'
-                ? t('components.contracts_sidebar.contractor')
-                : t('components.contracts_sidebar.customer')
-            }
-            placeholder="All"
-            disabled
-          />
-
-          <Form.Checkbox
-            label={t('components.contracts_sidebar.action_required')}
-            disabled
-          /> */}
 
           <Form.Group>
             <Form.Button

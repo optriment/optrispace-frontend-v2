@@ -105,10 +105,7 @@ export const ContractsScreen = ({ currentAccount }) => {
           </Grid.Column>
 
           <Grid.Column computer={5} only="computer">
-            <ContractsSidebar
-              as="freelancer"
-              onFilterChanged={onFilterChanged}
-            />
+            <ContractsSidebar onFilterChanged={onFilterChanged} />
           </Grid.Column>
         </Grid>
       </Grid.Column>
