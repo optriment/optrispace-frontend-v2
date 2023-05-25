@@ -717,7 +717,7 @@
     },
     "contracts_sidebar": {
       "filters": "Filtros",
-      "status": "Estado:",
+      "status": "Estado",
       "job": "Trabajo:",
       "customer": "Cliente:",
       "contractor": "Contratista:",

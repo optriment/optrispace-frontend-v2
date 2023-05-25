@@ -10,6 +10,7 @@
     "customer_address": "Endereço do cliente",
     "contractor_address": "Endereço do contratante",
     "statuses": {
+      "active": "Ativo",
       "created": "Criado",
       "accepted": "Aceito",
       "funded": "Financiado",

@@ -10,6 +10,7 @@
     "customer_address": "The Customer Address",
     "contractor_address": "The Contractor Address",
     "statuses": {
+      "active": "Active",
       "created": "Created",
       "accepted": "Accepted",
       "funded": "Funded",
