@@ -1,8 +1,6 @@
 import * as Sentry from '@sentry/nextjs'
 
 export const errorHandler = (error, context = '') => {
-  Sentry.captureException(error)
-
   if (typeof error === 'string') {
     throw new Error('Strings are not allowed in errorHandler')
   }
@@ -85,6 +83,8 @@ export const errorHandler = (error, context = '') => {
     console.log('--- Unhandled Error Code ---')
     console.log({ error })
   }
+
+  Sentry.captureException(error)
 
   return error.message
 }
