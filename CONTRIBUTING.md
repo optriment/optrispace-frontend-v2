@@ -108,6 +108,18 @@ Please follow instructions below to install frontend locally.
 The last command will start the web server on
 [http://localhost:3000/](http://localhost:3000/).
 
+## Sentry Setup
+
+We use Sentry for error tracking. In order to set it up in your local environment, you need to follow the steps below:
+
+1. Create a new Sentry account if you don't have one already.
+2. Create a new project in Sentry named "optrispace". Make sure to select "Next.js" as the platform when creating the project.
+3. Get the DSN (Data Source Name) from the Sentry project settings.
+4. Add the DSN to your local `.env.local` file. Make sure to replace `YOUR_SENTRY_DSN` with your actual DSN:
+5. Restart your development server to ensure that the new environment variable is picked up by the application.
+
+Errors that occur in your local environment will now be reported to Sentry under your "optrispace" project.
+
 ## Linting
 
 To check the formatting of your code:

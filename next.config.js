@@ -1,3 +1,4 @@
+const { withSentryConfig } = require('@sentry/nextjs')
 const nextTranslate = require('next-translate-plugin')
 
 const nextConfig = {
@@ -22,11 +23,17 @@ const nextConfig = {
     blockchainNetworkId: process.env.BLOCKCHAIN_NETWORK_ID,
     blockchainViewAddressURL: process.env.BLOCKCHAIN_VIEW_ADDRESS_URL,
     frontendNodeAddress: process.env.FRONTEND_NODE_ADDRESS,
+    sentryDsn: process.env.SENTRY_DSN,
     discordLink: 'https://discord.com/invite/7WEbtmuqtv',
     gitHubLink: 'https://github.com/optriment',
     twitterLink: 'https://twitter.com/optrispace',
     linkedInLink: 'https://www.linkedin.com/company/optriment',
   },
+
+  sentry: {
+    disableServerWebpackPlugin: true,
+    disableClientWebpackPlugin: true,
+  },
 }
 
-module.exports = nextTranslate(nextConfig)
+module.exports = withSentryConfig(nextTranslate(nextConfig))
