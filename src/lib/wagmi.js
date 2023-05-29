@@ -69,7 +69,7 @@ const networks = {
 }
 
 const { blockchainNetworkId } = getConfig().publicRuntimeConfig
-const blockchainNetwork = networks[blockchainNetworkId]
+export const blockchainNetwork = networks[blockchainNetworkId]
 if (!blockchainNetwork) {
   throw new Error(`Not supported blockchain network: ${blockchainNetworkId}!`)
 }

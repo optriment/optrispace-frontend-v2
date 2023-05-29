@@ -1,11 +1,9 @@
 import React from 'react'
 import { Button, Divider, Message, Icon } from 'semantic-ui-react'
 import useTranslation from 'next-translate/useTranslation'
+import { handleNetworkSwitch } from '../lib/switchNetwork'
 
-export const WrongBlockchainNetwork = ({
-  blockchainNetworkName,
-  switchNetwork,
-}) => {
+export const WrongBlockchainNetwork = ({ blockchainNetworkName, connect }) => {
   const { t } = useTranslation('common')
 
   return (
@@ -29,7 +27,7 @@ export const WrongBlockchainNetwork = ({
 
         <Divider />
 
-        <Button primary onClick={() => switchNetwork()}>
+        <Button primary onClick={() => handleNetworkSwitch(connect)}>
           {t('components.wrong_blockchain_network.switch_network', {
             blockchainNetworkName: blockchainNetworkName,
           })}
