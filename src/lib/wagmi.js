@@ -33,7 +33,7 @@ const binanceSmartChainTestnet = {
   nativeCurrency: {
     decimals: 18,
     name: 'Binance Chain Native Token',
-    symbol: 'BNB',
+    symbol: 'tBNB',
   },
   rpcUrls: {
     default: 'https://data-seed-prebsc-1-s1.binance.org:8545',
