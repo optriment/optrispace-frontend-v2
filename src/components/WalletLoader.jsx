@@ -33,7 +33,6 @@ export const WalletLoader = ({ onDisconnected, onConnected }) => {
     blockchainNetworkId,
     switchNetworkError,
     switchingNetwork,
-    switchNetwork,
     pendingChainId,
   } = wallet
 
@@ -107,7 +106,7 @@ export const WalletLoader = ({ onDisconnected, onConnected }) => {
       <LandingLayout {...layoutProps}>
         <WrongBlockchainNetwork
           blockchainNetworkName={blockchainNetworkName}
-          switchNetwork={switchNetwork}
+          connect={connect}
         />
       </LandingLayout>
     )
